@@ -144,13 +144,26 @@ function codeArea(ctx,host,o){const {q}=ctx;const saved=U.store.get(o.key,null);
   return {ed,go,out}}
 Q.codeArea=codeArea;
 
+/* schema v2 extras: prerequisites, visible examples, constraints (before) · dry run, common mistakes, follow-up (after) */
+const linkOf=id=>C.qmap[id]?`<a href="#q/${id}">${C.qmap[id].title}</a>`:C.tmap[id]?`<a href="#t/${id}">${C.tmap[id].title}</a>`:esc(id);
+Q.examples=q=>(q.tests||[]).slice(0,3).map(t=>t[3]||`${t[0]} → ${t[1]}`);
+Q.specHTML=q=>{let h='';
+  if(q.prereq)h+=`<p class="small muted">Before this: ${q.prereq.map(linkOf).join(', ')}</p>`;
+  if(q.tests&&q.tests.length&&q.type==='code'&&!q.build)h+=`<div class="col" style="gap:4px"><b class="small">Examples</b><ul class="req">${Q.examples(q).map(x=>`<li><code>${esc(x)}</code></li>`).join('')}</ul>${q.tests.length>3?`<span class="tiny muted">${q.tests.length-3} more test${q.tests.length>4?'s':''} run when you check.</span>`:''}</div>`;
+  if(q.constraints)h+=`<div class="col" style="gap:4px"><b class="small">Constraints</b><ul class="req">${q.constraints.map(c=>`<li>${c}</li>`).join('')}</ul></div>`;
+  return h};
+Q.afterHTML=q=>(q.dry?`<details class="more" open><summary>Dry run</summary><pre class="diagram">${esc(U.clean(q.dry))}</pre></details>`:'')
+  +(q.mistakes?`<p><b>Common mistakes</b></p><ul class="req">${q.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul>`:'')
+  +(q.followup?`<p><b>Follow-up challenge:</b> ${q.followup}</p>`:'');
+
 /* coding problem */
 R.code=ctx=>{const {q,el,mode}=ctx;const iv=mode==='interview';
   if(q.req)el.insertAdjacentHTML('beforeend',`<div class="col" style="gap:4px"><b class="small">Requirements</b><ul class="req">${q.req.map(r=>`<li>${r}</li>`).join('')}</ul></div>`);
+  if(!iv)el.insertAdjacentHTML('beforeend',Q.specHTML(q));
   if(q.prelude)el.insertAdjacentHTML('beforeend',`<details class="more"><summary>Provided helpers (already defined for you)</summary>${U.codeHTML(U.prelude(q))}</details>`);
   const area=U.node('div','col');area.style.gap='10px';el.appendChild(area);
   const foot=U.node('div','qfoot'),hints=U.node('div','hints'),fb=U.node('div');fb.setAttribute('aria-live','polite');el.append(foot,hints,fb);
-  const solHTML=()=>`<div class="answer"><b>Reference solution</b>${q.brute?`<p class="small">Brute force first (${q.brute.cx||''}):</p>${U.codeHTML(q.brute.code)}<p class="small">Optimized:</p>`:''}${U.codeHTML(q.solution)}${q.cx?`<p><b>Complexity:</b> ${q.cx}</p>`:''}${q.explain?`<p>${q.explain}</p>`:''}</div>`;
+  const solHTML=()=>`<div class="answer"><b>Reference solution</b>${q.brute?`<p class="small">Brute force first (${q.brute.cx||''}):</p>${U.codeHTML(q.brute.code)}<p class="small">Optimized:</p>`:''}${U.codeHTML(q.solution)}${q.cx?`<p><b>Complexity:</b> ${q.cx}</p>`:''}${q.explain?`<p>${q.explain}</p>`:''}${Q.afterHTML(q)}</div>`;
   const a=codeArea(ctx,area,{starter:q.starter||'',tests:q.tests,key:'code:'+q.id,onCheck(ok){if(iv)return;if(ok){if(!ctx.recorded||!ctx.solved)ctx.answer(true);fb.innerHTML=fbHTML(true,`<div>All ${q.tests.length} tests pass.${q.cx?` Target complexity: <b>${q.cx}</b>.`:''} Compare your code with the reference below.</div><button class="btn small" type="button" data-reveal>Show reference solution</button><div hidden>${solHTML()}</div>`,'Solved!')}else P.tried(q.id),ctx.head()}});
   ctx.codeArea=a;
   if(!iv){hintLadder(q,foot,hints,{solved:()=>P.status(q.id)==='solved'||ctx.solved,solution(){if(P.status(q.id)!=='solved')P.revealed(q.id);ctx.head();ctx.revSet&&ctx.revSet();fb.innerHTML=solHTML()}});ctx.revSet=revToggle(q,foot)}};

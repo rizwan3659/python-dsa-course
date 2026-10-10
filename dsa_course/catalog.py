@@ -49,6 +49,10 @@ class Exercise:
     path: str
     solution_path: str
     starter_sha256: str
+    constraints: tuple[str, ...] = ()
+    prereq: tuple[str, ...] = ()
+    mistakes: tuple[str, ...] = ()
+    followup: str = ""
 
     @property
     def file(self) -> Path:
@@ -99,6 +103,8 @@ def load_catalog() -> Catalog:
             hints=tuple(e["hints"]), cx=e["cx"], prelude=e["prelude"], post=e["post"],
             tests=tuple(TestCase(**t) for t in e["tests"]), visible=e["visible"],
             path=e["path"], solution_path=e["solution_path"], starter_sha256=e["starter_sha256"],
+            constraints=tuple(e.get("constraints", ())), prereq=tuple(e.get("prereq", ())),
+            mistakes=tuple(e.get("mistakes", ())), followup=e.get("followup", ""),
         )
         for e in data["exercises"]
     )

@@ -44,6 +44,10 @@ def cmd_show(args, catalog: Catalog, progress: Progress) -> None:
     print(ex.prompt, "\n\nExamples:")
     for t in ex.tests[:ex.visible]:
         print("   ", t.describe())
+    if ex.constraints:
+        print("\nConstraints:\n" + "\n".join("  - " + c for c in ex.constraints))
+    if ex.prereq:
+        print("\nBefore this: " + ", ".join(ex.prereq))
     print(f"\nYour file: {rel(ex.file)}   Status: {progress.status(ex)}")
 
 

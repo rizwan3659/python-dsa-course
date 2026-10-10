@@ -9,6 +9,8 @@ import {loadCourse, root} from './load-course.mjs';
 const {C, problems} = loadCourse();
 const qs = C.questions;
 const TYPES = Object.keys(C.TYPES);
+// topics whose coding problems must use every schema v2 field (see CONTRIBUTING.md)
+const V2 = new Set(['thinking', 'greedy', 'dp', 'bits', 'rangeq']);
 
 // ---- structure checks ----
 const seen = new Set();
@@ -31,6 +33,16 @@ for (const q of qs) {
   if (q.type === 'dryrun' && (!q.cols || !q.rows || q.rows.some(r => r.length !== q.cols.length))) problems.push(`${at}: dryrun rows/cols mismatch`);
   if (q.type === 'blanks') { const n = (q.code.match(/_{4,}/g) || []).length; if (n !== q.blanks.length) problems.push(`${at}: ${n} blanks but ${q.blanks.length} answers`); }
   if (q.type === 'code' && (!q.tests || !q.tests.length || !q.solution)) problems.push(`${at}: code needs tests + solution`);
+  // schema v2 (required in topics written after the v2 schema, optional elsewhere)
+  const arr = k => q[k] === undefined || (Array.isArray(q[k]) && q[k].length && q[k].every(x => typeof x === 'string'));
+  ['constraints', 'mistakes', 'prereq'].forEach(k => { if (!arr(k)) problems.push(`${at}: ${k} must be a non-empty list of strings`); });
+  (q.prereq || []).forEach(id => { if (!C.qmap[id] && !C.tmap[id]) problems.push(`${at}: unknown prereq ${id}`); });
+  if (q.type === 'code' && !q.build && V2.has(q.topic)) {
+    const miss = ['constraints', 'mistakes', 'followup'].filter(k => !q[k]);
+    if (miss.length) problems.push(`${at}: v2 topic needs ${miss.join(', ')}`);
+    if (q.tests.length < 4) problems.push(`${at}: v2 topic needs at least 4 tests (3 examples + hidden)`);
+    if ((q.hints || []).length < 2 || !q.approach) problems.push(`${at}: v2 topic needs 2 hints + approach (3 hint levels)`);
+  }
 }
 // lesson references
 const lessonCode = [];

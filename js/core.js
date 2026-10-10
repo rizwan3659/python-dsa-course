@@ -6,15 +6,17 @@ const C={topics:[],tmap:{},questions:[],qmap:{},viz:{},vizMeta:[]};
 
 /* ---------- curriculum map (topic files add lessons to these) ---------- */
 C.PARTS=[
-  {k:'A',name:'Foundations',ids:['python','bigo','arrays','strings']},
+  {k:'A',name:'Foundations',ids:['python','bigo','thinking','arrays','strings']},
   {k:'B',name:'Core data structures',ids:['hashing','stack','queue','linkedlist','recursion']},
   {k:'C',name:'Searching and sorting',ids:['searching','sorting']},
   {k:'D',name:'Trees',ids:['trees','bst','heap','trie']},
   {k:'E',name:'Graphs',ids:['graphs','advgraphs']},
-  {k:'F',name:'Interview patterns',ids:['patterns']}];
+  {k:'F',name:'Greedy and dynamic programming',ids:['greedy','dp']},
+  {k:'G',name:'Advanced and interview patterns',ids:['bits','rangeq','patterns']}];
 const T=[
   ['python','Python for DSA','Python','The Python you need for algorithms: lists, dicts, sets, loops, functions, classes, references, comprehensions.'],
   ['bigo','Big-O Complexity','Big-O','Predict how running time grows with input size, and know what Python operations cost.'],
+  ['thinking','Algorithmic Thinking','Thinking','Break a problem down, write pseudocode, start with brute force, then reason about best, average and worst cases.'],
   ['arrays','Arrays / Python Lists','Arrays','Indexing, traversal, insert and delete costs, dynamic arrays, then two pointers, prefix sums, sliding windows and Kadane.'],
   ['strings','Strings','Strings','Immutability, slicing, frequency counting, palindromes and string windows.'],
   ['hashing','Hash Tables','Hashing','dict, set, Counter and defaultdict: how hashing gives O(1) lookups, and the problems it unlocks.'],
@@ -30,6 +32,10 @@ const T=[
   ['trie','Trie','Trie','Prefix trees for words: insert, search, prefix search and autocomplete.'],
   ['graphs','Graphs','Graphs','Adjacency lists and matrices, BFS and DFS, connected components and grids.'],
   ['advgraphs','Advanced Graphs','Adv. Graphs','Topological sort, cycle detection, union-find, Dijkstra, Prim and Kruskal.'],
+  ['greedy','Greedy Algorithms','Greedy','Make the best local choice and prove it never hurts: intervals, activity selection, jumps and exchange arguments.'],
+  ['dp','Dynamic Programming','DP','Overlapping subproblems: memoization, tabulation, 1D and 2D DP, knapsack, coin change, LCS, LIS and space optimisation.'],
+  ['bits','Bit Manipulation','Bits','Binary, bitwise operators, masks, XOR tricks and enumerating subsets with bits.'],
+  ['rangeq','Range Queries','Range Queries','Answer many range questions fast: difference arrays, Fenwick trees and segment trees.'],
   ['patterns','Problem-Solving Patterns','Patterns','Recognise the pattern behind a problem: when to use it, a template, then easy → interview problems.']];
 T.forEach(([id,title,short,blurb],i)=>{const t={id,n:i+1,title,short,blurb,learn:[],visualize:[],challenge:[],review:[]};C.topics.push(t);C.tmap[id]=t});
 C.PARTS.forEach(p=>p.ids.forEach(id=>C.tmap[id].part=p.k));
@@ -43,7 +49,7 @@ C.PATTERNS={python:'Python basics','big-o':'Complexity',traversal:'Traversal',si
   'linked-list':'Pointer Manipulation',recursion:'Recursion',backtracking:'Backtracking',dp:'Memoization / DP','divide-conquer':'Divide & Conquer',
   sorting:'Sorting',tree:'Tree Recursion',bst:'BST Property',bfs:'BFS',dfs:'DFS','heap-topk':'Heap / Top-K',trie:'Trie',matrix:'Matrix / Grid',
   intervals:'Intervals',greedy:'Greedy','union-find':'Union-Find','topo-sort':'Topological Sort','shortest-path':'Shortest Path',mst:'Min Spanning Tree',
-  design:'Design / Build',math:'Math'};
+  design:'Design / Build',math:'Math','brute-force':'Brute Force',bits:'Bit Manipulation','range-query':'Range Query'};
 C.TYPES={predict:'Predict',mcq:'Concept',complexity:'Complexity',choose:'Choose',dryrun:'Dry run',blanks:'Complete',debug:'Debug',code:'Code'};
 C.typeLabel=q=>q.type==='code'?(q.build?'Build':q.kind==='optimize'?'Optimize':'Code'):C.TYPES[q.type]||q.type;
 C.DIFF={1:['🟢','Easy'],2:['🟡','Medium'],3:['🔴','Hard']};

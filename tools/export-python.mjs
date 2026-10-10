@@ -35,7 +35,7 @@ function htmlToText(h) {
   h = h.replace(/<pre[^>]*>([\s\S]*?)<\/pre>/g, (_, body) => `\n\n@@PRE${pres.push(body) - 1}@@\n\n`);
   const t = h.replace(/<\/p>\s*/g, '\n\n').replace(/<p[^>]*>/g, '').replace(/<br\s*\/?>/g, '\n')
     .replace(/<li>/g, '\n- ').replace(/<\/?(ul|ol|li)>/g, '')
-    .replace(/<code>([\s\S]*?)<\/code>/g, '`$1`').replace(/<[^>]+>/g, '');
+    .replace(/<code>([\s\S]*?)<\/code>/g, '`$1`').replace(/<sup>([\s\S]*?)<\/sup>/g, '^$1').replace(/<[^>]+>/g, '');
   const unesc = s => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
   return unesc(t).replace(/@@PRE(\d+)@@/g, (_, i) => unesc(pres[+i]).replace(/<[^>]+>/g, '')).replace(/\n{3,}/g, '\n\n').trim();
 }
@@ -79,6 +79,8 @@ function toExercise(q) {
     id: q.id, module: modName(q.id), topic: t.id, dir: topicDir(t), title: q.title,
     difficulty: DIFF[q.d], pattern: C.PATTERNS[q.p] || q.p || '', kind,
     prompt, hints: levels, cx: debug ? '' : (q.cx || ''),
+    constraints: (q.constraints || []).map(htmlToText), prereq: q.prereq || [],
+    mistakes: (q.mistakes || []).map(htmlToText), followup: htmlToText(q.followup || ''), dry: q.dry ? lf(q.dry).replace(/^\n/, '').replace(/\s+$/, '') : '',
     prelude: q.prelude || '', post: q.post || '', tests,
     visible: debug ? tests.length : Math.min(VISIBLE, tests.length),
     starter: lf(debug ? q.code : q.starter), solution: lf(debug ? q.fix : q.solution),
@@ -99,6 +101,8 @@ function exerciseFile(e) {
     indent(shown.join('\n')),
   ];
   if (hidden > 0) head.push('', `(${hidden} more hidden test${hidden > 1 ? 's' : ''} run when you check your work.)`);
+  if (e.constraints.length) head.push('', 'Constraints:', ...e.constraints.map(c => wrap('- ' + c)));
+  if (e.prereq.length) head.push('', 'Before this: ' + e.prereq.join(', '));
   if (e.cx) head.push('', `Target complexity: ${e.cx}`);
   head.push('', 'Check your work:   python dsa.py test ' + e.id, 'Stuck?             python dsa.py hint ' + e.id);
   return `"""${docEscape(head.join('\n'))}\n"""\n${withImport(e.starter, e.prelude)}`;
@@ -109,6 +113,9 @@ function solutionFile(e) {
   if (e.cx) head.push('', `Complexity: ${e.cx}`);
   const approach = e.hints.find(h => h.startsWith('Approach: '));
   if (approach) head.push('', wrap(approach));
+  if (e.dry) head.push('', 'Dry run:', indent(e.dry));
+  if (e.mistakes.length) head.push('', 'Common mistakes:', ...e.mistakes.map(m => wrap('- ' + m)));
+  if (e.followup) head.push('', wrap('Follow-up challenge: ' + e.followup));
   return `"""${docEscape(head.join('\n'))}\n"""\n${withImport(e.solution, e.prelude)}`;
 }
 
@@ -156,6 +163,47 @@ const write = (rel, content) => {
   if (!CHECK) { fs.mkdirSync(path.dirname(f), {recursive: true}); fs.writeFileSync(f, content); }
 };
 for (const [rel, content] of files) write(rel, content);
+const isEdited = (rel, starterSha) => {
+  const f = path.join(root, rel);
+  return fs.existsSync(f) && sha(fs.readFileSync(f, 'utf8')) !== starterSha;
+};
+// An exercise whose topic folder changed (topics renumbered): carry the student's edited file to the new path.
+const byId = new Map(exercises.map(e => [e.id, e]));
+for (const prev of prevData.exercises) {
+  const cur = byId.get(prev.id);
+  if (!cur || cur.path === prev.path || !isEdited(prev.path, prev.starter_sha256)) continue;
+  if (isEdited(cur.path, cur.starter_sha256)) continue;  // already work at the new path: leave both
+  stale.push(prev.path);
+  if (!CHECK) {
+    fs.mkdirSync(path.dirname(path.join(root, cur.path)), {recursive: true});
+    fs.renameSync(path.join(root, prev.path), path.join(root, cur.path));
+    console.log(`moved your ${prev.path} -> ${cur.path}`);
+  }
+}
+// Remove generated files that no longer belong to any exercise (never a student's edited file).
+const wanted = new Set([...files.keys(), ...exerciseFiles.keys()]);
+const prevByPath = new Map(prevData.exercises.map(e => [e.path, e.starter_sha256]));
+const walk = d => (fs.existsSync(d) ? fs.readdirSync(d, {withFileTypes: true}) : []).flatMap(x =>
+  x.name === '__pycache__' ? [] : x.isDirectory() ? walk(path.join(d, x.name)) : [path.join(d, x.name)]);
+for (const f of [...walk(path.join(root, 'exercises')), ...walk(path.join(root, 'solutions'))]) {
+  const rel = path.relative(root, f).split(path.sep).join('/');
+  if (wanted.has(rel) || !rel.endsWith('.py')) continue;
+  if (rel.startsWith('exercises/') && path.basename(rel) !== '__init__.py' && isEdited(rel, prevByPath.get(rel))) {
+    console.log(`kept your ${rel}: it is no longer part of the course`);
+    continue;
+  }
+  stale.push(rel);
+  if (!CHECK) fs.unlinkSync(f);
+}
+if (!CHECK) {
+  for (const top of ['exercises', 'solutions']) {
+    const d0 = path.join(root, top);
+    for (const d of fs.existsSync(d0) ? fs.readdirSync(d0) : []) {
+      const full = path.join(d0, d);
+      if (fs.statSync(full).isDirectory() && !fs.readdirSync(full).filter(x => x !== '__pycache__').length) fs.rmSync(full, {recursive: true});
+    }
+  }
+}
 let kept = 0;
 for (const [rel, content] of exerciseFiles) {
   const f = path.join(root, rel);
