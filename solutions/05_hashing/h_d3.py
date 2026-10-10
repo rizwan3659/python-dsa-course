@@ -1,0 +1,10 @@
+"""Reference solution · h-d3 · Pairs with itself
+"""
+
+
+def two_sum(nums, target):
+    seen = {}
+    for i, x in enumerate(nums):
+        if target - x in seen:
+            return [seen[target - x], i]
+        seen[x] = i

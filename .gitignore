@@ -1,0 +1,8 @@
+# your local progress (python dsa.py)
+.dsa_progress.json
+# temporary file written by tools/validate.mjs
+tools/.content.json
+__pycache__/
+.pytest_cache/
+*.egg-info/
+.venv/

@@ -1,0 +1,3 @@
+# The course itself needs only the Python 3.10+ standard library.
+# pytest is optional: `python dsa.py test <id>` works without it.
+pytest>=7
