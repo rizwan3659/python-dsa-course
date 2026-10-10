@@ -22,7 +22,25 @@ learn:[
 {title:"Dijkstra's shortest paths",short:'Dijkstra',mins:12,lead:'With non-negative weights, always settle the unsettled node with the smallest known distance (a min-heap gives it to you), then relax its edges.',does:['visualize','predict','complete','debug','code'],blocks:[
  {t:'viz',fn:'adv-graphs',title:'Relax the edges',arg:{mode:'dijkstra'},intro:'Before each pop, predict which node comes out of the heap.'},
  {t:'q',ids:['ag-p2','ag-c1','ag-m2','ag-ch2','ag-b2','ag-d1']},
- {t:'q',title:'Code it',ids:['ag-network-delay','ag-bellman']}]},
+ {t:'q',title:'Code it',ids:['ag-network-delay']}]},
+
+{title:'Negative weights: Bellman-Ford',short:'Bellman-Ford',mins:12,lead:'Dijkstra breaks when an edge can lower the cost of an already settled node. Bellman-Ford simply relaxes every edge, n − 1 times, and one extra round reveals negative cycles.',does:['dry run','concept','code'],blocks:[
+ {t:'code',title:'Bellman-Ford',code:`def bellman_ford(n, edges, source):
+    INF = float("inf")
+    dist = [INF] * n
+    dist[source] = 0
+    for _ in range(n - 1):                 # a shortest path has at most n - 1 edges
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+    for u, v, w in edges:                  # still improving? negative cycle
+        if dist[u] + w < dist[v]:
+            raise ValueError("negative cycle")
+    return dist
+
+print(bellman_ford(4, [(0, 1, 4), (0, 2, 5), (1, 2, -3), (2, 3, 2)], 0))`},
+ {t:'q',ids:['ag-bf-dr1','ag-bf-m1','ag-bf-m2','ag-bf-c1','ag-bf-ch1']},
+ {t:'q',title:'Code it',ids:['ag-bellman','ag-negative-cycle','ag-k-stops']}]},
 
 {title:'Minimum spanning trees',short:'MST',mins:12,lead:'Connect every node with the least total edge weight. Prim grows one tree from a start node; Kruskal adds the globally cheapest edges that do not form a cycle.',does:['visualize','concept','code'],blocks:[
  {t:'viz',fn:'adv-graphs',title:'Prim, then Kruskal',arg:{mode:'prim'},intro:'Run Prim, then switch to Kruskal. Do they pick the same total?'},

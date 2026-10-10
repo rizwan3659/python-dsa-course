@@ -67,7 +67,8 @@ print(dict(groups))            # {'a': ['apple', 'avocado'], 'b': ['banana']}`},
   ['Prefix sum + map','“subarray with sum k” (negatives allowed)','<code>count += seen[prefix - k]</code>']]},
  {t:'viz',fn:'two-sum-hash',title:'Complement lookup, step by step'},
  {t:'q',ids:['h-dr1','h-dr2','h-b3','h-d3']},
- {t:'q',title:'Code it',ids:['h-longest-consecutive','h-zero-sum','h-nearby-dup']}]},
+ {t:'q',title:'Code it',ids:['h-longest-consecutive','h-zero-sum','h-nearby-dup']},
+ {t:'q',title:'Hard',ids:['h-concat-words','h-max-points']}]},
 
 {title:'Build your own HashMap',short:'Build it',mins:15,lead:'Put it all together: buckets, chaining, and resizing, without using dict.',does:['code','debug'],blocks:[
  {t:'q',title:'Build it from scratch',ids:['build-hashmap']}]}],

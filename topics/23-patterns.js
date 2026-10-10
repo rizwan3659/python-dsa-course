@@ -21,7 +21,8 @@ learn:[
   ['next greater / smaller, days until, span','Monotonic stack'],['fewest steps, levels, nearest, spreading','BFS'],
   ['explore everything, connected regions, paths in trees','DFS'],['all combinations / permutations / subsets','Backtracking'],
   ['k largest / most frequent, merge k sorted, running median','Heap'],['meetings, ranges, overlapping','Intervals (sort first)'],
-  ['locally best choice is provably globally best','Greedy']]},
+  ['locally best choice is provably globally best','Greedy'],['number of ways, min/max cost, overlapping choices','Dynamic programming'],
+  ['appears once / twice, subsets of n ≤ 20, XOR','Bit manipulation'],['range sums or minimums with updates','Fenwick / segment tree']]},
  {t:'quiz',topic:'patterns',n:10,types:['choose'],title:'Pattern recognition drill',label:'Which pattern?'}]},
 
 L({title:'Two pointers',short:'Two pointers',lead:'Two indexes walk the data together: from both ends toward the middle, or a slow writer behind a fast reader.',
@@ -165,7 +166,13 @@ L({title:'Greedy',short:'Greedy',lead:'Make the locally best choice at each step
   template:`best_so_far = initial
 for item in sorted(items, key=priority):
     if can_take(item, best_so_far):
-        take(item)                 # never reconsidered`,easy:'pt-stock-ii',medium:'pt-jump-game',interview:'pt-gas-station'})],
+        take(item)                 # never reconsidered`,easy:'pt-stock-ii',medium:'pt-jump-game',interview:'pt-gas-station'}),
+
+{title:'Combining patterns',short:'Mixed',mins:20,lead:'Hard interview problems usually glue two or three patterns together: prefix sums plus a monotonic deque, sorting plus a heap, binary search plus a greedy check. Name each piece before you write code.',does:['recognise','code'],blocks:[
+ {t:'table',head:['Problem','Pieces'],rows:[['Shortest subarray with sum ≥ k (negatives allowed)','prefix sums + monotonic deque'],['IPO / refueling stops','sort + max-heap + greedy'],['Split array largest sum','binary search on the answer + greedy check'],['Minimum window substring','sliding window + counting map'],['Count smaller after self','coordinate compression + Fenwick tree'],['Word ladder','BFS over an implicit graph + hashing']]},
+ {t:'callout',html:'<b>Routine for a hard problem:</b> brute force first (say its cost) → find the repeated work → name the pattern that removes it → check whether a second pattern is needed for what remains.'},
+ {t:'q',title:'New mixed problems',ids:['pt-shortest-subarray-k','pt-ipo']},
+ {t:'q',title:'Mixed hard set from earlier topics',intro:'Each one combines at least two patterns. Write the pieces as a comment before coding.',ids:['arr-trap','st-min-window','s-histogram','bs-split-array','hp-median','rq-count-smaller','g-word-ladder','dp-edit-distance']}]}],
 
 challenge:[
  {t:'q',title:'Mixed interview set',intro:'No pattern labels in the problem titles below: decide the pattern yourself before coding.',ids:['pt-insert-interval','pt-non-overlap','pt-partition-labels','pt-jump-game-ii','pt-interval-intersection','pt-assign-cookies']},

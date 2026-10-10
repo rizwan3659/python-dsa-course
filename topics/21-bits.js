@@ -29,7 +29,7 @@ print(n ^ (1 << 3))        # toggle -> 2`},
  {t:'viz',fn:'bitwise',arg:{mode:'kern'},title:'Clearing the lowest 1 bit',intro:'Step through n = 44, then try 255 and 64.'},
  {t:'q',ids:['bit-p5','bit-m2','bit-dr1','bit-c1']},
  {t:'q',ids:['bit-p6','bit-m1','bit-ch2','bit-d3']},
- {t:'q',title:'Code it',ids:['bit-count-ones','bit-hamming','bit-counting-bits','bit-single','bit-missing','bit-two-singles','bit-single-ii','bit-add']},
+ {t:'q',title:'Code it',ids:['bit-count-ones','bit-hamming','bit-counting-bits','bit-single','bit-missing','bit-two-singles','bit-single-ii','bit-add','bit-max-xor']},
  {t:'teacher',items:['Have students verify each trick on paper with 4-bit numbers before coding. Ask: why is x & −x the lowest set bit? (Two’s complement: −x = ~x + 1.)']}]},
 
 {title:'Subsets as bitmasks',short:'Subsets',mins:12,lead:'With n items, the numbers 0 .. 2ⁿ − 1 are exactly the 2ⁿ subsets: bit i says whether item i is in. This replaces recursion for small n and is the basis of bitmask DP.',does:['complete','choose','code'],blocks:[

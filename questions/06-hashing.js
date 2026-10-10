@@ -316,3 +316,64 @@ def longest_k_distinct(s, k):
         best = max(best, right - left + 1)
     return best`,tests:[['longest_k_distinct("eceba", 2)','3'],['longest_k_distinct("aa", 1)','2'],['longest_k_distinct("abc", 0)','0'],['longest_k_distinct("", 2)','0'],['longest_k_distinct("aabbcc", 2)','4']],hints:['Variable window: grow right; while there are too many distinct letters, shrink left.','A dict of counts tells you how many distinct letters are inside: len(counts).'],approach:'Sliding window + dict of counts (delete keys that hit zero).',cx:'O(n) time'}
 ]);
+
+/* ---------- hard problems (added with the v2 curriculum) ---------- */
+COURSE.qs('hashing',[
+{id:'h-concat-words',type:'code',d:3,p:'sliding-window',title:'Substring with Concatenation of All Words',prompt:'<p>All strings in <code>words</code> have the same length. Return every start index in <code>s</code> of a substring that is a concatenation of all the words, each used exactly once, in any order. Return the indexes in increasing order.</p>',prereq:['h-find-anagrams'],
+constraints:['1 ≤ len(s) ≤ 10<sup>4</sup>','1 ≤ len(words) ≤ 5000, 1 ≤ len(words[i]) ≤ 30'],
+starter:`def find_substring(s, words):
+    # your code here
+    pass`,solution:`from collections import Counter
+
+
+def find_substring(s, words):
+    L, k = len(words[0]), len(words)
+    need = Counter(words)
+    result = []
+    for offset in range(L):                       # one sliding window per alignment
+        left, seen, count = offset, Counter(), 0
+        for right in range(offset, len(s) - L + 1, L):
+            w = s[right:right + L]
+            if w not in need:                     # a foreign word: restart after it
+                left, seen, count = right + L, Counter(), 0
+                continue
+            seen[w] += 1
+            count += 1
+            while seen[w] > need[w]:              # too many copies: shrink from the left
+                seen[s[left:left + L]] -= 1
+                left += L
+                count -= 1
+            if count == k:
+                result.append(left)
+    return sorted(result)`,
+tests:[['find_substring("barfoothefoobarman", ["foo", "bar"])','[0, 9]'],['find_substring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"])','[]'],['find_substring("barfoofoobarthefoobarman", ["bar", "foo", "the"])','[6, 9, 12]'],['find_substring("aaa", ["a", "a"])','[0, 1]'],['find_substring("a", ["a"])','[0]'],['len(find_substring("ab" * 2500, ["ab", "ab"]))','2499']],
+hints:['Brute force: at every index, cut k words and compare their Counter with the target Counter. That is O(n · k).','Faster: for each of the L alignments, slide a window one word at a time, keeping a Counter of the words inside it.'],approach:'L interleaved sliding windows over word-sized steps, with Counters.',cx:'O(L · n) time, O(k) space',
+mistakes:['Assuming words are distinct (duplicates must be matched the right number of times).','Only checking alignment 0.'],
+followup:'What changes if the words can have different lengths?'},
+
+{id:'h-max-points',type:'code',d:3,p:'hashing',title:'Max Points on a Line',prompt:'<p>Given distinct points <code>[x, y]</code> with integer coordinates, return the largest number of them that lie on one straight line.</p>',
+constraints:['1 ≤ len(points) ≤ 300','−10<sup>4</sup> ≤ x, y ≤ 10<sup>4</sup>, all points distinct'],
+starter:`def max_points(points):
+    # your code here
+    pass`,solution:`from math import gcd
+
+
+def max_points(points):
+    best = 1
+    for i, (x1, y1) in enumerate(points):
+        slopes = {}
+        for x2, y2 in points[i + 1:]:
+            dx, dy = x2 - x1, y2 - y1
+            g = gcd(dx, dy)
+            dx, dy = dx // g, dy // g
+            if dx < 0 or (dx == 0 and dy < 0):    # one canonical direction per line
+                dx, dy = -dx, -dy
+            slopes[(dx, dy)] = slopes.get((dx, dy), 0) + 1
+        if slopes:
+            best = max(best, 1 + max(slopes.values()))
+    return best`,
+tests:[['max_points([[1, 1], [2, 2], [3, 3]])','3'],['max_points([[1, 1], [3, 2], [5, 3], [4, 1], [2, 3], [1, 4]])','4'],['max_points([[0, 0]])','1'],['max_points([[0, 0], [1, 1], [0, 1]])','2'],['max_points([[1, 0], [1, 5], [1, -3], [2, 2]])','3'],['max_points([[0, 0], [10000, 9999], [-10000, -9999], [1, 1]])','3']],
+hints:['Fix one point and group every other point by the direction to it.','Floats are unsafe as keys. Store the direction as a reduced fraction (dx, dy) divided by their gcd, with a fixed sign.'],approach:'For each anchor point, count reduced slope vectors in a dict.',cx:'O(n² log C) time, O(n) space',
+mistakes:['Using float slopes (precision errors, and vertical lines divide by zero).','Not normalising the sign, so (1, 2) and (−1, −2) count as different lines.'],
+followup:'How would you handle duplicate points?'},
+]);

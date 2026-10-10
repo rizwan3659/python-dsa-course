@@ -76,7 +76,18 @@ print(fib(80), "calls:", calls)    # 81 calls instead of trillions`},
             undo(choice, state)        # un-choose`,run:false},
  {t:'viz',fn:'backtracking',title:'Subsets as a decision tree',intro:'Each level decides one number: include it (left) or skip it (right).'},
  {t:'q',ids:['r-m5','r-b2','r-d3','r-c6','r-c7']},
- {t:'q',title:'Code it',ids:['rec-subsets','rec-permutations','rec-parens']}]}],
+ {t:'q',title:'Code it',ids:['rec-subsets','rec-permutations','rec-parens']}]},
+
+{title:'Pruning and constraint search',short:'Pruning',mins:16,lead:'Backtracking explores an exponential tree, so the art is cutting branches early: stop when a partial answer already breaks a rule, sort so you can stop a loop, and skip choices that would repeat work.',does:['predict','concept','debug','code'],blocks:[
+ {t:'grid',items:[
+  {title:'Cut dead branches',body:'If the remaining sum is negative, a queen is attacked or a digit repeats, return immediately.'},
+  {title:'Sort to stop early',body:'In a sorted list, once a number is too big, every later number is too big as well: <code>break</code>.'},
+  {title:'Skip duplicates',body:'At one depth, try each distinct value once: <code>if i &gt; start and nums[i] == nums[i - 1]: continue</code>.'}]},
+ {t:'q',ids:['rec-x-p1','rec-x-m1','rec-x-m2','rec-x-d1']},
+ {t:'q',title:'Code it',ids:['rec-combination-sum','rec-combination-sum-ii','rec-subsets-dup','rec-letter-combos']},
+ {t:'q',ids:['rec-x-m3','rec-x-c1']},
+ {t:'q',title:'Constraint problems',ids:['rec-word-search','rec-n-queens','rec-sudoku']},
+ {t:'teacher',items:['Count calls with and without each pruning rule on the same input (add a global counter). Students are usually surprised by the factor: make them predict it first.']}]}],
 
 challenge:[
  {t:'b2o',title:'Climbing Stairs: plain recursion → memoization',qid:'rec-climb',problem:'<p>Taking 1 or 2 steps at a time, how many ways are there to climb n steps?</p>',

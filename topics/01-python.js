@@ -123,7 +123,38 @@ a = Node(1)
 b = Node(2, a)                  # b.next points at a
 print(b, b.next, b.next.next)   # Node(2) Node(1) None`},
  {t:'q',ids:['py-p17','py-m2','py-b3']},
- {t:'q',title:'Code it',ids:['py-bank']}]}],
+ {t:'q',title:'Code it',ids:['py-bank']}]},
+
+{title:'Errors, copies and input',short:'Errors & input',mins:12,lead:'Real programs meet bad input, and real bugs come from sharing data you meant to copy. Handle the errors you expect, copy deliberately, and parse input in a few standard lines.',does:['predict','concept','debug','code'],blocks:[
+ {t:'code',title:'try / except / else / finally',code:`def to_int(text):
+    try:
+        value = int(text)
+    except ValueError:            # only the error you expect
+        print("not a number:", text)
+        return None
+    else:                         # runs when nothing was raised
+        return value
+    finally:                      # always runs (clean-up)
+        print("checked", text)
+
+print(to_int("42"), to_int("4x2"))`},
+ {t:'q',ids:['py-e1','py-e3','py-e5','py-e8']},
+ {t:'grid',items:[
+  {title:'Alias',body:'<code>b = a</code>: two names, one object.'},
+  {title:'Shallow copy',body:'<code>a[:]</code>, <code>a.copy()</code>, <code>list(a)</code>: a new outer list, the <b>same</b> inner objects.'},
+  {title:'Deep copy',body:'<code>copy.deepcopy(a)</code> or <code>[row[:] for row in grid]</code> for a grid: everything new.'}]},
+ {t:'q',ids:['py-e2','py-e6','py-e9']},
+ {t:'code',title:'Reading input quickly',code:`import sys
+
+def main(text):
+    data = text.split()           # all tokens at once (fast)
+    n = int(data[0])
+    nums = list(map(int, data[1:1 + n]))
+    print(sum(nums))
+
+main("3\\n4 5 6")                 # with real input: main(sys.stdin.read())`},
+ {t:'q',ids:['py-e4','py-e7']},
+ {t:'q',title:'Code it',ids:['py-safe-divide','py-read-matrix','py-parse-scores','py-deep-copy']}]}],
 
 review:[
  {t:'flash',title:'Flashcards',items:[['UMPIRE?','Understand, Match, Plan, Implement, Review, Evaluate.'],['sort() vs sorted()?','sort() changes the list and returns None; sorted() returns a new list.'],['b = a for lists?','Both names refer to the same list. Copy with a[:] or a.copy().'],['Fast membership check?','Use a set or dict, not a list.'],['Counting idiom?','counts[x] = counts.get(x, 0) + 1, or collections.Counter.'],['Reverse a list or string?','x[::-1]'],['Mutable default argument?','Created once and shared. Use None and create inside.'],['Valid dict keys?','Hashable (immutable) values: numbers, strings, tuples.']]},

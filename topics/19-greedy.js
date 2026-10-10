@@ -29,7 +29,7 @@ learn:[
 {title:'Reach, change and two passes',short:'Scans',mins:14,lead:'Some greedy algorithms are a single scan that keeps the best situation so far: the furthest reachable index, the change in your till, or a requirement checked from both sides.',does:['visualize','dry run','debug','code'],blocks:[
  {t:'viz',fn:'greedy-reach',title:'Furthest reach'},
  {t:'q',ids:['gr-p5','gr-c2','gr-dr2','gr-d3']},
- {t:'q',title:'Code it',ids:['pt-jump-game','gr-lemonade','pt-gas-station','pt-partition-labels','gr-job-sequencing','gr-candy']}]}],
+ {t:'q',title:'Code it',ids:['pt-jump-game','gr-lemonade','pt-gas-station','pt-partition-labels','gr-job-sequencing','gr-candy','gr-min-refuel']}]}],
 
 challenge:[
  {t:'b2o',title:'Maximum activities: try every subset → earliest end first',qid:'gr-activity',problem:'<p>Choose the largest set of non-overlapping activities.</p>',

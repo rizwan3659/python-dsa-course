@@ -30,7 +30,8 @@ learn:[
 
 {title:'Using sorted order',short:'Ordered queries',mins:10,lead:'Inorder = sorted. Validation, k-th smallest, range sums and two-sum all exploit it.',does:['complete','choose','code'],blocks:[
  {t:'q',ids:['bst-b3','bst-c4','bst-m5','bst-ch1','bst-ch2']},
- {t:'q',title:'Code it',ids:['bst-validate','bst-kth','bst-range-sum','bst-lca']}]},
+ {t:'q',title:'Code it',ids:['bst-validate','bst-kth','bst-range-sum','bst-lca']},
+ {t:'q',title:'Hard',ids:['bst-recover','bst-almost-dup']}]},
 
 {title:'Build a BST from scratch',short:'Build it',mins:15,lead:'Insert, search, inorder, min, max, delete and height in one class.',does:['code'],blocks:[
  {t:'q',title:'Build it',ids:['build-bst']}]}],

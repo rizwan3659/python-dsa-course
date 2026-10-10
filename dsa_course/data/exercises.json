@@ -550,6 +550,130 @@
    "starter_sha256": "a6a875f1ff1f757336dbfe7e2f4015d9ff133e63e02be732b9d3c9c14ce4a4f3"
   },
   {
+   "id": "py-safe-divide",
+   "module": "py_safe_divide",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "Safe Division",
+   "difficulty": "easy",
+   "pattern": "Python basics",
+   "kind": "code",
+   "prompt": "Return `a / b`, or `None` if the division is impossible because b is zero or one of the values is not a number. Use try/except rather than checking types first.",
+   "hints": [
+    "Which exceptions can a / b raise?",
+    "Catch ZeroDivisionError and TypeError in one except with a tuple.",
+    "Approach: try the division, catch the two expected exceptions."
+   ],
+   "cx": "O(1)",
+   "constraints": [
+    "a and b can be any Python values"
+   ],
+   "prereq": [],
+   "mistakes": [
+    "A bare except:, which would also hide unrelated bugs.",
+    "Checking b == 0 but forgetting non-numbers."
+   ],
+   "followup": "Return a helpful error message string instead of None, using the exception object (except ... as e).",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "safe_divide(10, 4)",
+     "expected": "2.5",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "safe_divide(1, 0)",
+     "expected": "None",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "safe_divide(\"6\", 2)",
+     "expected": "None",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "safe_divide(-9, 3)",
+     "expected": "-3.0",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "safe_divide(None, 1)",
+     "expected": "None",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/01_python/py_safe_divide.py",
+   "solution_path": "solutions/01_python/py_safe_divide.py",
+   "starter_sha256": "a6a459752677f579ff70117bc2cec290c9d6fd5fe29cfea2940338fe01d3dd23"
+  },
+  {
+   "id": "py-read-matrix",
+   "module": "py_read_matrix",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "Read a Matrix from Text",
+   "difficulty": "easy",
+   "pattern": "Python basics",
+   "kind": "code",
+   "prompt": "The first line holds the number of rows and columns; each following line holds one row of integers separated by spaces. Return the matrix as a list of lists.",
+   "hints": [
+    "Split the text into lines; the first line gives the size.",
+    "For each row line: split() then map(int, ...).",
+    "Approach: Read the header, then parse exactly rows lines."
+   ],
+   "cx": "O(rows · cols)",
+   "constraints": [
+    "1 ≤ rows, cols ≤ 1000"
+   ],
+   "prereq": [],
+   "mistakes": [
+    "split(\" \") breaks on double spaces; split() with no argument does not.",
+    "Forgetting to convert strings to int."
+   ],
+   "followup": "Read the same format from real standard input with sys.stdin.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "read_matrix(\"2 3\\n1 2 3\\n4 5 6\")",
+     "expected": "[[1, 2, 3], [4, 5, 6]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "read_matrix(\"1 1\\n-7\")",
+     "expected": "[[-7]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "read_matrix(\"2 2\\n1  2\\n3 4\\n\")",
+     "expected": "[[1, 2], [3, 4]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "read_matrix(\"3 1\\n0\\n0\\n9\")",
+     "expected": "[[0], [0], [9]]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/01_python/py_read_matrix.py",
+   "solution_path": "solutions/01_python/py_read_matrix.py",
+   "starter_sha256": "a69e306c325f9d18d99219ea2b6f76aec4aa0b7444c573b1fd52668286166ca1"
+  },
+  {
    "id": "py-transpose",
    "module": "py_transpose",
    "topic": "python",
@@ -638,6 +762,138 @@
    "path": "exercises/01_python/py_group_len.py",
    "solution_path": "solutions/01_python/py_group_len.py",
    "starter_sha256": "0b43d090ef98827fb09c13361d3e9d4bd725c74c31cc1877988c5a10c83b69de"
+  },
+  {
+   "id": "py-parse-scores",
+   "module": "py_parse_scores",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "Parse Score Lines",
+   "difficulty": "medium",
+   "pattern": "Python basics",
+   "kind": "code",
+   "prompt": "The text has one `name:score` per line. Return a dict from name to integer score. Skip blank or malformed lines (no colon, or a score that is not an integer). Surrounding spaces should be ignored. If a name appears again, keep the higher score.",
+   "hints": [
+    "Process line by line with splitlines(); split each line at the first colon.",
+    "Wrap only int(...) in try/except ValueError and continue on failure.",
+    "Approach: splitlines → partition(\":\") → strip → int in a try → keep the max per name."
+   ],
+   "cx": "O(total length of the text)",
+   "constraints": [
+    "0 ≤ number of lines ≤ 10^4"
+   ],
+   "prereq": [],
+   "mistakes": [
+    "Splitting on every colon (names could be followed by more colons).",
+    "Letting one bad line crash the whole parse."
+   ],
+   "followup": "Also return a list of the line numbers that were skipped, for error reporting.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "parse_scores(\"ann:5\\nbob: 7\")",
+     "expected": "{\"ann\": 5, \"bob\": 7}",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_scores(\"\")",
+     "expected": "{}",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_scores(\"ann:5\\nbad line\\nbob:x\\n\\ncy:3\")",
+     "expected": "{\"ann\": 5, \"cy\": 3}",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_scores(\"ann:5\\nann:9\\nann:2\")",
+     "expected": "{\"ann\": 9}",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_scores(\"  dee  :  -4  \")",
+     "expected": "{\"dee\": -4}",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/01_python/py_parse_scores.py",
+   "solution_path": "solutions/01_python/py_parse_scores.py",
+   "starter_sha256": "c6602f743f984082a44122b652df04843d7cf4a58831eb99727e25e452dbd545"
+  },
+  {
+   "id": "py-deep-copy",
+   "module": "py_deep_copy",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "Deep Copy Nested Lists",
+   "difficulty": "medium",
+   "pattern": "Recursion",
+   "kind": "code",
+   "prompt": "Write `deep_copy(x)` for values built from lists and immutable values (ints, strings, …), without the copy module. Every list in the result must be a new list.",
+   "hints": [
+    "If x is a list, build a new list by copying each item; otherwise return x itself.",
+    "The copy of each item uses the same function: recursion.",
+    "Approach: Recursively rebuild every list; share immutable values."
+   ],
+   "cx": "O(total number of elements)",
+   "constraints": [
+    "Nesting depth ≤ 100"
+   ],
+   "prereq": [
+    "py-e2"
+   ],
+   "mistakes": [
+    "x[:] or list(x), which only copies the outer list.",
+    "Copying ints (unnecessary: they are immutable)."
+   ],
+   "followup": "Extend it to dicts and sets, and handle a list that contains itself (keep a dict of already-copied objects by id).",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "deep_copy([1, [2, [3]]])",
+     "expected": "[1, [2, [3]]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "(lambda a: (lambda b: b == a and b is not a and b[1] is not a[1] and b[1][1] is not a[1][1])(deep_copy(a)))([1, [2, [3]]])",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "deep_copy(5)",
+     "expected": "5",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "deep_copy([])",
+     "expected": "[]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "(lambda a: (deep_copy(a)[0].append(9), a)[1])([[1]])",
+     "expected": "[[1]]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/01_python/py_deep_copy.py",
+   "solution_path": "solutions/01_python/py_deep_copy.py",
+   "starter_sha256": "2bade69d6098bae1e0ee89cb9eaa088cc62b941b27587368df843ddabdc827dc"
   },
   {
    "id": "py-d2",
@@ -818,6 +1074,96 @@
    "path": "exercises/01_python/py_d1.py",
    "solution_path": "solutions/01_python/py_d1.py",
    "starter_sha256": "da14be54163949038503c4b1c9fc21814d0c67b86ffafc32727b339b0320a8fc"
+  },
+  {
+   "id": "py-e8",
+   "module": "py_e8",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "One bad value stops everything",
+   "difficulty": "medium",
+   "pattern": "Python basics",
+   "kind": "debug",
+   "prompt": "This code has a bug. The tests below describe what it should do. Run the tests, find the bug and fix it.",
+   "hints": [
+    "Run `python dsa.py test py-e8` and compare the first failing case with what you expected.",
+    "The try wraps the whole loop, so the first bad value ends the loop. Put the try inside the loop.",
+    "An exception jumps straight to its handler: the loop is abandoned. Handle each item separately."
+   ],
+   "cx": "",
+   "constraints": [],
+   "prereq": [],
+   "mistakes": [],
+   "followup": "",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "parse_all([\"1\", \"x\", \"3\"])",
+     "expected": "[1, 3]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_all([\"-4\", \"5\"])",
+     "expected": "[-4, 5]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "parse_all([\"a\", \"b\"])",
+     "expected": "[]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/01_python/py_e8.py",
+   "solution_path": "solutions/01_python/py_e8.py",
+   "starter_sha256": "e4c5aeecc2b9fd0ef6dd0f4474914122e1ac602e6d53cd2fe69b38aef2fff413"
+  },
+  {
+   "id": "py-e9",
+   "module": "py_e9",
+   "topic": "python",
+   "dir": "01_python",
+   "title": "The copy that is not a copy",
+   "difficulty": "medium",
+   "pattern": "Python basics",
+   "kind": "debug",
+   "prompt": "This code has a bug. The tests below describe what it should do. Run the tests, find the bug and fix it.",
+   "hints": [
+    "Run `python dsa.py test py-e9` and compare the first failing case with what you expected.",
+    "new holds the same row lists as grid, so inserting changes the caller’s grid too. Copy each row: [row[:] for row in grid]",
+    "A comprehension over the rows only copies references to them. Copy the inner lists if you are going to change them."
+   ],
+   "cx": "",
+   "constraints": [],
+   "prereq": [],
+   "mistakes": [],
+   "followup": "",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "(lambda g: (with_border(g), g)[1])([[1, 2]])",
+     "expected": "[[1, 2]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "with_border([[1], [2]])",
+     "expected": "[[0, 1], [0, 2]]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 2,
+   "path": "exercises/01_python/py_e9.py",
+   "solution_path": "solutions/01_python/py_e9.py",
+   "starter_sha256": "bd00b2de8137e4b450d5a08cbd82c1034f085a5a842119bb7af4ae97e767dc20"
   },
   {
    "id": "bigo-has-duplicate",
@@ -6355,6 +6701,152 @@
    "starter_sha256": "68e91e1425f298650e70e59ac5e17919ece7122bc9fae75b263400be7c9a4f69"
   },
   {
+   "id": "h-concat-words",
+   "module": "h_concat_words",
+   "topic": "hashing",
+   "dir": "06_hashing",
+   "title": "Substring with Concatenation of All Words",
+   "difficulty": "hard",
+   "pattern": "Sliding Window",
+   "kind": "code",
+   "prompt": "All strings in `words` have the same length. Return every start index in `s` of a substring that is a concatenation of all the words, each used exactly once, in any order. Return the indexes in increasing order.",
+   "hints": [
+    "Brute force: at every index, cut k words and compare their Counter with the target Counter. That is O(n · k).",
+    "Faster: for each of the L alignments, slide a window one word at a time, keeping a Counter of the words inside it.",
+    "Approach: L interleaved sliding windows over word-sized steps, with Counters."
+   ],
+   "cx": "O(L · n) time, O(k) space",
+   "constraints": [
+    "1 ≤ len(s) ≤ 10^4",
+    "1 ≤ len(words) ≤ 5000, 1 ≤ len(words[i]) ≤ 30"
+   ],
+   "prereq": [
+    "h-find-anagrams"
+   ],
+   "mistakes": [
+    "Assuming words are distinct (duplicates must be matched the right number of times).",
+    "Only checking alignment 0."
+   ],
+   "followup": "What changes if the words can have different lengths?",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "find_substring(\"barfoothefoobarman\", [\"foo\", \"bar\"])",
+     "expected": "[0, 9]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_substring(\"wordgoodgoodgoodbestword\", [\"word\", \"good\", \"best\", \"word\"])",
+     "expected": "[]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_substring(\"barfoofoobarthefoobarman\", [\"bar\", \"foo\", \"the\"])",
+     "expected": "[6, 9, 12]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_substring(\"aaa\", [\"a\", \"a\"])",
+     "expected": "[0, 1]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_substring(\"a\", [\"a\"])",
+     "expected": "[0]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "len(find_substring(\"ab\" * 2500, [\"ab\", \"ab\"]))",
+     "expected": "2499",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/06_hashing/h_concat_words.py",
+   "solution_path": "solutions/06_hashing/h_concat_words.py",
+   "starter_sha256": "f6fabb34d0f8a7b5b759edb1b71220a272cbbf24f54bc66a4bfa84b71e09f7fb"
+  },
+  {
+   "id": "h-max-points",
+   "module": "h_max_points",
+   "topic": "hashing",
+   "dir": "06_hashing",
+   "title": "Max Points on a Line",
+   "difficulty": "hard",
+   "pattern": "Hashing",
+   "kind": "code",
+   "prompt": "Given distinct points `[x, y]` with integer coordinates, return the largest number of them that lie on one straight line.",
+   "hints": [
+    "Fix one point and group every other point by the direction to it.",
+    "Floats are unsafe as keys. Store the direction as a reduced fraction (dx, dy) divided by their gcd, with a fixed sign.",
+    "Approach: For each anchor point, count reduced slope vectors in a dict."
+   ],
+   "cx": "O(n² log C) time, O(n) space",
+   "constraints": [
+    "1 ≤ len(points) ≤ 300",
+    "−10^4 ≤ x, y ≤ 10^4, all points distinct"
+   ],
+   "prereq": [],
+   "mistakes": [
+    "Using float slopes (precision errors, and vertical lines divide by zero).",
+    "Not normalising the sign, so (1, 2) and (−1, −2) count as different lines."
+   ],
+   "followup": "How would you handle duplicate points?",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "max_points([[1, 1], [2, 2], [3, 3]])",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_points([[1, 1], [3, 2], [5, 3], [4, 1], [2, 3], [1, 4]])",
+     "expected": "4",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_points([[0, 0]])",
+     "expected": "1",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_points([[0, 0], [1, 1], [0, 1]])",
+     "expected": "2",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_points([[1, 0], [1, 5], [1, -3], [2, 2]])",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_points([[0, 0], [10000, 9999], [-10000, -9999], [1, 1]])",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/06_hashing/h_max_points.py",
+   "solution_path": "solutions/06_hashing/h_max_points.py",
+   "starter_sha256": "8d26d349c60a4c6b651c07750e1a3faeb4d8598210a105234987f61343a350f2"
+  },
+  {
    "id": "h-d1",
    "module": "h_d1",
    "topic": "hashing",
@@ -10387,6 +10879,214 @@
    "starter_sha256": "d3d626c863046d55362630ec775c97e39e0a5c0aeb7ad861942219be188ffdfa"
   },
   {
+   "id": "rec-combination-sum-ii",
+   "module": "rec_combination_sum_ii",
+   "topic": "recursion",
+   "dir": "10_recursion",
+   "title": "Combination Sum II",
+   "difficulty": "medium",
+   "pattern": "Backtracking",
+   "kind": "code",
+   "prompt": "Return all unique combinations of `candidates` that sum to `target`. Each candidate may be used once, but the list may contain duplicate values; the output must not contain duplicate combinations. Each combination should be in non-decreasing order.",
+   "hints": [
+    "Sort first, so equal values sit together and you can stop early.",
+    "At each depth, skip a value equal to the previous one at that same depth; recurse with i + 1 because each item is used once.",
+    "Approach: Sorted backtracking with duplicate skipping and early break."
+   ],
+   "cx": "O(2ⁿ) worst case, heavily pruned",
+   "constraints": [
+    "1 ≤ len(candidates) ≤ 100",
+    "1 ≤ candidates[i] ≤ 50, 1 ≤ target ≤ 30"
+   ],
+   "prereq": [
+    "rec-combination-sum"
+   ],
+   "mistakes": [
+    "Generating all combinations and removing duplicates with a set afterwards (slow on [1] * 30).",
+    "Skipping duplicates with i > 0 instead of i > start, which also removes valid combinations like [1, 1, 6]."
+   ],
+   "followup": "Return only the number of combinations, using DP over sums instead of backtracking.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "combination_sum2([10, 1, 2, 7, 6, 1, 5], 8)",
+     "expected": "[[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "combination_sum2([2, 5, 2, 1, 2], 5)",
+     "expected": "[[1, 2, 2], [5]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "combination_sum2([1], 2)",
+     "expected": "[]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "combination_sum2([2], 2)",
+     "expected": "[[2]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "len(combination_sum2([1] * 30, 30))",
+     "expected": "1",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/10_recursion/rec_combination_sum_ii.py",
+   "solution_path": "solutions/10_recursion/rec_combination_sum_ii.py",
+   "starter_sha256": "6a7d6dd8cf915ce9fa319bdb759ff7bde112ffa937878b36d4e519725ffff307"
+  },
+  {
+   "id": "rec-subsets-dup",
+   "module": "rec_subsets_dup",
+   "topic": "recursion",
+   "dir": "10_recursion",
+   "title": "Subsets II (with duplicates)",
+   "difficulty": "medium",
+   "pattern": "Backtracking",
+   "kind": "code",
+   "prompt": "Return all distinct subsets of a list that may contain duplicates. The order of subsets does not matter; each subset should be sorted.",
+   "hints": [
+    "Sort so that duplicates are next to each other.",
+    "Use the same skip rule as Combination Sum II: at one depth, take each distinct value once.",
+    "Approach: Backtracking over start indexes with duplicate skipping; record every path."
+   ],
+   "cx": "O(n · 2ⁿ)",
+   "constraints": [
+    "0 ≤ len(nums) ≤ 10",
+    "−10 ≤ nums[i] ≤ 10"
+   ],
+   "prereq": [
+    "rec-subsets"
+   ],
+   "mistakes": [
+    "Using a set of tuples to deduplicate afterwards (works, but wastes the whole duplicate search).",
+    "Forgetting to sort first."
+   ],
+   "followup": "Count the distinct subsets with a formula: the product of (count of each value + 1).",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "subsets_with_dup([1, 2, 2])",
+     "expected": "[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "subsets_with_dup([0])",
+     "expected": "[[], [0]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "subsets_with_dup([])",
+     "expected": "[[]]",
+     "mode": "groups",
+     "label": ""
+    },
+    {
+     "call": "len(subsets_with_dup([2, 2, 2, 2]))",
+     "expected": "5",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "len(subsets_with_dup([1, 2, 3]))",
+     "expected": "8",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/10_recursion/rec_subsets_dup.py",
+   "solution_path": "solutions/10_recursion/rec_subsets_dup.py",
+   "starter_sha256": "52c0f8a2e8f7fd2e310e444f8d2545f84b06359386a2fec617a24fb54590813f"
+  },
+  {
+   "id": "rec-word-search",
+   "module": "rec_word_search",
+   "topic": "recursion",
+   "dir": "10_recursion",
+   "title": "Word Search",
+   "difficulty": "medium",
+   "pattern": "Backtracking",
+   "kind": "code",
+   "prompt": "Return `True` if `word` can be spelled by moving between horizontally or vertically adjacent cells of the board, using each cell at most once.",
+   "hints": [
+    "Start a DFS from every cell; each step must match the next letter.",
+    "Mark a cell as used before recursing and restore it afterwards (that is the \"backtrack\").",
+    "Approach: DFS with in-place marking and undo."
+   ],
+   "cx": "O(rows · cols · 3^L)",
+   "constraints": [
+    "1 ≤ rows, cols ≤ 6",
+    "1 ≤ len(word) ≤ 15"
+   ],
+   "prereq": [],
+   "mistakes": [
+    "Forgetting to restore the cell, which breaks other search paths.",
+    "Reusing a cell (\"ABCB\" must be False)."
+   ],
+   "followup": "Find all dictionary words on the board at once with a trie (Word Search II).",
+   "dry": "",
+   "prelude": "",
+   "post": "B = [[\"A\", \"B\", \"C\", \"E\"], [\"S\", \"F\", \"C\", \"S\"], [\"A\", \"D\", \"E\", \"E\"]]",
+   "tests": [
+    {
+     "call": "exist([row[:] for row in B], \"ABCCED\")",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "exist([row[:] for row in B], \"SEE\")",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "exist([row[:] for row in B], \"ABCB\")",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "exist([[\"a\"]], \"a\")",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "exist([[\"a\", \"b\"]], \"ba\")",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "exist([[\"a\", \"a\"]], \"aaa\")",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/10_recursion/rec_word_search.py",
+   "solution_path": "solutions/10_recursion/rec_word_search.py",
+   "starter_sha256": "af4d35a80c47e8dc52cb864c342b761758cdfa9d79d1e8fca9c31aa5205c81e2"
+  },
+  {
    "id": "rec-n-queens",
    "module": "rec_n_queens",
    "topic": "recursion",
@@ -10439,6 +11139,76 @@
    "path": "exercises/10_recursion/rec_n_queens.py",
    "solution_path": "solutions/10_recursion/rec_n_queens.py",
    "starter_sha256": "ae85ada9d3c5e57217c6fdc5b61656d8fa72dc52ee49b59f0bd43ba9fe2ba8b7"
+  },
+  {
+   "id": "rec-sudoku",
+   "module": "rec_sudoku",
+   "topic": "recursion",
+   "dir": "10_recursion",
+   "title": "Sudoku Solver",
+   "difficulty": "hard",
+   "pattern": "Backtracking",
+   "kind": "code",
+   "prompt": "Fill the 9 × 9 board (0 = empty) so that every row, column and 3 × 3 box contains the digits 1–9 exactly once. Modify the board in place and return it. The puzzle has exactly one solution.",
+   "hints": [
+    "List the empty cells, then fill them one by one; undo when you get stuck.",
+    "Keep three lists of sets (rows, columns, boxes) so a digit can be checked in O(1). Box index: r // 3 * 3 + c // 3.",
+    "Approach: Backtracking over empty cells with O(1) constraint checks via sets."
+   ],
+   "cx": "Exponential in the worst case; fast on real puzzles thanks to pruning",
+   "constraints": [
+    "board is 9 × 9, values 0–9",
+    "the puzzle is valid and has a unique solution"
+   ],
+   "prereq": [
+    "rec-n-queens",
+    "rec-x-m3"
+   ],
+   "mistakes": [
+    "Validating the whole board after every placement (slow).",
+    "Forgetting to reset the cell to 0 and remove the digit from the sets when backtracking.",
+    "Wrong box index, e.g. r // 3 + c // 3."
+   ],
+   "followup": "Always fill the empty cell with the fewest possible digits first. How much faster does it get on hard puzzles?",
+   "dry": "",
+   "prelude": "",
+   "post": "def _board(s):\n    return [[int(ch) if ch != \".\" else 0 for ch in s[r * 9:(r + 1) * 9]] for r in range(9)]\nP1 = \"53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79\"\nS1 = \"534678912672195348198342567859761423426853791713924856961537284287419635345286179\"\ndef _valid(b):\n    groups = [b[r] for r in range(9)] + [[b[r][c] for r in range(9)] for c in range(9)]\n    groups += [[b[r][c] for r in range(br, br + 3) for c in range(bc, bc + 3)] for br in (0, 3, 6) for bc in (0, 3, 6)]\n    return all(sorted(g) == list(range(1, 10)) for g in groups)",
+   "tests": [
+    {
+     "call": "solve_sudoku(_board(P1))",
+     "expected": "_board(S1)",
+     "mode": "",
+     "label": "the classic puzzle"
+    },
+    {
+     "call": "solve_sudoku(_board(\".\" + S1[1:]))",
+     "expected": "_board(S1)",
+     "mode": "",
+     "label": "only one empty cell"
+    },
+    {
+     "call": "solve_sudoku(_board(S1))",
+     "expected": "_board(S1)",
+     "mode": "",
+     "label": "already solved"
+    },
+    {
+     "call": "_valid(solve_sudoku(_board(P1)))",
+     "expected": "True",
+     "mode": "",
+     "label": "every row, column and box holds 1–9"
+    },
+    {
+     "call": "solve_sudoku(_board(S1[:40] + \".\" * 9 + S1[49:]))",
+     "expected": "_board(S1)",
+     "mode": "",
+     "label": "a fully empty stretch of nine cells"
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/10_recursion/rec_sudoku.py",
+   "solution_path": "solutions/10_recursion/rec_sudoku.py",
+   "starter_sha256": "b0033ce08c1543f6a2dd800c150c4dc79dd8bfd89dbfc0190a049833b0a31657"
   },
   {
    "id": "r-d1",
@@ -10595,6 +11365,48 @@
    "path": "exercises/10_recursion/r_d3.py",
    "solution_path": "solutions/10_recursion/r_d3.py",
    "starter_sha256": "0af5210b4b921e6b485a3349d74d1e1bfd3fe1bc6ba9fd76d822b04a871287a7"
+  },
+  {
+   "id": "rec-x-d1",
+   "module": "rec_x_d1",
+   "topic": "recursion",
+   "dir": "10_recursion",
+   "title": "The shared path",
+   "difficulty": "medium",
+   "pattern": "Backtracking",
+   "kind": "debug",
+   "prompt": "This code has a bug. The tests below describe what it should do. Run the tests, find the bug and fix it.",
+   "hints": [
+    "Run `python dsa.py test rec-x-d1` and compare the first failing case with what you expected.",
+    "result stores the same path list object every time; by the end it is empty. Append a copy: path[:]",
+    "Backtracking mutates one list. Snapshot it when you record an answer."
+   ],
+   "cx": "",
+   "constraints": [],
+   "prereq": [],
+   "mistakes": [],
+   "followup": "",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "sorted(subsets([1, 2]))",
+     "expected": "[[], [1], [1, 2], [2]]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "subsets([])",
+     "expected": "[[]]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 2,
+   "path": "exercises/10_recursion/rec_x_d1.py",
+   "solution_path": "solutions/10_recursion/rec_x_d1.py",
+   "starter_sha256": "f6ee41a35d6a36adaa15db6603857f5601273b074dc0376a2d4ed648dac64cd0"
   },
   {
    "id": "bs-linear",
@@ -14234,6 +15046,154 @@
    "starter_sha256": "806eb608c652f29d80e75fd8055ab9e3d344e1b6127b3c764b2a4c2b690dafa7"
   },
   {
+   "id": "bst-recover",
+   "module": "bst_recover",
+   "topic": "bst",
+   "dir": "14_bst",
+   "title": "Recover a BST",
+   "difficulty": "hard",
+   "pattern": "BST Property",
+   "kind": "code",
+   "prompt": "Exactly two nodes of a binary search tree were swapped by mistake. Fix the tree in place by swapping their values back, and return the root.",
+   "hints": [
+    "An inorder traversal of a BST is sorted. What does it look like after two values are swapped?",
+    "There are one or two places where a value is bigger than the next one. The first wrong node is the left side of the first drop; the second is the right side of the last drop.",
+    "Approach: Inorder traversal, remember the nodes at the order violations, swap their values."
+   ],
+   "cx": "O(n) time, O(h) space (Morris traversal makes it O(1))",
+   "constraints": [
+    "2 ≤ number of nodes ≤ 1000",
+    "values are distinct"
+   ],
+   "prereq": [
+    "bst-m1"
+   ],
+   "mistakes": [
+    "Handling only the case of two drops: adjacent swapped nodes give a single drop.",
+    "Swapping nodes instead of values (much harder, and not needed)."
+   ],
+   "followup": "Do it with O(1) extra space using Morris inorder traversal.",
+   "dry": "",
+   "prelude": "tree",
+   "post": "",
+   "tests": [
+    {
+     "call": "tree_to_list(recover_tree(build_tree([1, 3, None, None, 2])))",
+     "expected": "[3, 1, None, None, 2]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "tree_to_list(recover_tree(build_tree([3, 1, 4, None, None, 2])))",
+     "expected": "[2, 1, 4, None, None, 3]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "tree_to_list(recover_tree(build_tree([2, 3, 1])))",
+     "expected": "[2, 1, 3]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "tree_to_list(recover_tree(build_tree([4, 2, 6, 7, 3, 5, 1])))",
+     "expected": "[4, 2, 6, 1, 3, 5, 7]",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "tree_to_list(recover_tree(build_tree([10, 5, 15, 2, 20, 12, 7])))",
+     "expected": "[10, 5, 15, 2, 7, 12, 20]",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/14_bst/bst_recover.py",
+   "solution_path": "solutions/14_bst/bst_recover.py",
+   "starter_sha256": "797c9b3eebb9276f9afb7453fa9c4167da061af49b9eab1563d9b52aa7734261"
+  },
+  {
+   "id": "bst-almost-dup",
+   "module": "bst_almost_dup",
+   "topic": "bst",
+   "dir": "14_bst",
+   "title": "Contains Nearby Almost Duplicate",
+   "difficulty": "hard",
+   "pattern": "BST Property",
+   "kind": "code",
+   "prompt": "Return `True` if there are two different indexes i and j with `|i − j| ≤ k` and `|nums[i] − nums[j]| ≤ t`. In languages with a balanced BST you would use a sorted set; in Python, use buckets of width t + 1.",
+   "hints": [
+    "Keep only the last k values. Among them, is there one within t of x? A sorted structure answers that in O(log k).",
+    "Bucket trick: with width t + 1, two values in the same bucket always differ by ≤ t, and a close value can only be in the same or a neighbouring bucket.",
+    "Approach: Sliding window of buckets keyed by x // (t + 1)."
+   ],
+   "cx": "O(n) time, O(k) space",
+   "constraints": [
+    "1 ≤ len(nums) ≤ 10^5",
+    "1 ≤ k ≤ 10^5, 0 ≤ t ≤ 10^9"
+   ],
+   "prereq": [
+    "h-nearby-dup"
+   ],
+   "mistakes": [
+    "Using int(x / width), which rounds negative numbers towards zero and merges buckets −1 and 0.",
+    "Forgetting to remove the value that leaves the window."
+   ],
+   "followup": "Solve it with a sorted list and bisect in O(n log k), then compare.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "almost_duplicate([1, 2, 3, 1], 3, 0)",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate([1, 0, 1, 1], 1, 2)",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate([1, 5, 9, 1, 5, 9], 2, 3)",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate([1], 1, 1)",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate([-3, 3], 2, 4)",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate([-1, -1], 1, 0)",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "almost_duplicate(list(range(0, 10**6, 10)), 10**5, 9)",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/14_bst/bst_almost_dup.py",
+   "solution_path": "solutions/14_bst/bst_almost_dup.py",
+   "starter_sha256": "490a78a67a982f21566d1147368ad770fdf033824cb5fdb67aa335ac65171490"
+  },
+  {
    "id": "bst-d2",
    "module": "bst_d2",
    "topic": "bst",
@@ -16880,6 +17840,80 @@
    "starter_sha256": "899327d99dd324198766c0298debc40418b4b3e70722d27134390157c0fa833d"
   },
   {
+   "id": "ag-negative-cycle",
+   "module": "ag_negative_cycle",
+   "topic": "advgraphs",
+   "dir": "18_advgraphs",
+   "title": "Detect a Negative Cycle",
+   "difficulty": "medium",
+   "pattern": "Shortest Path",
+   "kind": "code",
+   "prompt": "Nodes are 0..n − 1 and edges are directed `(u, v, w)`. Return `True` if the graph contains any cycle with negative total weight (anywhere, not only reachable from node 0).",
+   "hints": [
+    "Run Bellman-Ford n − 1 rounds; then check whether any edge can still be relaxed.",
+    "To catch cycles anywhere, start every distance at 0 (as if a hidden source reached every node at cost 0).",
+    "Approach: Bellman-Ford from a virtual source, plus one extra checking round."
+   ],
+   "cx": "O(V · E) time, O(V) space",
+   "constraints": [
+    "1 ≤ n ≤ 500",
+    "0 ≤ len(edges) ≤ 5000, −1000 ≤ w ≤ 1000"
+   ],
+   "prereq": [
+    "ag-bf-m2"
+   ],
+   "mistakes": [
+    "Starting only node 0 at distance 0, which misses cycles that node 0 cannot reach.",
+    "Stopping after n − 1 rounds without the extra check."
+   ],
+   "followup": "Return the nodes of one negative cycle (remember each node’s predecessor and walk back n steps).",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "has_negative_cycle(3, [(0, 1, 1), (1, 2, -1), (2, 0, -1)])",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "has_negative_cycle(3, [(0, 1, 1), (1, 2, -1), (2, 0, 1)])",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "has_negative_cycle(1, [])",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "has_negative_cycle(4, [(0, 1, 2), (2, 3, -5), (3, 2, 4)])",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "has_negative_cycle(2, [(0, 1, -5)])",
+     "expected": "False",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "has_negative_cycle(2, [(0, 0, -1)])",
+     "expected": "True",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/18_advgraphs/ag_negative_cycle.py",
+   "solution_path": "solutions/18_advgraphs/ag_negative_cycle.py",
+   "starter_sha256": "10f1c5084805eeffbfeff096ddf9df3493a013b911e0843e3dae6211e83f88ea"
+  },
+  {
    "id": "build-union-find",
    "module": "build_union_find",
    "topic": "advgraphs",
@@ -18033,6 +19067,81 @@
    "path": "exercises/19_greedy/gr_candy.py",
    "solution_path": "solutions/19_greedy/gr_candy.py",
    "starter_sha256": "d229198120696e645f0e9de0f1429a046d59344fe848f76e6d9de20c6fc62e24"
+  },
+  {
+   "id": "gr-min-refuel",
+   "module": "gr_min_refuel",
+   "topic": "greedy",
+   "dir": "19_greedy",
+   "title": "Minimum Refueling Stops",
+   "difficulty": "hard",
+   "pattern": "Heap / Top-K",
+   "kind": "code",
+   "prompt": "A car starts at position 0 with `start_fuel` litres and uses one litre per kilometre. `stations[i] = [position, fuel]`, sorted by position. Return the fewest stops needed to reach `target`, or −1.",
+   "hints": [
+    "Drive as far as you can. Only when you would run out, decide retroactively to have stopped at one of the stations you passed.",
+    "Which passed station should that be? The one with the most fuel: keep them in a max-heap.",
+    "Approach: Greedy with a max-heap of passed stations (\"refuel retroactively\")."
+   ],
+   "cx": "O(n log n) time, O(n) space",
+   "constraints": [
+    "1 ≤ target, start_fuel ≤ 10^9",
+    "0 ≤ len(stations) ≤ 500, 0 < position < target"
+   ],
+   "prereq": [
+    "gr-activity",
+    "hp-ropes"
+   ],
+   "mistakes": [
+    "Stopping at every station you reach (not minimal).",
+    "A DP over stations and stops works (O(n²)), but misses the greedy insight."
+   ],
+   "followup": "Solve it with DP: dp[s] = furthest reachable with s stops. Compare with the greedy.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "min_refuel_stops(1, 1, [])",
+     "expected": "0",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "min_refuel_stops(100, 1, [[10, 100]])",
+     "expected": "-1",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "min_refuel_stops(100, 10, [[10, 60], [20, 30], [30, 30], [60, 40]])",
+     "expected": "2",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "min_refuel_stops(100, 50, [[25, 25], [50, 50]])",
+     "expected": "1",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "min_refuel_stops(1000, 299, [[13, 21], [26, 115], [100, 47], [225, 99], [299, 141], [444, 198], [608, 190], [636, 157], [647, 255], [841, 123]])",
+     "expected": "4",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "min_refuel_stops(100, 100, [[50, 1]])",
+     "expected": "0",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/19_greedy/gr_min_refuel.py",
+   "solution_path": "solutions/19_greedy/gr_min_refuel.py",
+   "starter_sha256": "7854c4d50b4f8535ef7cf6e04d35b2ff31b20cfb4578e01e66508b0714784de2"
   },
   {
    "id": "gr-d1",
@@ -20700,6 +21809,81 @@
    "starter_sha256": "dfdcc54cf3e1989a8ce86e3c42ed116689e8a28a1f6fe1ca7d1fc40b812ba485"
   },
   {
+   "id": "bit-max-xor",
+   "module": "bit_max_xor",
+   "topic": "bits",
+   "dir": "21_bits",
+   "title": "Maximum XOR of Two Numbers",
+   "difficulty": "hard",
+   "pattern": "Bit Manipulation",
+   "kind": "code",
+   "prompt": "Return the largest value of `nums[i] ^ nums[j]` (i may equal j).",
+   "hints": [
+    "Build the answer greedily from the highest bit: try to make each bit 1.",
+    "For a given candidate prefix c, two numbers whose top bits are a and b give a ^ b == c exactly when a ^ c == b: check with a set. (A binary trie works too.)",
+    "Approach: Greedy bit by bit with a set of prefixes (or a bitwise trie)."
+   ],
+   "cx": "O(31 · n) time, O(n) space",
+   "constraints": [
+    "1 ≤ len(nums) ≤ 2 × 10^5",
+    "0 ≤ nums[i] < 2^31"
+   ],
+   "prereq": [
+    "bit-ops",
+    "build-trie"
+   ],
+   "mistakes": [
+    "Trying every pair: O(n²) is too slow for 2 × 10⁵.",
+    "Building the answer from the lowest bit, where greedy choices are not safe."
+   ],
+   "followup": "Answer many queries \"max x ^ nums[i] for a given x\" with a binary trie.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "max_xor([3, 10, 5, 25, 2, 8])",
+     "expected": "28",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_xor([14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 70])",
+     "expected": "127",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_xor([0])",
+     "expected": "0",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_xor([8, 10, 2])",
+     "expected": "10",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_xor([1, 2])",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "max_xor(list(range(2**16)))",
+     "expected": "2**16 - 1",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/21_bits/bit_max_xor.py",
+   "solution_path": "solutions/21_bits/bit_max_xor.py",
+   "starter_sha256": "eda311f328587d37e67887ebf3a82d20ebda0468f78fe9d2be90cb18d190ea19"
+  },
+  {
    "id": "bit-d1",
    "module": "bit_d1",
    "topic": "bits",
@@ -22091,6 +23275,162 @@
    "path": "exercises/23_patterns/pt_partition_labels.py",
    "solution_path": "solutions/23_patterns/pt_partition_labels.py",
    "starter_sha256": "f625cac7749322e61494bf718c951df59d2916122263f708314317e2b10d08fb"
+  },
+  {
+   "id": "pt-shortest-subarray-k",
+   "module": "pt_shortest_subarray_k",
+   "topic": "patterns",
+   "dir": "23_patterns",
+   "title": "Shortest Subarray with Sum at Least K",
+   "difficulty": "hard",
+   "pattern": "Monotonic Stack",
+   "kind": "code",
+   "prompt": "Return the length of the shortest non-empty contiguous subarray with sum ≥ k, or −1. The numbers can be negative, so a plain sliding window does not work.",
+   "hints": [
+    "Use prefix sums: a subarray i..j−1 has sum prefix[j] − prefix[i]. You want the closest i with prefix[i] ≤ prefix[j] − k.",
+    "Keep candidate starts in a deque with increasing prefix values: pop from the front when a start is satisfied, from the back when a new prefix is smaller.",
+    "Approach: Prefix sums + monotonic deque (combines three patterns)."
+   ],
+   "cx": "O(n) time, O(n) space",
+   "constraints": [
+    "1 ≤ len(nums) ≤ 10^5",
+    "−10^5 ≤ nums[i] ≤ 10^5, 1 ≤ k ≤ 10^9"
+   ],
+   "prereq": [
+    "q-window-max",
+    "arr-max-subarray"
+   ],
+   "mistakes": [
+    "A two-pointer window: with negatives, shrinking can make the sum bigger again.",
+    "Forgetting that a satisfied start can be popped for good."
+   ],
+   "followup": "Return the subarray itself.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "shortest_subarray([1], 1)",
+     "expected": "1",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([1, 2], 4)",
+     "expected": "-1",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([2, -1, 2], 3)",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([84, -37, 32, 40, 95], 167)",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([17, 85, 93, -45, -21], 150)",
+     "expected": "2",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([-28, 81, -20, 28, -29], 89)",
+     "expected": "3",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "shortest_subarray([1] * 100000, 100000)",
+     "expected": "100000",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/23_patterns/pt_shortest_subarray_k.py",
+   "solution_path": "solutions/23_patterns/pt_shortest_subarray_k.py",
+   "starter_sha256": "7877bd35728fa2eab1b2219c11deb6c36ae365e6f574f8e50bcc11fa26826aa3"
+  },
+  {
+   "id": "pt-ipo",
+   "module": "pt_ipo",
+   "topic": "patterns",
+   "dir": "23_patterns",
+   "title": "IPO (maximise capital)",
+   "difficulty": "hard",
+   "pattern": "Heap / Top-K",
+   "kind": "code",
+   "prompt": "You start with capital `w` and may finish at most `k` projects. Project i needs `capital[i]` to start and adds `profits[i]` to your capital when done. Return the largest final capital.",
+   "hints": [
+    "Greedy: among the projects you can afford right now, which one should you do?",
+    "Sort projects by capital; as w grows, push newly affordable profits into a max-heap and pop the best each round.",
+    "Approach: Sort + max-heap: greedy choice of the best affordable project, k times."
+   ],
+   "cx": "O(n log n + k log n) time",
+   "constraints": [
+    "1 ≤ k ≤ 10^5, 0 ≤ w ≤ 10^9",
+    "1 ≤ n ≤ 10^5, 0 ≤ profits[i] ≤ 10^4, 0 ≤ capital[i] ≤ 10^9"
+   ],
+   "prereq": [
+    "hp-meeting-rooms",
+    "gr-activity"
+   ],
+   "mistakes": [
+    "Re-scanning all projects every round: O(n · k).",
+    "Forgetting to stop when nothing is affordable."
+   ],
+   "followup": "Why is the greedy choice safe? Give an exchange argument.",
+   "dry": "",
+   "prelude": "",
+   "post": "",
+   "tests": [
+    {
+     "call": "find_max_capital(2, 0, [1, 2, 3], [0, 1, 1])",
+     "expected": "4",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_max_capital(3, 0, [1, 2, 3], [0, 1, 2])",
+     "expected": "6",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_max_capital(1, 0, [1], [1])",
+     "expected": "0",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_max_capital(10, 0, [1, 2, 3], [0, 1, 2])",
+     "expected": "6",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_max_capital(1, 2, [1, 2, 3], [1, 1, 2])",
+     "expected": "5",
+     "mode": "",
+     "label": ""
+    },
+    {
+     "call": "find_max_capital(100000, 0, [1] * 100000, list(range(100000)))",
+     "expected": "100000",
+     "mode": "",
+     "label": ""
+    }
+   ],
+   "visible": 3,
+   "path": "exercises/23_patterns/pt_ipo.py",
+   "solution_path": "solutions/23_patterns/pt_ipo.py",
+   "starter_sha256": "d4587df42c920967d09f9ed0a766cca70dca8450297db30c484ff8737fc01971"
   },
   {
    "id": "pt-d1",

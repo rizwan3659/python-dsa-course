@@ -178,3 +178,100 @@ for i, jump in enumerate(nums):
     reach = max(reach, i + jump)`,cols:['i','reach'],given:[0],rows:[['0','2'],['1','4'],['2','4'],['3','4'],['4','8']],why:'After index 1, the last index (4) is already reachable.'}
 ]);
 })();
+
+/* ---------- mixed-pattern hard problems (added with the v2 curriculum) ---------- */
+COURSE.qs('patterns',[
+{id:'pt-shortest-subarray-k',type:'code',d:3,p:'monotonic-stack',title:'Shortest Subarray with Sum at Least K',prompt:'<p>Return the length of the shortest non-empty contiguous subarray with sum ≥ k, or −1. The numbers can be negative, so a plain sliding window does not work.</p>',prereq:['q-window-max','arr-max-subarray'],
+constraints:['1 ≤ len(nums) ≤ 10<sup>5</sup>','−10<sup>5</sup> ≤ nums[i] ≤ 10<sup>5</sup>, 1 ≤ k ≤ 10<sup>9</sup>'],
+starter:`def shortest_subarray(nums, k):
+    # your code here
+    pass`,solution:`from collections import deque
+
+
+def shortest_subarray(nums, k):
+    prefix = [0]
+    for x in nums:
+        prefix.append(prefix[-1] + x)
+    best = len(nums) + 1
+    starts = deque()                        # indexes with increasing prefix values
+    for j, p in enumerate(prefix):
+        while starts and p - prefix[starts[0]] >= k:
+            best = min(best, j - starts.popleft())   # shortest for this start: never needed again
+        while starts and prefix[starts[-1]] >= p:
+            starts.pop()                    # a later, smaller prefix is a better start
+        starts.append(j)
+    return best if best <= len(nums) else -1`,
+tests:[['shortest_subarray([1], 1)','1'],['shortest_subarray([1, 2], 4)','-1'],['shortest_subarray([2, -1, 2], 3)','3'],['shortest_subarray([84, -37, 32, 40, 95], 167)','3'],['shortest_subarray([17, 85, 93, -45, -21], 150)','2'],['shortest_subarray([-28, 81, -20, 28, -29], 89)','3'],['shortest_subarray([1] * 100000, 100000)','100000']],
+hints:['Use prefix sums: a subarray i..j−1 has sum prefix[j] − prefix[i]. You want the closest i with prefix[i] ≤ prefix[j] − k.','Keep candidate starts in a deque with increasing prefix values: pop from the front when a start is satisfied, from the back when a new prefix is smaller.'],approach:'Prefix sums + monotonic deque (combines three patterns).',cx:'O(n) time, O(n) space',
+mistakes:['A two-pointer window: with negatives, shrinking can make the sum bigger again.','Forgetting that a satisfied start can be popped for good.'],
+followup:'Return the subarray itself.'},
+
+{id:'pt-ipo',type:'code',d:3,p:'heap-topk',title:'IPO (maximise capital)',prompt:'<p>You start with capital <code>w</code> and may finish at most <code>k</code> projects. Project i needs <code>capital[i]</code> to start and adds <code>profits[i]</code> to your capital when done. Return the largest final capital.</p>',prereq:['hp-meeting-rooms','gr-activity'],
+constraints:['1 ≤ k ≤ 10<sup>5</sup>, 0 ≤ w ≤ 10<sup>9</sup>','1 ≤ n ≤ 10<sup>5</sup>, 0 ≤ profits[i] ≤ 10<sup>4</sup>, 0 ≤ capital[i] ≤ 10<sup>9</sup>'],
+starter:`def find_max_capital(k, w, profits, capital):
+    # your code here
+    pass`,solution:`import heapq
+
+
+def find_max_capital(k, w, profits, capital):
+    projects = sorted(zip(capital, profits))   # cheapest to start first
+    available = []                             # max-heap (negated) of affordable profits
+    i = 0
+    for _ in range(k):
+        while i < len(projects) and projects[i][0] <= w:
+            heapq.heappush(available, -projects[i][1])
+            i += 1
+        if not available:
+            break                              # nothing affordable any more
+        w -= heapq.heappop(available)          # greedy: the most profitable affordable project
+    return w`,
+tests:[['find_max_capital(2, 0, [1, 2, 3], [0, 1, 1])','4'],['find_max_capital(3, 0, [1, 2, 3], [0, 1, 2])','6'],['find_max_capital(1, 0, [1], [1])','0'],['find_max_capital(10, 0, [1, 2, 3], [0, 1, 2])','6'],['find_max_capital(1, 2, [1, 2, 3], [1, 1, 2])','5'],['find_max_capital(100000, 0, [1] * 100000, list(range(100000)))','100000']],
+hints:['Greedy: among the projects you can afford right now, which one should you do?','Sort projects by capital; as w grows, push newly affordable profits into a max-heap and pop the best each round.'],approach:'Sort + max-heap: greedy choice of the best affordable project, k times.',cx:'O(n log n + k log n) time',
+mistakes:['Re-scanning all projects every round: O(n · k).','Forgetting to stop when nothing is affordable.'],
+followup:'Why is the greedy choice safe? Give an exchange argument.'},
+]);
+COURSE.qs('greedy',[
+{id:'gr-min-refuel',type:'code',d:3,p:'heap-topk',title:'Minimum Refueling Stops',prompt:'<p>A car starts at position 0 with <code>start_fuel</code> litres and uses one litre per kilometre. <code>stations[i] = [position, fuel]</code>, sorted by position. Return the fewest stops needed to reach <code>target</code>, or −1.</p>',prereq:['gr-activity','hp-ropes'],
+constraints:['1 ≤ target, start_fuel ≤ 10<sup>9</sup>','0 ≤ len(stations) ≤ 500, 0 &lt; position &lt; target'],
+starter:`def min_refuel_stops(target, start_fuel, stations):
+    # your code here
+    pass`,solution:`import heapq
+
+
+def min_refuel_stops(target, start_fuel, stations):
+    passed = []                         # max-heap (negated) of fuel at stations we drove past
+    fuel, stops, i = start_fuel, 0, 0
+    while fuel < target:                # fuel = furthest position we can reach
+        while i < len(stations) and stations[i][0] <= fuel:
+            heapq.heappush(passed, -stations[i][1])
+            i += 1
+        if not passed:
+            return -1
+        fuel -= heapq.heappop(passed)   # "we stopped there after all": take the biggest
+        stops += 1
+    return stops`,
+tests:[['min_refuel_stops(1, 1, [])','0'],['min_refuel_stops(100, 1, [[10, 100]])','-1'],['min_refuel_stops(100, 10, [[10, 60], [20, 30], [30, 30], [60, 40]])','2'],['min_refuel_stops(100, 50, [[25, 25], [50, 50]])','1'],['min_refuel_stops(1000, 299, [[13, 21], [26, 115], [100, 47], [225, 99], [299, 141], [444, 198], [608, 190], [636, 157], [647, 255], [841, 123]])','4'],['min_refuel_stops(100, 100, [[50, 1]])','0']],
+hints:['Drive as far as you can. Only when you would run out, decide retroactively to have stopped at one of the stations you passed.','Which passed station should that be? The one with the most fuel: keep them in a max-heap.'],approach:'Greedy with a max-heap of passed stations ("refuel retroactively").',cx:'O(n log n) time, O(n) space',
+mistakes:['Stopping at every station you reach (not minimal).','A DP over stations and stops works (O(n²)), but misses the greedy insight.'],
+followup:'Solve it with DP: dp[s] = furthest reachable with s stops. Compare with the greedy.'},
+]);
+COURSE.qs('bits',[
+{id:'bit-max-xor',type:'code',d:3,p:'bits',title:'Maximum XOR of Two Numbers',prompt:'<p>Return the largest value of <code>nums[i] ^ nums[j]</code> (i may equal j).</p>',prereq:['bit-ops','build-trie'],
+constraints:['1 ≤ len(nums) ≤ 2 × 10<sup>5</sup>','0 ≤ nums[i] &lt; 2<sup>31</sup>'],
+starter:`def max_xor(nums):
+    # your code here
+    pass`,solution:`def max_xor(nums):
+    best = 0
+    for bit in range(30, -1, -1):
+        best <<= 1
+        candidate = best | 1                   # can this bit of the answer be 1?
+        prefixes = {x >> bit for x in nums}
+        # a ^ b == candidate  <=>  a ^ candidate == b
+        if any(p ^ candidate in prefixes for p in prefixes):
+            best = candidate
+    return best`,
+tests:[['max_xor([3, 10, 5, 25, 2, 8])','28'],['max_xor([14, 70, 53, 83, 49, 91, 36, 80, 92, 51, 66, 70])','127'],['max_xor([0])','0'],['max_xor([8, 10, 2])','10'],['max_xor([1, 2])','3'],['max_xor(list(range(2**16)))','2**16 - 1']],
+hints:['Build the answer greedily from the highest bit: try to make each bit 1.','For a given candidate prefix c, two numbers whose top bits are a and b give a ^ b == c exactly when a ^ c == b: check with a set. (A binary trie works too.)'],approach:'Greedy bit by bit with a set of prefixes (or a bitwise trie).',cx:'O(31 · n) time, O(n) space',
+mistakes:['Trying every pair: O(n²) is too slow for 2 × 10⁵.','Building the answer from the lowest bit, where greedy choices are not safe.'],
+followup:'Answer many queries "max x ^ nums[i] for a given x" with a binary trie.'},
+]);

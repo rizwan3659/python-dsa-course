@@ -434,3 +434,40 @@ def alien_order(words):
     return "".join(order) if len(order) == len(letters) else ""`,tests:[['alien_order(["wrt", "wrf", "er", "ett", "rftt"])','"wertf"'],['alien_order(["z", "x"])','"zx"'],['alien_order(["z", "x", "z"])','""'],['alien_order(["abc", "ab"])','""']],hints:['Compare each pair of neighbouring words: the first differing letters give one ordering rule (an edge).','Topologically sort the letters; a cycle (or a longer word before its own prefix) means invalid.'],approach:'Build edges from adjacent words, then topological sort (heap for the smallest order).',cx:'O(total characters)'}
 ]);
 })();
+
+/* ---------- Bellman-Ford and negative cycles (added with the v2 curriculum) ---------- */
+COURSE.qs('advgraphs',[
+{id:'ag-bf-dr1',type:'dryrun',d:2,p:'shortest-path',title:'Bellman-Ford rounds',code:`INF = float("inf")
+edges = [(2, 3, 2), (1, 2, -3), (0, 2, 5), (0, 1, 4)]
+dist = [0, INF, INF, INF]
+for _ in range(3):
+    for u, v, w in edges:
+        if dist[u] + w < dist[v]:
+            dist[v] = dist[u] + w`,cols:['dist'],rowLabel:'Round',rows:[['[0, 4, 5, inf]'],['[0, 4, 1, 7]'],['[0, 4, 1, 3]']],setup:'One row per round (after all edges are relaxed once).',why:'The edges are listed in an unlucky order, so good distances travel one edge further each round. With n nodes, n − 1 rounds are always enough.'},
+{id:'ag-bf-m1',type:'mcq',d:2,p:'shortest-path',title:'Why n − 1 rounds?',q:'Why does Bellman-Ford relax every edge n − 1 times?',opts:['It is a safety margin','A shortest path without cycles has at most n − 1 edges, and each round fixes at least one more edge of it','Because Dijkstra needs n rounds','To sort the edges'],a:1,why:'After round k, every shortest path with at most k edges has its correct length.'},
+{id:'ag-bf-m2',type:'mcq',d:2,p:'shortest-path',title:'Detecting a negative cycle',q:'After n − 1 rounds, one more round still improves some distance. What does that prove?',opts:['The graph is disconnected','There is a negative cycle reachable from the source, so "shortest" is not defined','The algorithm has a bug','The weights are all positive'],a:1,why:'Without negative cycles every distance is final after n − 1 rounds. Any further improvement means you can keep going round a cycle that lowers the cost.'},
+{id:'ag-bf-ch1',type:'choose',d:2,p:'shortest-path',title:'Refunds on some routes',q:'Some edges have negative cost (refunds), there are no negative cycles, and you need shortest paths from one city.',opts:['Bellman-Ford','Dijkstra','BFS','Prim'],a:0,why:'Dijkstra assumes a settled node never improves, which negative edges break. Bellman-Ford handles them in O(V · E).'},
+{id:'ag-bf-c1',type:'complexity',d:2,p:'shortest-path',title:'Bellman-Ford cost',code:`for _ in range(n - 1):
+    for u, v, w in edges:
+        if dist[u] + w < dist[v]:
+            dist[v] = dist[u] + w`,opts:['O(V + E)','O(E log V)','O(V · E)','O(V²)'],a:2,why:'n − 1 rounds, each relaxing all E edges.'},
+{id:'ag-negative-cycle',type:'code',d:2,p:'shortest-path',title:'Detect a Negative Cycle',prompt:'<p>Nodes are 0..n − 1 and edges are directed <code>(u, v, w)</code>. Return <code>True</code> if the graph contains any cycle with negative total weight (anywhere, not only reachable from node 0).</p>',prereq:['ag-bf-m2'],
+constraints:['1 ≤ n ≤ 500','0 ≤ len(edges) ≤ 5000, −1000 ≤ w ≤ 1000'],
+starter:`def has_negative_cycle(n, edges):
+    # your code here
+    pass`,solution:`def has_negative_cycle(n, edges):
+    dist = [0] * n                 # like a virtual source joined to every node with weight 0
+    for _ in range(n - 1):
+        changed = False
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                changed = True
+        if not changed:            # settled early: no negative cycle
+            return False
+    return any(dist[u] + w < dist[v] for u, v, w in edges)`,
+tests:[['has_negative_cycle(3, [(0, 1, 1), (1, 2, -1), (2, 0, -1)])','True'],['has_negative_cycle(3, [(0, 1, 1), (1, 2, -1), (2, 0, 1)])','False'],['has_negative_cycle(1, [])','False'],['has_negative_cycle(4, [(0, 1, 2), (2, 3, -5), (3, 2, 4)])','True'],['has_negative_cycle(2, [(0, 1, -5)])','False'],['has_negative_cycle(2, [(0, 0, -1)])','True']],
+hints:['Run Bellman-Ford n − 1 rounds; then check whether any edge can still be relaxed.','To catch cycles anywhere, start every distance at 0 (as if a hidden source reached every node at cost 0).'],approach:'Bellman-Ford from a virtual source, plus one extra checking round.',cx:'O(V · E) time, O(V) space',
+mistakes:['Starting only node 0 at distance 0, which misses cycles that node 0 cannot reach.','Stopping after n − 1 rounds without the extra check.'],
+followup:'Return the nodes of one negative cycle (remember each node’s predecessor and walk back n steps).'},
+]);

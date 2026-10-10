@@ -274,3 +274,54 @@ while node.left:
     return best`,tests:[['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 6)','8'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 8)','10'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 14)','None'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 5)','6']],hints:['Every time you go left, the current node is a candidate.'],approach:'Search path, remembering the last “went left” node.',cx:'O(h)'}
 ]);
 })();
+
+/* ---------- hard problems (added with the v2 curriculum) ---------- */
+COURSE.qs('bst',[
+{id:'bst-recover',type:'code',d:3,p:'bst',prelude:'tree',title:'Recover a BST',prompt:'<p>Exactly two nodes of a binary search tree were swapped by mistake. Fix the tree in place by swapping their values back, and return the root.</p>',prereq:['bst-m1'],
+constraints:['2 ≤ number of nodes ≤ 1000','values are distinct'],
+starter:`def recover_tree(root):
+    # your code here
+    pass`,solution:`def recover_tree(root):
+    first = second = prev = None
+    stack, node = [], root
+    while stack or node:                  # iterative inorder: values should increase
+        while node:
+            stack.append(node)
+            node = node.left
+        node = stack.pop()
+        if prev and prev.val > node.val:  # a "drop" in the sorted order
+            if first is None:
+                first = prev
+            second = node
+        prev = node
+        node = node.right
+    first.val, second.val = second.val, first.val
+    return root`,
+tests:[['tree_to_list(recover_tree(build_tree([1, 3, None, None, 2])))','[3, 1, None, None, 2]'],['tree_to_list(recover_tree(build_tree([3, 1, 4, None, None, 2])))','[2, 1, 4, None, None, 3]'],['tree_to_list(recover_tree(build_tree([2, 3, 1])))','[2, 1, 3]'],['tree_to_list(recover_tree(build_tree([4, 2, 6, 7, 3, 5, 1])))','[4, 2, 6, 1, 3, 5, 7]'],['tree_to_list(recover_tree(build_tree([10, 5, 15, 2, 20, 12, 7])))','[10, 5, 15, 2, 7, 12, 20]']],
+hints:['An inorder traversal of a BST is sorted. What does it look like after two values are swapped?','There are one or two places where a value is bigger than the next one. The first wrong node is the left side of the first drop; the second is the right side of the last drop.'],approach:'Inorder traversal, remember the nodes at the order violations, swap their values.',cx:'O(n) time, O(h) space (Morris traversal makes it O(1))',
+mistakes:['Handling only the case of two drops: adjacent swapped nodes give a single drop.','Swapping nodes instead of values (much harder, and not needed).'],
+followup:'Do it with O(1) extra space using Morris inorder traversal.'},
+
+{id:'bst-almost-dup',type:'code',d:3,p:'bst',title:'Contains Nearby Almost Duplicate',prompt:'<p>Return <code>True</code> if there are two different indexes i and j with <code>|i − j| ≤ k</code> and <code>|nums[i] − nums[j]| ≤ t</code>. In languages with a balanced BST you would use a sorted set; in Python, use buckets of width t + 1.</p>',prereq:['h-nearby-dup'],
+constraints:['1 ≤ len(nums) ≤ 10<sup>5</sup>','1 ≤ k ≤ 10<sup>5</sup>, 0 ≤ t ≤ 10<sup>9</sup>'],
+starter:`def almost_duplicate(nums, k, t):
+    # your code here
+    pass`,solution:`def almost_duplicate(nums, k, t):
+    width = t + 1
+    buckets = {}                          # bucket id -> value, only for the last k indexes
+    for i, x in enumerate(nums):
+        b = x // width                    # floor division works for negatives too
+        if b in buckets:
+            return True                   # same bucket: difference <= t
+        for nb in (b - 1, b + 1):         # neighbours may also be close enough
+            if nb in buckets and abs(buckets[nb] - x) <= t:
+                return True
+        buckets[b] = x
+        if i >= k:                        # slide the window: forget nums[i - k]
+            del buckets[nums[i - k] // width]
+    return False`,
+tests:[['almost_duplicate([1, 2, 3, 1], 3, 0)','True'],['almost_duplicate([1, 0, 1, 1], 1, 2)','True'],['almost_duplicate([1, 5, 9, 1, 5, 9], 2, 3)','False'],['almost_duplicate([1], 1, 1)','False'],['almost_duplicate([-3, 3], 2, 4)','False'],['almost_duplicate([-1, -1], 1, 0)','True'],['almost_duplicate(list(range(0, 10**6, 10)), 10**5, 9)','False']],
+hints:['Keep only the last k values. Among them, is there one within t of x? A sorted structure answers that in O(log k).','Bucket trick: with width t + 1, two values in the same bucket always differ by ≤ t, and a close value can only be in the same or a neighbouring bucket.'],approach:'Sliding window of buckets keyed by x // (t + 1).',cx:'O(n) time, O(k) space',
+mistakes:['Using int(x / width), which rounds negative numbers towards zero and merges buckets −1 and 0.','Forgetting to remove the value that leaves the window.'],
+followup:'Solve it with a sorted list and bisect in O(n log k), then compare.'},
+]);

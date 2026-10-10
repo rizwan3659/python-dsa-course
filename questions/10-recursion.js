@@ -379,3 +379,175 @@ def count_paths(r, c):
 
     return place(0)`,tests:[['n_queens(1)','1'],['n_queens(4)','2'],['n_queens(6)','4'],['n_queens(8)','92']],hints:['Place one queen per row; for each row try every column.','A square (r, c) is attacked if its column, its r − c diagonal or its r + c diagonal is taken. Keep three sets.'],approach:'Row-by-row backtracking with column and diagonal sets.',cx:'Exponential, heavily pruned'}
 ]);
+
+/* ---------- pruning and constraint search (added with the v2 curriculum) ---------- */
+COURSE.qs('recursion',[
+{id:'rec-x-p1',type:'predict',d:2,p:'backtracking',title:'Pruning a sorted search',code:`calls = 0
+
+def search(nums, start, remaining):
+    global calls
+    calls += 1
+    if remaining == 0:
+        return 1
+    count = 0
+    for i in range(start, len(nums)):
+        if nums[i] > remaining:
+            break                      # sorted: every later number is bigger too
+        count += search(nums, i + 1, remaining - nums[i])
+    return count
+
+print(search([1, 2, 3, 4, 5, 6, 7, 8], 0, 6), calls)`,a:'4 14',hints:['The subsets of 1..8 that sum to 6 are {6}, {1, 5}, {2, 4} and {1, 2, 3}.','Because the list is sorted, the loop stops as soon as a number is too big.'],why:'Only 14 calls instead of up to 2⁸ = 256: pruning cuts every branch that can no longer reach the target.'},
+{id:'rec-x-m1',type:'mcq',d:1,p:'backtracking',title:'What pruning means',q:'In backtracking, "pruning" means…',opts:['Removing duplicates from the output afterwards','Stopping a branch as soon as it cannot lead to a valid answer','Sorting the output','Using a loop instead of recursion'],a:1,why:'The earlier a dead branch is cut, the more of the exponential tree is never visited. Sorting the choices often makes cuts possible.'},
+{id:'rec-x-m2',type:'mcq',d:2,p:'backtracking',title:'Skipping duplicate choices',q:'In Combination Sum II the candidates contain duplicates. Why does the loop skip i when i > start and nums[i] == nums[i − 1]?',opts:['To make it faster only','Choosing the second equal value at the same depth would build exactly the same combinations again','Because duplicates are invalid input','To keep the list sorted'],a:1,why:'At one level of the tree, equal values lead to identical subtrees. Use each distinct value once per level (it can still be picked again one level deeper).'},
+{id:'rec-x-m3',type:'mcq',d:2,p:'backtracking',title:'Sudoku search order',q:'A Sudoku solver tries digits 1–9 in each empty cell. What helps most?',opts:['Trying cells from the bottom right','Checking row, column and box constraints before recursing, so invalid digits are never explored','Recursing first and validating the full board at the end','Using a while loop'],a:1,why:'Validating at the end explores up to 9⁸¹ boards. Checking each placement immediately prunes almost everything. (Choosing the cell with the fewest options helps even more.)'},
+{id:'rec-x-c1',type:'complexity',d:2,p:'backtracking',title:'Word search',code:`for r in range(rows):
+    for c in range(cols):
+        found = found or dfs(r, c, 0)   # tries 4 directions, then 3 per step`,opts:['O(rows · cols)','O(rows · cols · 3^L) where L = len(word)','O(L)','O(2^(rows · cols))'],a:1,why:'Each of the rows · cols starting cells can explore up to 4 · 3^(L − 1) paths of length L.'},
+{id:'rec-x-d1',type:'debug',d:2,p:'backtracking',title:'The shared path',code:`def subsets(nums):
+    result = []
+    path = []
+    def go(i):
+        if i == len(nums):
+            result.append(path)
+            return
+        go(i + 1)
+        path.append(nums[i])
+        go(i + 1)
+        path.pop()
+    go(0)
+    return result`,opts:['go(i + 1) is called twice','result stores the same path list object every time; by the end it is empty. Append a copy: path[:]','path should be a tuple','The base case is wrong'],a:1,why:'Backtracking mutates one list. Snapshot it when you record an answer.',fix:`def subsets(nums):
+    result = []
+    path = []
+    def go(i):
+        if i == len(nums):
+            result.append(path[:])
+            return
+        go(i + 1)
+        path.append(nums[i])
+        go(i + 1)
+        path.pop()
+    go(0)
+    return result`,tests:[['sorted(subsets([1, 2]))','[[], [1], [1, 2], [2]]'],['subsets([])','[[]]']]},
+{id:'rec-combination-sum-ii',type:'code',d:2,p:'backtracking',title:'Combination Sum II',prompt:'<p>Return all unique combinations of <code>candidates</code> that sum to <code>target</code>. Each candidate may be used once, but the list may contain duplicate values; the output must not contain duplicate combinations. Each combination should be in non-decreasing order.</p>',prereq:['rec-combination-sum'],
+constraints:['1 ≤ len(candidates) ≤ 100','1 ≤ candidates[i] ≤ 50, 1 ≤ target ≤ 30'],
+starter:`def combination_sum2(candidates, target):
+    # your code here
+    pass`,solution:`def combination_sum2(candidates, target):
+    nums = sorted(candidates)
+    result, path = [], []
+
+    def go(start, remaining):
+        if remaining == 0:
+            result.append(path[:])
+            return
+        for i in range(start, len(nums)):
+            if i > start and nums[i] == nums[i - 1]:
+                continue                 # same value at the same depth: duplicate subtree
+            if nums[i] > remaining:
+                break                    # sorted: nothing after this fits either
+            path.append(nums[i])
+            go(i + 1, remaining - nums[i])
+            path.pop()
+
+    go(0, target)
+    return result`,
+tests:[['combination_sum2([10, 1, 2, 7, 6, 1, 5], 8)','[[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]','groups'],['combination_sum2([2, 5, 2, 1, 2], 5)','[[1, 2, 2], [5]]','groups'],['combination_sum2([1], 2)','[]','groups'],['combination_sum2([2], 2)','[[2]]','groups'],['len(combination_sum2([1] * 30, 30))','1']],
+hints:['Sort first, so equal values sit together and you can stop early.','At each depth, skip a value equal to the previous one at that same depth; recurse with i + 1 because each item is used once.'],approach:'Sorted backtracking with duplicate skipping and early break.',cx:'O(2ⁿ) worst case, heavily pruned',
+mistakes:['Generating all combinations and removing duplicates with a set afterwards (slow on [1] * 30).','Skipping duplicates with i > 0 instead of i > start, which also removes valid combinations like [1, 1, 6].'],
+followup:'Return only the number of combinations, using DP over sums instead of backtracking.'},
+{id:'rec-subsets-dup',type:'code',d:2,p:'backtracking',title:'Subsets II (with duplicates)',prompt:'<p>Return all distinct subsets of a list that may contain duplicates. The order of subsets does not matter; each subset should be sorted.</p>',prereq:['rec-subsets'],
+constraints:['0 ≤ len(nums) ≤ 10','−10 ≤ nums[i] ≤ 10'],
+starter:`def subsets_with_dup(nums):
+    # your code here
+    pass`,solution:`def subsets_with_dup(nums):
+    nums = sorted(nums)
+    result, path = [], []
+
+    def go(start):
+        result.append(path[:])           # every node of the tree is a subset
+        for i in range(start, len(nums)):
+            if i > start and nums[i] == nums[i - 1]:
+                continue
+            path.append(nums[i])
+            go(i + 1)
+            path.pop()
+
+    go(0)
+    return result`,
+tests:[['subsets_with_dup([1, 2, 2])','[[], [1], [1, 2], [1, 2, 2], [2], [2, 2]]','groups'],['subsets_with_dup([0])','[[], [0]]','groups'],['subsets_with_dup([])','[[]]','groups'],['len(subsets_with_dup([2, 2, 2, 2]))','5'],['len(subsets_with_dup([1, 2, 3]))','8']],
+hints:['Sort so that duplicates are next to each other.','Use the same skip rule as Combination Sum II: at one depth, take each distinct value once.'],approach:'Backtracking over start indexes with duplicate skipping; record every path.',cx:'O(n · 2ⁿ)',
+mistakes:['Using a set of tuples to deduplicate afterwards (works, but wastes the whole duplicate search).','Forgetting to sort first.'],
+followup:'Count the distinct subsets with a formula: the product of (count of each value + 1).'},
+{id:'rec-word-search',type:'code',d:2,p:'backtracking',title:'Word Search',prompt:'<p>Return <code>True</code> if <code>word</code> can be spelled by moving between horizontally or vertically adjacent cells of the board, using each cell at most once.</p>',
+constraints:['1 ≤ rows, cols ≤ 6','1 ≤ len(word) ≤ 15'],
+starter:`def exist(board, word):
+    # your code here
+    pass`,solution:`def exist(board, word):
+    rows, cols = len(board), len(board[0])
+
+    def dfs(r, c, k):
+        if k == len(word):
+            return True
+        if not (0 <= r < rows and 0 <= c < cols) or board[r][c] != word[k]:
+            return False
+        saved, board[r][c] = board[r][c], "#"      # mark as used
+        found = any(dfs(r + dr, c + dc, k + 1) for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        board[r][c] = saved                          # undo the choice
+        return found
+
+    return any(dfs(r, c, 0) for r in range(rows) for c in range(cols))`,
+post:`B = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]`,
+tests:[['exist([row[:] for row in B], "ABCCED")','True'],['exist([row[:] for row in B], "SEE")','True'],['exist([row[:] for row in B], "ABCB")','False'],['exist([["a"]], "a")','True'],['exist([["a", "b"]], "ba")','True'],['exist([["a", "a"]], "aaa")','False']],
+hints:['Start a DFS from every cell; each step must match the next letter.','Mark a cell as used before recursing and restore it afterwards (that is the "backtrack").'],approach:'DFS with in-place marking and undo.',cx:'O(rows · cols · 3^L)',
+mistakes:['Forgetting to restore the cell, which breaks other search paths.','Reusing a cell ("ABCB" must be False).'],
+followup:'Find all dictionary words on the board at once with a trie (Word Search II).'},
+{id:'rec-sudoku',type:'code',d:3,p:'backtracking',title:'Sudoku Solver',prompt:'<p>Fill the 9 × 9 board (0 = empty) so that every row, column and 3 × 3 box contains the digits 1–9 exactly once. Modify the board in place and return it. The puzzle has exactly one solution.</p>',prereq:['rec-n-queens','rec-x-m3'],
+constraints:['board is 9 × 9, values 0–9','the puzzle is valid and has a unique solution'],
+starter:`def solve_sudoku(board):
+    # your code here
+    pass`,solution:`def solve_sudoku(board):
+    rows = [set() for _ in range(9)]
+    cols = [set() for _ in range(9)]
+    boxes = [set() for _ in range(9)]
+    empty = []
+    for r in range(9):
+        for c in range(9):
+            v = board[r][c]
+            if v:
+                rows[r].add(v)
+                cols[c].add(v)
+                boxes[r // 3 * 3 + c // 3].add(v)
+            else:
+                empty.append((r, c))
+
+    def go(k):
+        if k == len(empty):
+            return True
+        r, c = empty[k]
+        b = r // 3 * 3 + c // 3
+        for v in range(1, 10):
+            if v in rows[r] or v in cols[c] or v in boxes[b]:
+                continue                         # prune: breaks a rule already
+            board[r][c] = v
+            rows[r].add(v); cols[c].add(v); boxes[b].add(v)
+            if go(k + 1):
+                return True
+            rows[r].remove(v); cols[c].remove(v); boxes[b].remove(v)
+        board[r][c] = 0
+        return False
+
+    go(0)
+    return board`,
+post:`def _board(s):
+    return [[int(ch) if ch != "." else 0 for ch in s[r * 9:(r + 1) * 9]] for r in range(9)]
+P1 = "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79"
+S1 = "534678912672195348198342567859761423426853791713924856961537284287419635345286179"
+def _valid(b):
+    groups = [b[r] for r in range(9)] + [[b[r][c] for r in range(9)] for c in range(9)]
+    groups += [[b[r][c] for r in range(br, br + 3) for c in range(bc, bc + 3)] for br in (0, 3, 6) for bc in (0, 3, 6)]
+    return all(sorted(g) == list(range(1, 10)) for g in groups)`,
+tests:[['solve_sudoku(_board(P1))','_board(S1)','','the classic puzzle'],['solve_sudoku(_board("." + S1[1:]))','_board(S1)','','only one empty cell'],['solve_sudoku(_board(S1))','_board(S1)','','already solved'],['_valid(solve_sudoku(_board(P1)))','True','','every row, column and box holds 1–9'],['solve_sudoku(_board(S1[:40] + "." * 9 + S1[49:]))','_board(S1)','','a fully empty stretch of nine cells']],
+hints:['List the empty cells, then fill them one by one; undo when you get stuck.','Keep three lists of sets (rows, columns, boxes) so a digit can be checked in O(1). Box index: r // 3 * 3 + c // 3.'],approach:'Backtracking over empty cells with O(1) constraint checks via sets.',cx:'Exponential in the worst case; fast on real puzzles thanks to pruning',
+mistakes:['Validating the whole board after every placement (slow).','Forgetting to reset the cell to 0 and remove the digit from the sets when backtracking.','Wrong box index, e.g. r // 3 + c // 3.'],
+followup:'Always fill the empty cell with the fewest possible digits first. How much faster does it get on hard puzzles?'},
+]);

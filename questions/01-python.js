@@ -249,3 +249,127 @@ def group_by_len(words):
         groups[len(w)].append(w)
     return dict(groups)`,tests:[['group_by_len(["hi", "cat", "yo", "dog"])','{2: ["hi", "yo"], 3: ["cat", "dog"]}'],['group_by_len([])','{}']],hints:['Use the length as the key.','defaultdict(list) creates an empty list the first time you touch a key.'],approach:'defaultdict(list) keyed by length.',cx:'O(n) time'}
 ]);
+
+/* ---------- errors, copies and input (added with the v2 curriculum) ---------- */
+COURSE.qs('python',[
+{id:'py-e1',type:'predict',d:2,p:'python',title:'try, except, else, finally',code:`def f(x):
+    try:
+        r = 10 // x
+    except ZeroDivisionError:
+        print("zero")
+        return None
+    else:
+        print("ok")
+        return r
+    finally:
+        print("done")
+
+print(f(2))
+print(f(0))`,a:'ok\ndone\n5\nzero\ndone\nNone',hints:['else runs only when the try block raised nothing.','finally runs every time, even after a return.'],why:'For f(2): try succeeds → else prints "ok" → finally prints "done" → 5 is returned and printed. For f(0): except prints "zero" → finally → None.'},
+{id:'py-e2',type:'predict',d:2,p:'python',title:'Shallow vs deep copy',code:`import copy
+
+grid = [[1, 2], [3, 4]]
+shallow = grid.copy()
+deep = copy.deepcopy(grid)
+grid[0][0] = 99
+print(shallow[0][0], deep[0][0])`,a:'99 1',why:'A shallow copy is a new outer list holding the <b>same</b> inner lists. deepcopy copies the inner lists too.'},
+{id:'py-e3',type:'predict',d:1,p:'python',title:'Skipping bad input',code:`for s in ["12", "x", "7"]:
+    try:
+        print(int(s) * 2)
+    except ValueError:
+        print("skip", s)`,a:'24\nskip x\n14',why:'int("x") raises ValueError; the except block handles it and the loop continues.'},
+{id:'py-e4',type:'predict',d:1,p:'python',title:'Parsing lines of input',code:`data = """3
+10 20
+30 40
+50 60"""
+lines = data.splitlines()
+n = int(lines[0])
+pairs = [tuple(map(int, line.split())) for line in lines[1:n + 1]]
+print(pairs[-1], sum(a for a, b in pairs))`,a:'(50, 60) 90',why:'The typical input format: a count on the first line, then one record per line. split() + map(int, ...) turns "50 60" into (50, 60).'},
+{id:'py-e5',type:'mcq',d:1,p:'python',title:'What to catch',q:'Which is the best way to handle a possibly invalid number in user input?',opts:['Wrap the whole program in try/except: pass','Catch the specific ValueError around int(s) and decide what to do','Never use exceptions','Use a bare except: so nothing can crash'],a:1,why:'Catch only errors you expect and can handle. A bare <code>except:</code> also hides typos, KeyboardInterrupt and real bugs.'},
+{id:'py-e6',type:'mcq',d:2,p:'python',title:'When is a shallow copy enough?',q:'You copy a list of lists and then change values inside the inner lists. What copy do you need?',opts:['b = a','b = a[:]','A deep copy: [row[:] for row in a] or copy.deepcopy(a)','No copy at all'],a:2,why:'a[:] copies only the outer list. Inner lists are still shared, so changing b[0][0] changes a[0][0].'},
+{id:'py-e7',type:'mcq',d:2,p:'python',title:'Reading big input fast',q:'A judge sends 10⁶ lines of input. Why do many Python solutions use sys.stdin?',opts:['input() cannot read numbers','sys.stdin.readline (or reading everything with sys.stdin.read().split()) is much faster than calling input() a million times','sys.stdin sorts the input','It is required by Python'],a:1,why:'input() has per-call overhead. Reading all input at once and splitting it is the fastest common pattern.'},
+{id:'py-e8',type:'debug',d:2,p:'python',title:'One bad value stops everything',code:`def parse_all(items):
+    out = []
+    try:
+        for s in items:
+            out.append(int(s))
+    except ValueError:
+        pass
+    return out`,opts:['int() cannot parse negative numbers','The try wraps the whole loop, so the first bad value ends the loop. Put the try inside the loop.','out should be a set','ValueError should be TypeError'],a:1,why:'An exception jumps straight to its handler: the loop is abandoned. Handle each item separately.',fix:`def parse_all(items):
+    out = []
+    for s in items:
+        try:
+            out.append(int(s))
+        except ValueError:
+            pass
+    return out`,tests:[['parse_all(["1", "x", "3"])','[1, 3]'],['parse_all(["-4", "5"])','[-4, 5]'],['parse_all(["a", "b"])','[]']]},
+{id:'py-e9',type:'debug',d:2,p:'python',title:'The copy that is not a copy',code:`def with_border(grid):
+    new = [row for row in grid]
+    for row in new:
+        row.insert(0, 0)
+    return new`,opts:['insert is the wrong method','new holds the same row lists as grid, so inserting changes the caller’s grid too. Copy each row: [row[:] for row in grid]','The function should return grid','range is missing'],a:1,why:'A comprehension over the rows only copies references to them. Copy the inner lists if you are going to change them.',fix:`def with_border(grid):
+    new = [row[:] for row in grid]
+    for row in new:
+        row.insert(0, 0)
+    return new`,tests:[['(lambda g: (with_border(g), g)[1])([[1, 2]])','[[1, 2]]'],['with_border([[1], [2]])','[[0, 1], [0, 2]]']]},
+{id:'py-safe-divide',type:'code',d:1,p:'python',title:'Safe Division',prompt:'<p>Return <code>a / b</code>, or <code>None</code> if the division is impossible because b is zero or one of the values is not a number. Use try/except rather than checking types first.</p>',
+constraints:['a and b can be any Python values'],
+starter:`def safe_divide(a, b):
+    # your code here
+    pass`,solution:`def safe_divide(a, b):
+    try:
+        return a / b
+    except (ZeroDivisionError, TypeError):
+        return None`,
+tests:[['safe_divide(10, 4)','2.5'],['safe_divide(1, 0)','None'],['safe_divide("6", 2)','None'],['safe_divide(-9, 3)','-3.0'],['safe_divide(None, 1)','None']],
+hints:['Which exceptions can a / b raise?','Catch ZeroDivisionError and TypeError in one except with a tuple.'],approach:'try the division, catch the two expected exceptions.',cx:'O(1)',
+mistakes:['A bare except:, which would also hide unrelated bugs.','Checking b == 0 but forgetting non-numbers.'],
+followup:'Return a helpful error message string instead of None, using the exception object (except ... as e).'},
+{id:'py-parse-scores',type:'code',d:2,p:'python',title:'Parse Score Lines',prompt:'<p>The text has one <code>name:score</code> per line. Return a dict from name to integer score. Skip blank or malformed lines (no colon, or a score that is not an integer). Surrounding spaces should be ignored. If a name appears again, keep the higher score.</p>',
+constraints:['0 ≤ number of lines ≤ 10<sup>4</sup>'],
+starter:`def parse_scores(text):
+    # your code here
+    pass`,solution:`def parse_scores(text):
+    scores = {}
+    for line in text.splitlines():
+        if ":" not in line:
+            continue
+        name, _, raw = line.partition(":")
+        name = name.strip()
+        try:
+            score = int(raw.strip())
+        except ValueError:
+            continue
+        if name and (name not in scores or score > scores[name]):
+            scores[name] = score
+    return scores`,
+tests:[['parse_scores("ann:5\\nbob: 7")','{"ann": 5, "bob": 7}'],['parse_scores("")','{}'],['parse_scores("ann:5\\nbad line\\nbob:x\\n\\ncy:3")','{"ann": 5, "cy": 3}'],['parse_scores("ann:5\\nann:9\\nann:2")','{"ann": 9}'],['parse_scores("  dee  :  -4  ")','{"dee": -4}']],
+hints:['Process line by line with splitlines(); split each line at the first colon.','Wrap only int(...) in try/except ValueError and continue on failure.'],approach:'splitlines → partition(":") → strip → int in a try → keep the max per name.',cx:'O(total length of the text)',
+mistakes:['Splitting on every colon (names could be followed by more colons).','Letting one bad line crash the whole parse.'],
+followup:'Also return a list of the line numbers that were skipped, for error reporting.'},
+{id:'py-deep-copy',type:'code',d:2,p:'recursion',title:'Deep Copy Nested Lists',prompt:'<p>Write <code>deep_copy(x)</code> for values built from lists and immutable values (ints, strings, …), without the copy module. Every list in the result must be a new list.</p>',prereq:['py-e2'],
+constraints:['Nesting depth ≤ 100'],
+starter:`def deep_copy(x):
+    # your code here
+    pass`,solution:`def deep_copy(x):
+    if isinstance(x, list):
+        return [deep_copy(item) for item in x]   # new list, copied items
+    return x                                    # immutable: safe to share`,
+tests:[['deep_copy([1, [2, [3]]])','[1, [2, [3]]]'],['(lambda a: (lambda b: b == a and b is not a and b[1] is not a[1] and b[1][1] is not a[1][1])(deep_copy(a)))([1, [2, [3]]])','True'],['deep_copy(5)','5'],['deep_copy([])','[]'],['(lambda a: (deep_copy(a)[0].append(9), a)[1])([[1]])','[[1]]']],
+hints:['If x is a list, build a new list by copying each item; otherwise return x itself.','The copy of each item uses the same function: recursion.'],approach:'Recursively rebuild every list; share immutable values.',cx:'O(total number of elements)',
+mistakes:['x[:] or list(x), which only copies the outer list.','Copying ints (unnecessary: they are immutable).'],
+followup:'Extend it to dicts and sets, and handle a list that contains itself (keep a dict of already-copied objects by id).'},
+{id:'py-read-matrix',type:'code',d:1,p:'python',title:'Read a Matrix from Text',prompt:'<p>The first line holds the number of rows and columns; each following line holds one row of integers separated by spaces. Return the matrix as a list of lists.</p>',
+constraints:['1 ≤ rows, cols ≤ 1000'],
+starter:`def read_matrix(text):
+    # your code here
+    pass`,solution:`def read_matrix(text):
+    lines = text.split("\\n")
+    rows, cols = map(int, lines[0].split())
+    return [list(map(int, lines[1 + r].split()))[:cols] for r in range(rows)]`,
+tests:[['read_matrix("2 3\\n1 2 3\\n4 5 6")','[[1, 2, 3], [4, 5, 6]]'],['read_matrix("1 1\\n-7")','[[-7]]'],['read_matrix("2 2\\n1  2\\n3 4\\n")','[[1, 2], [3, 4]]'],['read_matrix("3 1\\n0\\n0\\n9")','[[0], [0], [9]]']],
+hints:['Split the text into lines; the first line gives the size.','For each row line: split() then map(int, ...).'],approach:'Read the header, then parse exactly rows lines.',cx:'O(rows · cols)',
+mistakes:['split(" ") breaks on double spaces; split() with no argument does not.','Forgetting to convert strings to int.'],
+followup:'Read the same format from real standard input with sys.stdin.'},
+]);
