@@ -173,13 +173,31 @@ function challenges(){setNav('challenges');document.title='Challenges · Python 
 
 /* ================= INTERVIEW ================= */
 const IVT={1:20,2:35,3:45};
+/* Top 100 roadmap (questions/roadmap.js): tracks, a week plan and every problem with its status */
+function roadmapHTML(){const R=C.ROADMAP;if(!R)return '';const track=U.store.get('iv:track','all');
+  const items=R.groups.flatMap(g=>g.items);const solved=k=>items.filter(([id,t])=>(k==='all'||t===k)&&P.status(id)==='solved').length;
+  const count=k=>items.filter(([,t])=>k==='all'||t===k).length;
+  const btn=(k,label)=>`<button class="btn small" type="button" data-track="${k}" aria-pressed="${track===k}">${label} <span class="mono">${solved(k)}/${count(k)}</span></button>`;
+  const tname=k=>(R.tracks.find(t=>t.k===k)||{}).name||k;
+  return `<section class="panel" data-roadmap><h3>Top 100 interview roadmap</h3>
+   <p class="intro">100 problems chosen to cover every common pattern. Work through one track at a time; each problem opens in the normal editor with hints. Then come back and do timed rounds above.</p>
+   <div class="row">${btn('all','All')}${R.tracks.map(t=>btn(t.k,t.name)).join('')}</div>
+   ${track!=='all'?`<p class="small muted">${(R.tracks.find(t=>t.k===track)||{}).desc||''}</p>`:''}
+   <details class="more"><summary>Suggested 8-week plan</summary>${U.tableHTML(['Week','Focus'],R.plan)}</details>
+   ${R.groups.map(g=>{const rows=g.items.filter(([,t])=>track==='all'||t===track);if(!rows.length)return '';
+     return `<h4>${g.name} <span class="small muted">${rows.filter(([id])=>P.status(id)==='solved').length}/${rows.length}</span></h4>${U.tableHTML(['Status','Problem','Difficulty','Track','Topic'],rows.map(([id,t])=>{const q=C.qmap[id];return [statusCell(id),`<a href="#q/${id}">${q.title}</a>`,U.diffHTML(q.d||1),tname(t),T(q.topic).short]}))}`}).join('')}
+   <p class="small muted">Also in the repository: <code>docs/interview/</code> has the pattern guide, how to communicate a solution, common Python mistakes and mock interview scripts.</p></section>`}
+
 function interview(){setNav('interview');document.title='Interview practice · Python DSA Lab';const hist=P.ivList();
   const p=page(`<div class="page-head"><span class="eyebrow">Interview</span><h1>Interview Practice</h1><p class="lead">A random problem, a clock, and no hints or pattern labels. Solve it on your own, then get a debrief: correctness, approach, complexity and the reference solution.</p></div>
    <section class="panel do"><h3>Choose a round</h3><div class="grid3">${[[1,'Easy interview','Warm-up problems. 20 minutes.'],[2,'Medium interview','Typical phone-screen problems. 35 minutes.'],[3,'Hard interview','Onsite-level problems. 45 minutes.']].map(([d,t,s])=>`<button class="vcard" type="button" data-d="${d}" style="text-align:left;font:inherit;cursor:pointer"><span>${U.diffHTML(d)}</span><b>${t}</b><span class="small muted">${s}</span></button>`).join('')}</div>
    <label class="inline small"><input type="checkbox" data-studied ${U.store.get('iv:studied',false)?'checked':''}> Only topics I have started</label>
    <ul class="clean small muted"><li>Talk through your approach out loud (or write it down) before coding.</li><li>State the complexity of your solution.</li><li>Test with your own examples using <b>Run</b> before you <b>Submit</b>.</li></ul></section>
+   ${roadmapHTML()}
    <section class="panel"><h3>History</h3>${hist.length?U.tableHTML(['Date','Problem','Level','Result','Time'],hist.slice(0,15).map(h=>[new Date(h.at).toLocaleDateString(),C.qmap[h.id]?`<a href="#q/${h.id}">${C.qmap[h.id].title}</a>`:h.id,U.diffHTML(h.d),h.ok?'<span class="st-solved">✓ passed</span>':'<span class="st-rev">✗ not yet</span>',U.fmt(h.secs)])):'<div class="empty">No interviews yet.</div>'}</section>`);
   p.querySelector('[data-studied]').addEventListener('change',e=>U.store.set('iv:studied',e.target.checked));
+  const rm=p.querySelector('[data-roadmap]');
+  if(rm)rm.addEventListener('click',e=>{const b=e.target.closest('[data-track]');if(!b)return;U.store.set('iv:track',b.dataset.track);interview()});
   p.addEventListener('click',e=>{const b=e.target.closest('[data-d]');if(!b)return;const d=+b.dataset.d;const only=U.store.get('iv:studied',false);
     const started=new Set(C.topics.filter(t=>{const s=P.topicStats(t.id);return s.attempted||s.lessonsDone}).map(t=>t.id));
     const seen=new Set(hist.map(h=>h.id));let pool=C.questions.filter(q=>q.type==='code'&&!q.build&&(q.d||1)===d&&(!only||started.has(q.topic)));

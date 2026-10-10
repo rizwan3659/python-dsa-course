@@ -57,6 +57,16 @@ for (const t of C.topics) {
   t.learn.forEach((l, i) => walk(l.blocks, `${t.id}.learn${i + 1}`));
   ['visualize', 'challenge', 'review'].forEach(k => walk(t[k], `${t.id}.${k}`));
 }
+// interview roadmap: exactly 100 known, unique coding problems
+if (C.ROADMAP) {
+  const ids = C.ROADMAP.groups.flatMap(g => g.items.map(([id]) => id));
+  if (ids.length !== 100) problems.push(`roadmap has ${ids.length} problems, expected 100`);
+  if (new Set(ids).size !== ids.length) problems.push('roadmap has duplicate problems');
+  C.ROADMAP.groups.forEach(g => g.items.forEach(([id, k]) => {
+    if (!C.qmap[id] || C.qmap[id].type !== 'code') problems.push(`roadmap: ${id} is not a coding problem`);
+    if (!C.ROADMAP.tracks.some(t => t.k === k)) problems.push(`roadmap: ${id} has unknown track ${k}`);
+  }));
+}
 C.vizMeta.forEach(v => { if (!C.tmap[v.topic]) problems.push(`viz ${v.name}: unknown topic ${v.topic}`); });
 
 // ---- python checks ----
