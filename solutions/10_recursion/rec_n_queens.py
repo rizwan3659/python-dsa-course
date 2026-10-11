@@ -3,6 +3,12 @@
 Complexity: Exponential, heavily pruned
 
 Approach: Row-by-row backtracking with column and diagonal sets.
+
+Common mistakes:
+- Checking only columns, not diagonals.
+- Scanning the board to test safety instead of keeping sets.
+
+Follow-up challenge: Return one board layout as strings.
 """
 
 

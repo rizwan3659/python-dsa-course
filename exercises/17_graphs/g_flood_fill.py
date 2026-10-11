@@ -7,6 +7,12 @@ Starting at (sr, sc), recolor the connected region of the same color
 Examples:
     flood_fill([[1, 1, 1], [1, 1, 0], [1, 0, 1]], 1, 1, 2)  ->  [[2, 2, 2], [2, 2, 0], [2, 0, 1]]
     flood_fill([[0, 0, 0], [0, 0, 0]], 0, 0, 0)  ->  [[0, 0, 0], [0, 0, 0]]
+    flood_fill([[1]], 0, 0, 5)  ->  [[5]]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ rows, cols ≤ 50
 
 Target complexity: O(rows × cols)
 

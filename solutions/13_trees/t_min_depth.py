@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: BFS to the first leaf.
+
+Common mistakes:
+- Taking min(left, right) when one side is empty (a node with one child is
+  not a leaf).
+
+Follow-up challenge: Solve it with BFS, stopping at the first leaf.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

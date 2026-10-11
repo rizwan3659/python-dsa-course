@@ -11,6 +11,11 @@ Examples:
     hanoi(2)  ->  [("A", "B"), ("A", "C"), ("B", "C")]
     len(hanoi(10))  ->  1023
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 0 ≤ n ≤ 20
+
 Target complexity: O(2ⁿ) moves
 
 Check your work:   python dsa.py test rec-hanoi

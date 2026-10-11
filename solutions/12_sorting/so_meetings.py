@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Sort by start; compare each start with the previous end.
+
+Common mistakes:
+- Not sorting first.
+- Using >= when comparing, which flags back-to-back meetings.
+
+Follow-up challenge: Return the minimum number of rooms (hp-meeting-rooms).
 """
 
 

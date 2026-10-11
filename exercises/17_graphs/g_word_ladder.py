@@ -10,6 +10,12 @@ Examples:
     ladder_length("hit", "cog", ["hot", "dot", "dog", "lot", "log"])  ->  0
     ladder_length("a", "c", ["a", "b", "c"])  ->  2
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(word_list) ≤ 5000
+- all words have the same length
+
 Target complexity: O(N · L · 26)
 
 Check your work:   python dsa.py test g-word-ladder

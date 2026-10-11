@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Loop 1..n with if/elif in the right order.
+
+Common mistakes:
+- Checking % 3 before % 15, so 15 becomes "Fizz".
+- Returning numbers instead of strings.
+
+Follow-up challenge: Make the rules data-driven: a list of (divisor, word)
+pairs so that adding "Bazz" for 7 needs no new if.
 """
 
 

@@ -3,6 +3,11 @@
 Complexity: O(h)
 
 Approach: Search path, remembering the last “went left” node.
+
+Common mistakes:
+- Only looking in the right subtree (the successor may be an ancestor).
+
+Follow-up challenge: Find the predecessor too.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

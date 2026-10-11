@@ -9,6 +9,11 @@ Examples:
     find_circle_num([[1, 0, 0], [0, 1, 0], [0, 0, 1]])  ->  3
     find_circle_num([[1]])  ->  1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 200
+
 Target complexity: O(n² α(n))
 
 Check your work:   python dsa.py test ag-provinces

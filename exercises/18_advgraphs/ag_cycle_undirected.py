@@ -9,6 +9,11 @@ Examples:
     has_cycle_undirected(4, [(0, 1), (1, 2), (2, 3)])  ->  False
     has_cycle_undirected(2, [])  ->  False
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 10^5
+
 Target complexity: O(E α(V))
 
 Check your work:   python dsa.py test ag-cycle-undirected

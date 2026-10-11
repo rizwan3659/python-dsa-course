@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: BFS, one level per round.
+
+Common mistakes:
+- Mixing levels because you do not process the queue one level at a time.
+- Using a list with pop(0): O(n) per pop.
+
+Follow-up challenge: Return the levels bottom-up.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

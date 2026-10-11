@@ -3,6 +3,12 @@
 Complexity: O(L) without dots; worse with many dots
 
 Approach: Trie + DFS branching on wildcards.
+
+Common mistakes:
+- Treating "." as a literal character.
+- Matching prefixes instead of whole words.
+
+Follow-up challenge: Support "*" for any sequence of letters.
 """
 
 

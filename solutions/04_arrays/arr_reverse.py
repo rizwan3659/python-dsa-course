@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Two pointers from both ends, swapping as they move inward.
+
+Common mistakes:
+- Looping to the end instead of the middle, which reverses everything twice.
+- Building a new list instead of changing nums.
+
+Follow-up challenge: Reverse only the part between indexes l and r.
 """
 
 

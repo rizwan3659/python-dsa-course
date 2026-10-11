@@ -12,6 +12,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(words) ≤ 100
+- lowercase letters
+
 Target complexity: O(total characters)
 
 Check your work:   python dsa.py test ag-alien

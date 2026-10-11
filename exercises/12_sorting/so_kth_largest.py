@@ -9,6 +9,11 @@ Examples:
     find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)  ->  4
     find_kth_largest([1], 1)  ->  1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ len(nums) ≤ 10^5
+
 Target complexity: O(n) average
 
 Check your work:   python dsa.py test so-kth-largest

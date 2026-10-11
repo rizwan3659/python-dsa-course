@@ -136,7 +136,7 @@ def find_kth_largest(nums, k):
         heapq.heappush(h, x)
         if len(h) > k:
             heapq.heappop(h)
-    return h[0]`,tests:[['find_kth_largest([3, 2, 1, 5, 6, 4], 2)','5'],['find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)','4'],['find_kth_largest([7], 1)','7']],hints:['Keep only the k largest values seen so far.','A min-heap makes the smallest of those k easy to evict.'],approach:'Min-heap of size k.',cx:'O(n log k)'},
+    return h[0]`,tests:[['find_kth_largest([3, 2, 1, 5, 6, 4], 2)','5'],['find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4)','4'],['find_kth_largest([7], 1)','7'],['find_kth_largest([1, 2], 2)','1']],constraints:['1 ≤ k ≤ len(nums) ≤ 10<sup>5</sup>'],mistakes:['Using a max-heap of all n elements (O(n log n)).','Popping when the heap has k elements instead of more than k.'],followup:'Keep it working for a stream of numbers.',hints:['Keep only the k largest values seen so far.','A min-heap makes the smallest of those k easy to evict.'],approach:'Min-heap of size k.',cx:'O(n log k)'},
 {id:'hp-last-stone',type:'code',d:1,p:'heap-topk',title:'Last Stone Weight',prompt:'<p>Repeatedly smash the two heaviest stones x ≤ y: if equal both vanish, otherwise a stone of weight y − x remains. Return the last weight, or 0.</p>',starter:`import heapq
 
 def last_stone_weight(stones):
@@ -150,7 +150,7 @@ def last_stone_weight(stones):
         x = -heapq.heappop(h)
         if y != x:
             heapq.heappush(h, -(y - x))
-    return -h[0] if h else 0`,tests:[['last_stone_weight([2, 7, 4, 1, 8, 1])','1'],['last_stone_weight([1])','1'],['last_stone_weight([2, 2])','0']],hints:['You need the two largest values again and again: a max-heap.'],approach:'Max-heap via negation.',cx:'O(n log n)'},
+    return -h[0] if h else 0`,tests:[['last_stone_weight([2, 7, 4, 1, 8, 1])','1'],['last_stone_weight([1])','1'],['last_stone_weight([2, 2])','0'],['last_stone_weight([10, 4, 2, 10])','2']],constraints:['1 ≤ len(stones) ≤ 30'],mistakes:['Forgetting that heapq is a min-heap (negate the weights).','Re-sorting the list every round: works, but O(n² log n).'],followup:'Minimise the final weight (that becomes a partition DP).',hints:['You need the two largest values again and again: a max-heap.','Push negated weights into a heap; pop two, push back the difference if it is non-zero.'],approach:'Max-heap via negation.',cx:'O(n log n)'},
 {id:'hp-k-closest',type:'code',d:2,p:'heap-topk',title:'K Closest Points to the Origin',prompt:'<p>Return the k points closest to (0, 0), sorted by distance (ties: by x, then y).</p>',starter:`import heapq
 
 def k_closest(points, k):
@@ -158,7 +158,7 @@ def k_closest(points, k):
 
 def k_closest(points, k):
     best = heapq.nsmallest(k, points, key=lambda p: (p[0] ** 2 + p[1] ** 2, p[0], p[1]))
-    return best`,tests:[['k_closest([[1, 3], [-2, 2]], 1)','[[-2, 2]]'],['k_closest([[3, 3], [5, -1], [-2, 4]], 2)','[[3, 3], [-2, 4]]'],['k_closest([[0, 1], [1, 0]], 2)','[[0, 1], [1, 0]]']],hints:['Compare squared distances (no square root needed).','A max-heap of size k, or heapq.nsmallest with a key.'],approach:'Heap selection by squared distance.',cx:'O(n log k)'},
+    return best`,tests:[['k_closest([[1, 3], [-2, 2]], 1)','[[-2, 2]]'],['k_closest([[3, 3], [5, -1], [-2, 4]], 2)','[[3, 3], [-2, 4]]'],['k_closest([[0, 1], [1, 0]], 2)','[[0, 1], [1, 0]]'],['k_closest([[2, 2], [1, 1], [3, 3]], 2)','[[1, 1], [2, 2]]']],constraints:['1 ≤ k ≤ len(points) ≤ 10<sup>4</sup>'],mistakes:['Using sqrt (unnecessary and slower).','Ignoring the tie-break rule.'],followup:'Solve it with quickselect in average O(n).',hints:['Compare squared distances (no square root needed).','A max-heap of size k, or heapq.nsmallest with a key.'],approach:'Heap selection by squared distance.',cx:'O(n log k)'},
 {id:'hp-ropes',type:'code',d:1,p:'greedy',title:'Minimum Cost to Connect Ropes',prompt:'<p>Joining two ropes of lengths a and b costs a + b and makes one rope of length a + b. Return the minimum total cost to join all ropes.</p>',starter:`import heapq
 
 def connect_ropes(ropes):
@@ -173,7 +173,7 @@ def connect_ropes(ropes):
         b = heapq.heappop(h)
         cost += a + b
         heapq.heappush(h, a + b)
-    return cost`,tests:[['connect_ropes([4, 3, 2, 6])','29'],['connect_ropes([1, 2, 3, 4, 5])','33'],['connect_ropes([5])','0'],['connect_ropes([])','0']],hints:['Long ropes that get joined early are paid for again and again.','Greedy: always join the two shortest.'],approach:'Greedy with a min-heap (Huffman-style).',cx:'O(n log n)'},
+    return cost`,tests:[['connect_ropes([4, 3, 2, 6])','29'],['connect_ropes([1, 2, 3, 4, 5])','33'],['connect_ropes([5])','0'],['connect_ropes([])','0']],constraints:['0 ≤ len(ropes) ≤ 10<sup>4</sup>'],mistakes:['Joining the ropes in the given order.','Forgetting that a single rope costs 0.'],followup:'Prove why joining the two shortest first is optimal.',hints:['Long ropes that get joined early are paid for again and again.','Greedy: always join the two shortest.'],approach:'Greedy with a min-heap (Huffman-style).',cx:'O(n log n)'},
 {id:'hp-sort-k',type:'code',d:2,p:'heap-topk',title:'Sort a Nearly Sorted List',prompt:'<p>Each element is at most k positions away from its sorted position. Sort in O(n log k).</p>',starter:`import heapq
 
 def sort_k_sorted(nums, k):
@@ -187,14 +187,14 @@ def sort_k_sorted(nums, k):
         out.append(heapq.heappushpop(h, x))
     while h:
         out.append(heapq.heappop(h))
-    return out`,tests:[['sort_k_sorted([6, 5, 3, 2, 8, 10, 9], 3)','[2, 3, 5, 6, 8, 9, 10]'],['sort_k_sorted([2, 1, 4, 3], 1)','[1, 2, 3, 4]'],['sort_k_sorted([], 2)','[]']],hints:['The smallest remaining element must be among the next k + 1 elements.'],approach:'Sliding heap of size k + 1.',cx:'O(n log k)'},
+    return out`,tests:[['sort_k_sorted([6, 5, 3, 2, 8, 10, 9], 3)','[2, 3, 5, 6, 8, 9, 10]'],['sort_k_sorted([2, 1, 4, 3], 1)','[1, 2, 3, 4]'],['sort_k_sorted([], 2)','[]'],['sort_k_sorted([1, 2, 3], 0)','[1, 2, 3]']],constraints:['0 ≤ len(nums) ≤ 10<sup>5</sup>','0 ≤ k &lt; len(nums)'],mistakes:['Sorting the whole list (O(n log n)).','A heap of size k instead of k + 1.'],followup:'What if k is unknown?',hints:['The smallest remaining element must be among the next k + 1 elements.','Keep a min-heap of the next k + 1 elements; the smallest of them is the next in sorted order.'],approach:'Sliding heap of size k + 1.',cx:'O(n log k)'},
 {id:'hp-top-words',type:'code',d:2,p:'heap-topk',title:'Top K Frequent Words',prompt:'<p>Return the k most frequent words, most frequent first; ties alphabetically.</p>',starter:`def top_k_words(words, k):
     pass`,solution:`import heapq
 from collections import Counter
 
 def top_k_words(words, k):
     counts = Counter(words)
-    return heapq.nsmallest(k, counts, key=lambda w: (-counts[w], w))`,tests:[['top_k_words(["i", "love", "code", "i", "love", "coding"], 2)','["i", "love"]'],['top_k_words(["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4)','["the", "is", "sunny", "day"]']],hints:['Count first.','Order by (−count, word).'],approach:'Counter + heap selection with a tuple key.',cx:'O(n log k)'},
+    return heapq.nsmallest(k, counts, key=lambda w: (-counts[w], w))`,tests:[['top_k_words(["i", "love", "code", "i", "love", "coding"], 2)','["i", "love"]'],['top_k_words(["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], 4)','["the", "is", "sunny", "day"]'],['top_k_words(["b", "a", "b", "a", "c"], 2)','["a", "b"]'],['top_k_words(["x"], 1)','["x"]']],constraints:['1 ≤ len(words) ≤ 500','1 ≤ k ≤ number of distinct words'],mistakes:['Breaking ties in reverse alphabetical order in a heap.','Sorting by count only.'],followup:'Do it in O(n log k).',hints:['Count first.','Order by (−count, word).'],approach:'Counter + heap selection with a tuple key.',cx:'O(n log k)'},
 {id:'hp-meeting-rooms',type:'code',d:2,p:'intervals',title:'Meeting Rooms II',prompt:'<p>Return the minimum number of rooms needed for all meetings [start, end) (a meeting may start when another ends).</p>',starter:`import heapq
 
 def min_rooms(intervals):
@@ -207,7 +207,7 @@ def min_rooms(intervals):
             heapq.heapreplace(ends, end)       # reuse the room that frees up first
         else:
             heapq.heappush(ends, end)
-    return len(ends)`,tests:[['min_rooms([[0, 30], [5, 10], [15, 20]])','2'],['min_rooms([[7, 10], [2, 4]])','1'],['min_rooms([])','0'],['min_rooms([[1, 5], [2, 6], [3, 7], [5, 8]])','3']],hints:['Process meetings by start time.','Keep the end times of busy rooms in a min-heap: the earliest-ending room is the one to reuse.'],approach:'Sort by start + min-heap of end times.',cx:'O(n log n)'},
+    return len(ends)`,tests:[['min_rooms([[0, 30], [5, 10], [15, 20]])','2'],['min_rooms([[7, 10], [2, 4]])','1'],['min_rooms([])','0'],['min_rooms([[1, 5], [2, 6], [3, 7], [5, 8]])','3']],constraints:['0 ≤ len(intervals) ≤ 10<sup>4</sup>'],mistakes:['Sorting by end time.','Not freeing a room when a meeting ends exactly when another starts.'],followup:'Return which room each meeting uses.',hints:['Process meetings by start time.','Keep the end times of busy rooms in a min-heap: the earliest-ending room is the one to reuse.'],approach:'Sort by start + min-heap of end times.',cx:'O(n log n)'},
 {id:'hp-matrix-kth',type:'code',d:2,p:'heap-topk',title:'Kth Smallest in a Sorted Matrix',prompt:'<p>Each row and column is sorted ascending. Return the k-th smallest value.</p>',starter:`import heapq
 
 def kth_smallest(matrix, k):
@@ -221,7 +221,7 @@ def kth_smallest(matrix, k):
         val, r, c = heapq.heappop(h)
         if c + 1 < len(matrix[r]):
             heapq.heappush(h, (matrix[r][c + 1], r, c + 1))
-    return h[0][0]`,tests:[['kth_smallest([[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8)','13'],['kth_smallest([[-5]], 1)','-5'],['kth_smallest([[1, 2], [1, 3]], 2)','1']],hints:['Treat each row as a sorted list and merge them with a heap.','Pop k − 1 times; the top is then the answer.'],approach:'k-way merge with a heap.',cx:'O(k log n)'},
+    return h[0][0]`,tests:[['kth_smallest([[1, 5, 9], [10, 11, 13], [12, 13, 15]], 8)','13'],['kth_smallest([[-5]], 1)','-5'],['kth_smallest([[1, 2], [1, 3]], 2)','1'],['kth_smallest([[1, 2], [3, 4]], 4)','4']],constraints:['1 ≤ n ≤ 300','1 ≤ k ≤ n²'],mistakes:['Flattening and sorting (O(n² log n)).','Pushing every element into the heap at once.'],followup:'Solve it with binary search on the value range.',hints:['Treat each row as a sorted list and merge them with a heap.','Pop k − 1 times; the top is then the answer.'],approach:'k-way merge with a heap.',cx:'O(k log n)'},
 {id:'hp-reorganize',type:'code',d:2,p:'greedy',title:'Reorganize String',prompt:'<p>Rearrange the letters so no two adjacent letters are equal. Return any valid arrangement, or "" if impossible.</p>',starter:`import heapq
 from collections import Counter
 
@@ -241,7 +241,7 @@ def reorganize(s):
         prev = (n + 1, ch) if n + 1 < 0 else None
     return "".join(out) if len(out) == len(s) else ""`,post:`def _ok(s):
     r = reorganize(s)
-    return r != "" and sorted(r) == sorted(s) and all(r[i] != r[i + 1] for i in range(len(r) - 1))`,tests:[['_ok("aab")','True','','"aab" → e.g. "aba"'],['reorganize("aaab")','""','','"aaab" is impossible'],['_ok("vvvlo")','True','','"vvvlo" → e.g. "vlvov"'],['_ok("a")','True','','"a"']],hints:['Always place the most frequent letter that is not equal to the previous one.','A max-heap of (count, letter); hold back the letter you just used for one round.'],approach:'Greedy with a max-heap and a one-step cooldown.',cx:'O(n log 26)'},
+    return r != "" and sorted(r) == sorted(s) and all(r[i] != r[i + 1] for i in range(len(r) - 1))`,tests:[['_ok("aab")','True','','"aab" → e.g. "aba"'],['reorganize("aaab")','""','','"aaab" is impossible'],['_ok("vvvlo")','True','','"vvvlo" → e.g. "vlvov"'],['_ok("a")','True','','"a"'],['reorganize("aa")','""']],constraints:['1 ≤ len(s) ≤ 500'],mistakes:['Not checking impossibility: the most common letter can appear at most (n + 1) // 2 times.','Placing the most common letter repeatedly without alternating.'],followup:'Every two equal letters must be at least k apart.',hints:['Always place the most frequent letter that is not equal to the previous one.','A max-heap of (count, letter); hold back the letter you just used for one round.'],approach:'Greedy with a max-heap and a one-step cooldown.',cx:'O(n log 26)'},
 {id:'hp-merge-k',type:'code',d:3,p:'heap-topk',prelude:'list',title:'Merge K Sorted Linked Lists',prompt:'<p>Merge k sorted linked lists (<code>ListNode</code>, <code>build</code>, <code>to_list</code> are provided) into one sorted list.</p>',starter:`import heapq
 
 def merge_k(lists):
@@ -257,7 +257,7 @@ def merge_k(lists):
         tail = node
         if node.next:
             heapq.heappush(h, (node.next.val, i, node.next))
-    return dummy.next`,tests:[['to_list(merge_k([build([1, 4, 5]), build([1, 3, 4]), build([2, 6])]))','[1, 1, 2, 3, 4, 4, 5, 6]'],['to_list(merge_k([]))','[]'],['to_list(merge_k([build([]), build([1])]))','[1]']],hints:['The next output node is the smallest among the k current fronts.','Keep the fronts in a heap; after popping a node, push its successor.'],approach:'Heap of list fronts.',cx:'O(N log k)'},
+    return dummy.next`,tests:[['to_list(merge_k([build([1, 4, 5]), build([1, 3, 4]), build([2, 6])]))','[1, 1, 2, 3, 4, 4, 5, 6]'],['to_list(merge_k([]))','[]'],['to_list(merge_k([build([]), build([1])]))','[1]'],['to_list(merge_k([build([5]), build([1, 2]), build([3, 4]), build([0])]))','[0, 1, 2, 3, 4, 5]']],constraints:['0 ≤ k ≤ 10<sup>4</sup>','total nodes ≤ 10<sup>4</sup>'],mistakes:['Pushing ListNode objects directly (they cannot be compared); push (val, index, node).','Merging lists one by one: O(k · N).'],followup:'Merge k sorted Python lists lazily with a generator (heapq.merge).',hints:['The next output node is the smallest among the k current fronts.','Keep the fronts in a heap; after popping a node, push its successor.'],approach:'Heap of list fronts.',cx:'O(N log k)'},
 {id:'hp-median',type:'code',d:3,p:'heap-topk',title:'Find Median From a Data Stream',prompt:'<p>Class <code>MedianFinder</code> with <code>add(num)</code> and <code>median()</code> (a float). Both must be fast for many operations.</p>',starter:`import heapq
 
 class MedianFinder:
@@ -300,5 +300,5 @@ def _t3():
     m = MedianFinder()
     for x in range(50000, 0, -1):
         m.add(x)
-    return m.median()`,tests:[['_t1()','[1.0, 1.5, 2.0]'],['_t2()','4.0'],['_t3()','25000.5','','50,000 adds (must be fast)']],hints:['Sorting after every add is O(n log n) each.','Two heaps: a max-heap for the smaller half and a min-heap for the larger half, kept the same size (± 1).'],approach:'Two balanced heaps; the median sits at their tops.',cx:'O(log n) add, O(1) median'}
+    return m.median()`,tests:[['_t1()','[1.0, 1.5, 2.0]'],['_t2()','4.0'],['_t3()','25000.5','','50,000 adds (must be fast)'],['(lambda m: [m.add(x) or m.median() for x in (5, 15, 1, 3)])(MedianFinder())','[5.0, 10.0, 5.0, 4.0]']],constraints:['up to 5 × 10<sup>4</sup> operations'],mistakes:['Sorting after every add: O(n log n) per add.','Letting the two heaps differ in size by more than one.'],followup:'Support removing numbers too (sliding-window median).',hints:['Sorting after every add is O(n log n) each.','Two heaps: a max-heap for the smaller half and a min-heap for the larger half, kept the same size (± 1).'],approach:'Two balanced heaps; the median sits at their tops.',cx:'O(log n) add, O(1) median'}
 ]);

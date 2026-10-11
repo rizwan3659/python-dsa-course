@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Fast/slow pointers.
+
+Common mistakes:
+- Counting first and walking again: correct but two passes.
+- Returning the first middle for even lengths.
+
+Follow-up challenge: Delete the middle node instead of returning it.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

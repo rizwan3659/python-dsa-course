@@ -9,6 +9,12 @@ Examples:
     lca_bst(build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5]), 2, 4)  ->  2
     lca_bst(build_tree([2, 1]), 2, 1)  ->  2
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 2 ≤ number of nodes ≤ 10^5
+- p and q exist
+
 Target complexity: O(h)
 
 Check your work:   python dsa.py test bst-lca

@@ -11,6 +11,12 @@ Examples:
     largest_number([3, 30, 34, 5, 9])  ->  "9534330"
     largest_number([0, 0])  ->  "0"
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(nums) ≤ 100
+- 0 ≤ nums[i] ≤ 10^9
+
 Target complexity: O(n log n · L)
 
 Check your work:   python dsa.py test so-largest-number

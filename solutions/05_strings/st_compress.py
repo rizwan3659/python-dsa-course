@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Run-length encoding with a group pointer.
+
+Common mistakes:
+- Forgetting to write the last run after the loop.
+- Building the result with += inside the loop instead of a list + join.
+
+Follow-up challenge: Write the inverse function that decompresses "a2bc5".
 """
 
 

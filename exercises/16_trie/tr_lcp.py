@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(words) ≤ 200
+- 0 ≤ len(word) ≤ 200
+
 Target complexity: O(total characters)
 
 Check your work:   python dsa.py test tr-lcp

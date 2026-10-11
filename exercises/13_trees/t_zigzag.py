@@ -9,6 +9,11 @@ Examples:
     zigzag(build_tree([1, 2, 3, 4, 5, 6, 7]))  ->  [[1], [3, 2], [4, 5, 6, 7]]
     zigzag(build_tree([]))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 2000
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-zigzag

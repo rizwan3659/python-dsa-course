@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(nums) ≤ 10^5
+- 1 ≤ k ≤ number of distinct values
+
 Target complexity: O(n log n) simple; O(n) with buckets
 
 Check your work:   python dsa.py test h-top-k

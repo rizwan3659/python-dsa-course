@@ -3,6 +3,12 @@
 Complexity: O(total elements)
 
 Approach: Recurse on sublists.
+
+Common mistakes:
+- Only flattening one level.
+- Treating strings as lists (they are iterable too).
+
+Follow-up challenge: Write it without recursion, using an explicit stack.
 """
 
 

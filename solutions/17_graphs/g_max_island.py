@@ -3,6 +3,13 @@
 Complexity: O(rows × cols)
 
 Approach: Flood fill with a counter.
+
+Common mistakes:
+- Counting cells twice by not marking them visited.
+- Returning the number of islands instead of the largest area.
+
+Follow-up challenge: Allowed to change one water cell to land: what is the
+largest island now?
 """
 
 

@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(nums) ≤ 10^4
+- the end is always reachable
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test pt-jump-game-ii

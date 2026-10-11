@@ -3,6 +3,12 @@
 Complexity: O(h)
 
 Approach: Walk the search path, tracking the best.
+
+Common mistakes:
+- Exploring both subtrees.
+- Ignoring the tie rule (return the smaller value).
+
+Follow-up challenge: Return the k closest values.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

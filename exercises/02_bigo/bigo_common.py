@@ -9,6 +9,12 @@ Examples:
     common([], [1])  ->  []
     50,000 × 50,000 (must be fast)
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(a), len(b) ≤ 10^5
+- must run in O(n + m)
+
 Target complexity: O(n + m) time
 
 Check your work:   python dsa.py test bigo-common

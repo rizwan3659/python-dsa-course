@@ -8,6 +8,12 @@ Examples:
     subsets([])  ->  [[]]
     len(subsets(list(range(10))))  ->  1024
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(nums) ≤ 10
+- values are distinct
+
 Target complexity: O(n · 2ⁿ)
 
 Check your work:   python dsa.py test rec-subsets

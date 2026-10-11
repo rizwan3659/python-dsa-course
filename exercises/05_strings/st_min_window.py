@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(s), len(t) ≤ 10^5
+
 Target complexity: O(len(s) + len(t))
 
 Check your work:   python dsa.py test st-min-window

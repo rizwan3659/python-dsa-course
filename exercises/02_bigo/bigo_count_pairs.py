@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^5
+- 1 ≤ k
+
 Target complexity: O(n) time, O(n) space
 
 Check your work:   python dsa.py test bigo-count-pairs

@@ -9,6 +9,11 @@ Examples:
     min_cost_connect([[3, 12], [-2, 5], [-4, 1]])  ->  18
     min_cost_connect([[0, 0]])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(points) ≤ 1000
+
 Target complexity: O(n² log n)
 
 Check your work:   python dsa.py test ag-min-cost-points

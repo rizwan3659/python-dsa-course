@@ -4,6 +4,13 @@ Complexity: O(n) time, O(1) space
 
 Approach: Dutch national flag: three pointers partition into 0s | 1s |
 unknown | 2s.
+
+Common mistakes:
+- Incrementing i after swapping with the high pointer (the swapped-in value
+  is unchecked).
+- Counting and rewriting: correct but two passes.
+
+Follow-up challenge: Sort four colours in one pass.
 """
 
 

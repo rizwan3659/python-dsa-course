@@ -3,6 +3,14 @@
 Complexity: O(n)
 
 Approach: Inorder + two pointers.
+
+Common mistakes:
+- Using the same node twice (k = 2 × value).
+- Ignoring the BST: a set during any traversal works, but two pointers on
+  the inorder list uses the order.
+
+Follow-up challenge: Solve it with two BST iterators (one forward, one
+backward) in O(h) space.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

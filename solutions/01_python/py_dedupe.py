@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(n) space
 
 Approach: Set for O(1) “seen?” checks, list for the ordered output.
+
+Common mistakes:
+- Using list(set(items)), which loses the original order.
+- Checking `x in result` on a list, which makes the solution O(n²).
+
+Follow-up challenge: Do it in one line with dict.fromkeys(items).
 """
 
 

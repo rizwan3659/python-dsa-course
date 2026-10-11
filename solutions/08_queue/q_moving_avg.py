@@ -3,6 +3,12 @@
 Complexity: O(1) per call
 
 Approach: Deque window + running sum.
+
+Common mistakes:
+- Recomputing sum() of the window each call: O(size).
+- Dividing by size before the window is full.
+
+Follow-up challenge: Return the moving median instead (two heaps).
 """
 
 

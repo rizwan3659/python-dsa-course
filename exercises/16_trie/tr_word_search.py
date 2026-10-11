@@ -10,6 +10,12 @@ Examples:
     find_words([["a", "b"], ["c", "d"]], ["abcb"])  ->  []
     find_words([["a"]], ["a"])  ->  ["a"]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ rows, cols ≤ 12
+- 1 ≤ len(words) ≤ 3 × 10^4
+
 Target complexity: Exponential in word length, pruned by the trie
 
 Check your work:   python dsa.py test tr-word-search

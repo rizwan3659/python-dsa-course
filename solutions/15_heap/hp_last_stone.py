@@ -3,6 +3,13 @@
 Complexity: O(n log n)
 
 Approach: Max-heap via negation.
+
+Common mistakes:
+- Forgetting that heapq is a min-heap (negate the weights).
+- Re-sorting the list every round: works, but O(n² log n).
+
+Follow-up challenge: Minimise the final weight (that becomes a partition
+DP).
 """
 
 

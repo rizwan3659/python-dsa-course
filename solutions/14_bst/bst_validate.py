@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Range checking DFS.
+
+Common mistakes:
+- Only comparing a node with its direct children.
+- Using <= so equal values pass.
+
+Follow-up challenge: Validate using an inorder traversal instead of bounds.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

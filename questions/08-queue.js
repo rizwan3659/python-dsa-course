@@ -198,7 +198,7 @@ class RecentCounter:
             self.q.popleft()
         return len(self.q)`,post:`def _t():
     r = RecentCounter()
-    return [r.ping(t) for t in (1, 100, 3001, 3002, 10000)]`,tests:[['_t()','[1, 2, 3, 3, 1]']],hints:['Old calls leave from the front, new ones join at the back.'],approach:'Deque of timestamps; drop expired ones from the left.',cx:'O(1) amortized per ping'},
+    return [r.ping(t) for t in (1, 100, 3001, 3002, 10000)]`,tests:[['_t()','[1, 2, 3, 3, 1]'],['(lambda c: [c.ping(t) for t in (1, 100, 3001, 3002)])(RecentCounter())','[1, 2, 3, 3]'],['(lambda c: [c.ping(t) for t in (5, 10000, 20000)])(RecentCounter())','[1, 1, 1]'],['(lambda c: [c.ping(t) for t in (1, 2, 3)])(RecentCounter())','[1, 2, 3]']],constraints:['1 ≤ t ≤ 10<sup>9</sup>, strictly increasing','up to 10<sup>4</sup> calls'],mistakes:['Keeping every call forever and counting with a loop.','Removing calls at exactly t − 3000 (they still count).'],followup:'Make the window size a constructor parameter.',hints:['Old calls leave from the front, new ones join at the back.','Pop from the front while the oldest call is older than t − 3000; the length is the answer.'],approach:'Deque of timestamps; drop expired ones from the left.',cx:'O(1) amortized per ping'},
 {id:'q-moving-avg',type:'code',d:1,p:'queue',title:'Moving Average',prompt:'<p><code>MovingAverage(size)</code>; <code>next(val)</code> returns the average of the last <code>size</code> values (or fewer at the start).</p>',starter:`class MovingAverage:
     def __init__(self, size):
         pass
@@ -219,7 +219,7 @@ class MovingAverage:
             self.total -= self.q.popleft()
         return self.total / len(self.q)`,post:`def _t():
     m = MovingAverage(3)
-    return [m.next(v) for v in (1, 10, 3, 5)]`,tests:[['_t()','[1.0, 5.5, 14 / 3, 6.0]']],hints:['Keep a running total so you never re-add the window.'],approach:'Deque window + running sum.',cx:'O(1) per call'},
+    return [m.next(v) for v in (1, 10, 3, 5)]`,tests:[['_t()','[1.0, 5.5, 14 / 3, 6.0]'],['(lambda m: [m.next(v) for v in (1, 10, 3, 5)])(MovingAverage(3))','[1.0, 5.5, 4.666666666666667, 6.0]'],['(lambda m: [m.next(v) for v in (4, 8)])(MovingAverage(1))','[4.0, 8.0]'],['(lambda m: [m.next(v) for v in (2, 2, 2)])(MovingAverage(5))','[2.0, 2.0, 2.0]']],constraints:['1 ≤ size ≤ 1000','up to 10<sup>4</sup> calls'],mistakes:['Recomputing sum() of the window each call: O(size).','Dividing by size before the window is full.'],followup:'Return the moving median instead (two heaps).',hints:['Keep a running total so you never re-add the window.','Keep a deque of the window and a running sum; subtract the value that leaves.'],approach:'Deque window + running sum.',cx:'O(1) per call'},
 {id:'q-stack-from-queue',type:'code',d:1,p:'design',title:'Stack Using a Queue',prompt:'<p>Implement a stack (<code>push</code>, <code>pop</code>, <code>top</code>, <code>empty</code>) using only queue operations on a deque: <code>append</code>, <code>popleft</code>, <code>len</code>, <code>q[0]</code>.</p>',starter:`from collections import deque
 
 class MyStack:
@@ -257,7 +257,7 @@ class MyStack:
         return not self.q`,post:`def _t():
     s = MyStack()
     s.push(1); s.push(2); s.push(3)
-    return [s.top(), s.pop(), s.pop(), s.empty(), s.pop(), s.empty()]`,tests:[['_t()','[3, 3, 2, False, 1, True]']],hints:['After each push, move all the older items behind the new one.'],approach:'Rotate on push so the newest item is always at the front.',cx:'push O(n), pop O(1)'},
+    return [s.top(), s.pop(), s.pop(), s.empty(), s.pop(), s.empty()]`,tests:[['_t()','[3, 3, 2, False, 1, True]'],['(lambda s: (s.push(1), s.push(2), s.top(), s.pop(), s.top(), s.empty(), s.pop(), s.empty()))(MyStack())[2:]','(2, 2, 1, False, 1, True)'],['(lambda s: (s.push(7), s.push(8), s.push(9), s.pop(), s.pop(), s.pop()))(MyStack())[3:]','(9, 8, 7)'],['(lambda s: s.empty())(MyStack())','True']],constraints:['up to 100 operations','pop and top are only called on a non-empty stack'],mistakes:['Using list.pop() (that is already a stack).','Rotating on both push and pop, doing twice the work.'],followup:'Now build a queue from two stacks, with amortised O(1) operations.',hints:['After each push, move all the older items behind the new one.','After appending a new item, rotate the older items behind it with popleft/append, so the newest is at the front.'],approach:'Rotate on push so the newest item is always at the front.',cx:'push O(n), pop O(1)'},
 {id:'q-josephus',type:'code',d:2,p:'queue',title:'Find the Winner of the Circular Game',prompt:'<p>n friends 1..n sit in a circle. Counting k friends clockwise (including the current one), the k-th leaves; counting restarts from the next friend. Return the winner.</p><p><code>find_winner(5, 2)</code> → <code>3</code></p>',starter:`def find_winner(n, k):
     pass`,solution:`from collections import deque
 
@@ -266,7 +266,7 @@ def find_winner(n, k):
     while len(q) > 1:
         q.rotate(-(k - 1))      # skip k - 1 friends
         q.popleft()             # the k-th leaves
-    return q[0]`,tests:[['find_winner(5, 2)','3'],['find_winner(6, 5)','1'],['find_winner(1, 3)','1'],['find_winner(5, 3)','4']],hints:['Simulate the circle with a deque.','Moving k − 1 friends from front to back puts the k-th at the front.'],approach:'Deque simulation with rotate (O(n·k)); a math recurrence gives O(n).',cx:'O(n · k) time'},
+    return q[0]`,tests:[['find_winner(5, 2)','3'],['find_winner(6, 5)','1'],['find_winner(1, 3)','1'],['find_winner(5, 3)','4']],constraints:['1 ≤ k ≤ n ≤ 500'],mistakes:['Counting from the wrong person after someone leaves.','An off-by-one between 0-based and 1-based friend numbers.'],followup:'Solve it in O(n) with the recurrence J(n) = (J(n − 1) + k) % n.',hints:['Simulate the circle with a deque.','Moving k − 1 friends from front to back puts the k-th at the front.'],approach:'Deque simulation with rotate (O(n·k)); a math recurrence gives O(n).',cx:'O(n · k) time'},
 {id:'q-tickets',type:'code',d:1,p:'queue',title:'Time Needed to Buy Tickets',prompt:'<p>People queue for tickets; <code>tickets[i]</code> is how many person i wants. Each second the front person buys one and goes to the back (or leaves if done). How many seconds until person k is done?</p>',starter:`def time_required(tickets, k):
     pass`,solution:`def time_required(tickets, k):
     total = 0
@@ -275,7 +275,7 @@ def find_winner(n, k):
             total += min(t, tickets[k])
         else:
             total += min(t, tickets[k] - 1)
-    return total`,tests:[['time_required([2, 3, 2], 2)','6'],['time_required([5, 1, 1, 1], 0)','8'],['time_required([1], 0)','1']],hints:['A deque simulation works.','Shortcut: people before k buy at most tickets[k]; people after k buy at most tickets[k] − 1.'],approach:'Simulate with a deque, or count directly in O(n).',cx:'O(n) time (direct count)'},
+    return total`,tests:[['time_required([2, 3, 2], 2)','6'],['time_required([5, 1, 1, 1], 0)','8'],['time_required([1], 0)','1'],['time_required([1, 1, 1], 1)','2']],constraints:['1 ≤ len(tickets) ≤ 100','1 ≤ tickets[i] ≤ 100'],mistakes:['Simulating second by second without stopping when person k finishes.','Counting people behind k for the full number of k’s tickets.'],followup:'Compute it in one pass without simulation.',hints:['A deque simulation works.','Shortcut: people before k buy at most tickets[k]; people after k buy at most tickets[k] − 1.'],approach:'Simulate with a deque, or count directly in O(n).',cx:'O(n) time (direct count)'},
 {id:'q-interleave',type:'code',d:1,p:'queue',title:'Interleave the Two Halves',prompt:'<p>Given an even-length list, return the first and second halves interleaved: <code>[1, 2, 3, 4, 5, 6]</code> → <code>[1, 4, 2, 5, 3, 6]</code>. Use queues.</p>',starter:`def interleave(items):
     pass`,solution:`from collections import deque
 
@@ -286,7 +286,7 @@ def interleave(items):
     while a:
         out.append(a.popleft())
         out.append(b.popleft())
-    return out`,tests:[['interleave([1, 2, 3, 4, 5, 6])','[1, 4, 2, 5, 3, 6]'],['interleave([])','[]'],['interleave(["a", "b"])','["a", "b"]']],hints:['Two queues, take from each in turn.'],approach:'Split into two deques and alternate popleft.',cx:'O(n) time'},
+    return out`,tests:[['interleave([1, 2, 3, 4, 5, 6])','[1, 4, 2, 5, 3, 6]'],['interleave([])','[]'],['interleave(["a", "b"])','["a", "b"]'],['interleave([1, 2, 3, 4])','[1, 3, 2, 4]']],constraints:['0 ≤ len(items) ≤ 10<sup>4</sup>, even'],mistakes:['Splitting at the wrong index for the halves.','Popping from the front of a list (O(n) each time) instead of a deque.'],followup:'Interleave in place with O(1) extra space.',hints:['Two queues, take from each in turn.','Put the first half in one deque and the second in another, then pop alternately.'],approach:'Split into two deques and alternate popleft.',cx:'O(n) time'},
 {id:'q-reveal-cards',type:'code',d:2,p:'queue',title:'Reveal Cards in Increasing Order',prompt:'<p>Order a deck so that repeatedly “reveal the top card, then move the next top card to the bottom” reveals the cards in increasing order.</p><p><code>[17, 13, 11, 2, 3, 5, 7]</code> → <code>[2, 13, 3, 11, 5, 17, 7]</code></p>',starter:`def deck_revealed_increasing(deck):
     pass`,solution:`from collections import deque
 
@@ -298,7 +298,7 @@ def deck_revealed_increasing(deck):
         result[positions.popleft()] = card   # this position is revealed next
         if positions:
             positions.append(positions.popleft())
-    return result`,tests:[['deck_revealed_increasing([17, 13, 11, 2, 3, 5, 7])','[2, 13, 3, 11, 5, 17, 7]'],['deck_revealed_increasing([1, 1000])','[1, 1000]'],['deck_revealed_increasing([3])','[3]']],hints:['Simulate the reveal process on POSITIONS 0..n − 1 with a queue.','The k-th position revealed should receive the k-th smallest card.'],approach:'Queue of indexes simulates the order positions are revealed.',cx:'O(n log n) time'},
+    return result`,tests:[['deck_revealed_increasing([17, 13, 11, 2, 3, 5, 7])','[2, 13, 3, 11, 5, 17, 7]'],['deck_revealed_increasing([1, 1000])','[1, 1000]'],['deck_revealed_increasing([3])','[3]'],['deck_revealed_increasing([4, 3, 2, 1])','[1, 3, 2, 4]']],constraints:['1 ≤ len(deck) ≤ 1000','values are distinct'],mistakes:['Simulating forward instead of placing cards into the positions the process will visit.'],followup:'Given the order of revealing, reconstruct the deck for "move two cards to the bottom" instead of one.',hints:['Simulate the reveal process on POSITIONS 0..n − 1 with a queue.','The k-th position revealed should receive the k-th smallest card.'],approach:'Queue of indexes simulates the order positions are revealed.',cx:'O(n log n) time'},
 {id:'q-first-negative',type:'code',d:2,p:'queue',title:'First Negative in Every Window',prompt:'<p>For every window of size k, return its first negative number, or 0 if it has none.</p><p><code>([-8, 2, 3, -6, 10], 2)</code> → <code>[-8, 0, -6, -6]</code></p>',starter:`def first_negatives(nums, k):
     pass`,solution:`from collections import deque
 
@@ -312,7 +312,7 @@ def first_negatives(nums, k):
             negs.popleft()
         if i >= k - 1:
             out.append(nums[negs[0]] if negs else 0)
-    return out`,tests:[['first_negatives([-8, 2, 3, -6, 10], 2)','[-8, 0, -6, -6]'],['first_negatives([12, -1, -7, 8, -15, 30, 16, 28], 3)','[-1, -1, -7, -15, -15, 0]'],['first_negatives([1, 2], 1)','[0, 0]']],hints:['Keep the indexes of negatives inside the window in a queue.','Drop the front when it slides out.'],approach:'Deque of negative indexes for the current window.',cx:'O(n) time'},
+    return out`,tests:[['first_negatives([-8, 2, 3, -6, 10], 2)','[-8, 0, -6, -6]'],['first_negatives([12, -1, -7, 8, -15, 30, 16, 28], 3)','[-1, -1, -7, -15, -15, 0]'],['first_negatives([1, 2], 1)','[0, 0]'],['first_negatives([-1, -2, -3], 3)','[-1]']],constraints:['1 ≤ k ≤ len(nums) ≤ 10<sup>5</sup>'],mistakes:['Scanning each window from the start: O(n · k).','Not removing indexes that have left the window.'],followup:'Return the last negative of every window instead.',hints:['Keep the indexes of negatives inside the window in a queue.','Drop the front when it slides out.'],approach:'Deque of negative indexes for the current window.',cx:'O(n) time'},
 {id:'q-window-max',type:'code',d:3,p:'queue',title:'Sliding Window Maximum',prompt:'<p>Return the maximum of every window of size k.</p><p><code>([1, 3, -1, -3, 5, 3, 6, 7], 3)</code> → <code>[3, 3, 5, 5, 6, 7]</code></p>',starter:`def max_sliding_window(nums, k):
     pass`,solution:`from collections import deque
 
@@ -327,5 +327,32 @@ def max_sliding_window(nums, k):
         if i >= k - 1:
             out.append(nums[dq[0]])
     return out`,brute:{code:`def max_sliding_window(nums, k):
-    return [max(nums[i:i + k]) for i in range(len(nums) - k + 1)]`,cx:'O(n · k)'},tests:[['max_sliding_window([1, 3, -1, -3, 5, 3, 6, 7], 3)','[3, 3, 5, 5, 6, 7]'],['max_sliding_window([1], 1)','[1]'],['max_sliding_window([9, 8, 7], 2)','[9, 8]'],['max_sliding_window(list(range(100000)), 50000)','list(range(49999, 100000))','','100,000 numbers, k = 50,000 (must be fast)']],hints:['max() of every window is O(n · k).','A smaller value to the LEFT of a bigger one can never be a window maximum again: throw it away. Keep a deque of indexes with decreasing values.'],approach:'Monotonic decreasing deque of indexes; the front is the max.',cx:'O(n) time, O(k) space'}
+    return [max(nums[i:i + k]) for i in range(len(nums) - k + 1)]`,cx:'O(n · k)'},tests:[['max_sliding_window([1, 3, -1, -3, 5, 3, 6, 7], 3)','[3, 3, 5, 5, 6, 7]'],['max_sliding_window([1], 1)','[1]'],['max_sliding_window([9, 8, 7], 2)','[9, 8]'],['max_sliding_window(list(range(100000)), 50000)','list(range(49999, 100000))','','100,000 numbers, k = 50,000 (must be fast)']],constraints:['1 ≤ k ≤ len(nums) ≤ 10<sup>5</sup>'],mistakes:['Storing values instead of indexes, so you cannot tell when one leaves the window.','Taking max() of every window: O(n · k).'],followup:'Return the window minimum and maximum together.',hints:['max() of every window is O(n · k).','A smaller value to the LEFT of a bigger one can never be a window maximum again: throw it away. Keep a deque of indexes with decreasing values.'],approach:'Monotonic decreasing deque of indexes; the front is the max.',cx:'O(n) time, O(k) space'}
+]);
+
+/* ---------- second hard problem (added with the v2 backfill) ---------- */
+COURSE.qs('queue',[
+{id:'q-jump-max-score',type:'code',d:3,p:'monotonic-stack',title:'Jump Game VI (maximum score)',prompt:'<p>Start at index 0 and finish at the last index. From index i you may jump to any index i + 1 … i + k. Your score is the sum of <code>nums</code> at every index you land on (including the first and last). Return the maximum score.</p>',prereq:['q-window-max','dp-house-robber'],
+constraints:['1 ≤ len(nums), k ≤ 10<sup>5</sup>','−10<sup>4</sup> ≤ nums[i] ≤ 10<sup>4</sup>'],
+starter:`def max_score(nums, k):
+    # your code here
+    pass`,solution:`from collections import deque
+
+
+def max_score(nums, k):
+    best = [0] * len(nums)            # best[i] = maximum score of a path ending at i
+    best[0] = nums[0]
+    window = deque([0])               # indexes, best values decreasing from front to back
+    for i in range(1, len(nums)):
+        if window[0] < i - k:
+            window.popleft()          # too far back to jump from
+        best[i] = nums[i] + best[window[0]]
+        while window and best[window[-1]] <= best[i]:
+            window.pop()              # never better than i again
+        window.append(i)
+    return best[-1]`,
+tests:[['max_score([1, -1, -2, 4, -7, 3], 2)','7'],['max_score([10, -5, -2, 4, 0, 3], 3)','17'],['max_score([1, -5, -20, 4, -1, 3, -6, -3], 2)','0'],['max_score([5], 1)','5'],['max_score([1, -1], 1)','0'],['max_score([1] + [-1] * 99999, 100000)','0'],['max_score(list(range(100000)), 1)','4999950000']],
+hints:['DP: best[i] = nums[i] + max(best[i − k] … best[i − 1]). Computing that max naively is O(n · k).','The max over a sliding window of the last k best values: keep a monotonic deque (like Sliding Window Maximum).'],approach:'DP whose transition is a sliding-window maximum, maintained with a monotonic deque.',cx:'O(n) time, O(n) space',
+mistakes:['A greedy "always jump to the largest number in reach" (fails on mixed signs).','O(n · k) DP that times out for k = 10⁵.','Popping from the front with the wrong boundary (i − k is still allowed).'],
+followup:'Return the indexes on one best path.'},
 ]);

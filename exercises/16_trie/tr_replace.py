@@ -12,6 +12,12 @@ Examples:
     replace_words(["a", "b", "c"], "aadsfasf absbs bbab cadsfafs")  ->  "a a b c"
     replace_words([], "hello world")  ->  "hello world"
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(roots) ≤ 1000
+- sentence ≤ 10^6 characters
+
 Target complexity: O(total characters)
 
 Check your work:   python dsa.py test tr-replace

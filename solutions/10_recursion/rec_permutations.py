@@ -3,6 +3,13 @@
 Complexity: O(n · n!)
 
 Approach: Backtracking over unused elements.
+
+Common mistakes:
+- Not undoing the "used" mark after the recursive call.
+- Appending path itself instead of a copy.
+
+Follow-up challenge: The input may contain duplicates: return unique
+permutations.
 """
 
 

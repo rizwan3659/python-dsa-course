@@ -10,6 +10,12 @@ Examples:
     bellman_ford(3, [(0, 1, 1), (1, 2, -1), (2, 1, -1)])  ->  "negative cycle"
     bellman_ford(3, [(0, 1, 2)])  ->  [0, 2, None]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 500
+- 0 ≤ len(edges) ≤ 5000
+
 Target complexity: O(V · E)
 
 Check your work:   python dsa.py test ag-bellman

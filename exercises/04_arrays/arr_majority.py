@@ -11,6 +11,12 @@ Examples:
     majority([2, 2, 1, 1, 1, 2, 2])  ->  2
     majority([1])  ->  1
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 1 ≤ len(nums) ≤ 10^5
+- a majority element always exists
+
 Target complexity: O(n) time, O(1) space (voting)
 
 Check your work:   python dsa.py test arr-majority

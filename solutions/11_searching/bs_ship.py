@@ -3,6 +3,12 @@
 Complexity: O(n log(sum))
 
 Approach: Binary search on capacity + greedy check.
+
+Common mistakes:
+- Starting the search below max(weights) (one package must fit).
+- Counting days incorrectly when a package starts a new day.
+
+Follow-up challenge: Return the split of packages per day, too.
 """
 
 

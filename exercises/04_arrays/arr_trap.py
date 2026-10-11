@@ -13,6 +13,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(height) ≤ 10^5
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-trap

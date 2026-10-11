@@ -3,6 +3,12 @@
 Complexity: O(log n)
 
 Approach: Classic binary search with inclusive bounds.
+
+Common mistakes:
+- while lo < hi with hi = len(nums) − 1, which misses the last element.
+- Setting lo = mid instead of mid + 1, which can loop forever.
+
+Follow-up challenge: Write it recursively, then with bisect.
 """
 
 

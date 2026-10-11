@@ -9,6 +9,11 @@ Examples:
     to_list(partition(build([2, 1]), 2))  ->  [1, 2]
     to_list(partition(build([]), 0))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 200
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test ll-partition

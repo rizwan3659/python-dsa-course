@@ -3,6 +3,12 @@
 Complexity: O(n²)
 
 Approach: Expand around centres.
+
+Common mistakes:
+- Counting distinct palindromes instead of positions.
+- Forgetting even-length centres between two characters.
+
+Follow-up challenge: Count only the palindromic substrings of length ≥ 3.
 """
 
 

@@ -11,6 +11,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 900
+
 Target complexity: O(n²) with slicing (O(n) with indexes)
 
 Check your work:   python dsa.py test rec-is-pal

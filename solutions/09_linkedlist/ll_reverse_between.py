@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Front-insertion inside the section.
+
+Common mistakes:
+- Failing when left is 1 (use a dummy node).
+- Losing the node after position right.
+
+Follow-up challenge: Do it in one pass.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

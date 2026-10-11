@@ -10,6 +10,11 @@ Examples:
     oranges_rotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]])  ->  -1
     oranges_rotting([[0, 2]])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ rows, cols ≤ 10
+
 Target complexity: O(rows × cols)
 
 Check your work:   python dsa.py test g-rotting

@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: ord/chr arithmetic.
+
+Common mistakes:
+- Forgetting to wrap with % 26 (z goes past the alphabet).
+- Shifting spaces and punctuation too.
+
+Follow-up challenge: Decrypt a message when you do not know k (try all 26
+and score by letter frequency).
 """
 
 

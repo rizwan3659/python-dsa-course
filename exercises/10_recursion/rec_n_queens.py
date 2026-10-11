@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ n ≤ 9
+
 Target complexity: Exponential, heavily pruned
 
 Check your work:   python dsa.py test rec-n-queens

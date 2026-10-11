@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Greedy BFS-by-ranges.
+
+Common mistakes:
+- Counting a jump at the last index.
+- BFS over every index is correct but slower.
+
+Follow-up challenge: Return the indexes you jump to.
 """
 
 

@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Greedy with a min-heap (Huffman-style).
+
+Common mistakes:
+- Joining the ropes in the given order.
+- Forgetting that a single rope costs 0.
+
+Follow-up challenge: Prove why joining the two shortest first is optimal.
 """
 
 

@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(s), len(t) ≤ 200
+
 Target complexity: O(n + m) time
 
 Check your work:   python dsa.py test s-backspace

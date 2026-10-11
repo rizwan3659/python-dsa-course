@@ -9,6 +9,11 @@ Examples:
     max_profit([1, 2, 3, 4, 5])  ->  4
     max_profit([7, 6, 4, 3, 1])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(prices) ≤ 3 × 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test pt-stock-ii

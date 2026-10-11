@@ -10,6 +10,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^4
+- values are sorted and distinct
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test bst-sorted-to-bst

@@ -3,6 +3,12 @@
 Complexity: O(n log k)
 
 Approach: Sliding heap of size k + 1.
+
+Common mistakes:
+- Sorting the whole list (O(n log n)).
+- A heap of size k instead of k + 1.
+
+Follow-up challenge: What if k is unknown?
 """
 
 

@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(n) space
 
 Approach: Hash map of counts of values seen so far.
+
+Common mistakes:
+- Counting each pair twice by checking both x + k and x − k for every x.
+- Ignoring duplicate values (count them with a Counter).
+
+Follow-up challenge: What changes if k can be 0?
 """
 
 

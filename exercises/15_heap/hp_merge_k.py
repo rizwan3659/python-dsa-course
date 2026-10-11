@@ -9,6 +9,12 @@ Examples:
     to_list(merge_k([]))  ->  []
     to_list(merge_k([build([]), build([1])]))  ->  [1]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ k ≤ 10^4
+- total nodes ≤ 10^4
+
 Target complexity: O(N log k)
 
 Check your work:   python dsa.py test hp-merge-k

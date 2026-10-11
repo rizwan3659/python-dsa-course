@@ -3,6 +3,13 @@
 Complexity: O(h)
 
 Approach: Recursive delete with the in-order successor.
+
+Common mistakes:
+- Losing the subtree of a node with one child.
+- For two children, forgetting to delete the successor from the right
+  subtree.
+
+Follow-up challenge: Delete all nodes in a value range.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

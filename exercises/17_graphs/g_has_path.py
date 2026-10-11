@@ -9,6 +9,11 @@ Examples:
     valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5)  ->  False
     valid_path(1, [], 0, 0)  ->  True
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 2 × 10^5
+
 Target complexity: O(V + E)
 
 Check your work:   python dsa.py test g-has-path

@@ -18,7 +18,7 @@ By the end of the topic, students can:
 ## Duration and prerequisites
 
 - Lessons: about **68 minutes** of guided material (6 lessons)
-- Practice: 12 coding problems and 32 quick questions in the bank; plan at least as much practice time as lesson time
+- Practice: 13 coding problems and 32 quick questions in the bank; plan at least as much practice time as lesson time
 - Suggested format: one 90-minute session
 - Prerequisites: Topic 1 (Python for DSA), Topic 2 (Big-O Complexity)
 

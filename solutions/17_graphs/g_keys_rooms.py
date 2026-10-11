@@ -3,6 +3,13 @@
 Complexity: O(V + E)
 
 Approach: Reachability with DFS.
+
+Common mistakes:
+- Visiting rooms only in index order.
+- Not marking rooms as visited (loops on keys to visited rooms).
+
+Follow-up challenge: Return the minimum number of rooms you must enter to
+collect all keys.
 """
 
 

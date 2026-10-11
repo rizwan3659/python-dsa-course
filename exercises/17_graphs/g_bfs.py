@@ -9,6 +9,11 @@ Examples:
     bfs_order({1: [2], 2: [1]}, 1)  ->  [1, 2]
     bfs_order({0: []}, 0)  ->  [0]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(V + E)
 
 Check your work:   python dsa.py test g-bfs

@@ -233,7 +233,7 @@ def bfs(adj, start):
     for u, v in edges:
         adj[u].append(v)
         adj[v].append(u)
-    return {u: sorted(vs) for u, vs in adj.items()}`,tests:[['adjacency(4, [(0, 1), (0, 2), (2, 3)])','{0: [1, 2], 1: [0], 2: [0, 3], 3: [2]}'],['adjacency(2, [])','{0: [], 1: []}']],hints:['Start every node with an empty list, including isolated ones.'],approach:'Dict of lists, both directions.',cx:'O(V + E log E)'},
+    return {u: sorted(vs) for u, vs in adj.items()}`,tests:[['adjacency(4, [(0, 1), (0, 2), (2, 3)])','{0: [1, 2], 1: [0], 2: [0, 3], 3: [2]}'],['adjacency(2, [])','{0: [], 1: []}'],['adjacency(3, [(0, 1), (1, 2), (0, 2)])','{0: [1, 2], 1: [0, 2], 2: [0, 1]}'],['adjacency(1, [])','{0: []}']],constraints:['1 ≤ n ≤ 10<sup>5</sup>','0 ≤ len(edges) ≤ 10<sup>5</sup>'],mistakes:['Adding each edge in only one direction.','Leaving out nodes with no edges.'],followup:'Build an adjacency matrix too and compare memory use.',hints:['Start every node with an empty list, including isolated ones.','Start with an empty list for every node; for each edge (u, v) append v to u and u to v, then sort.'],approach:'Dict of lists, both directions.',cx:'O(V + E log E)'},
 {id:'g-bfs',type:'code',d:1,p:'bfs',title:'BFS Order',prompt:'<p>Return the BFS visiting order from <code>start</code>. <code>adj</code> is a dict of neighbour lists; visit neighbours in the given order.</p>',starter:`from collections import deque
 
 def bfs_order(adj, start):
@@ -248,7 +248,7 @@ def bfs_order(adj, start):
             if v not in seen:
                 seen.add(v)
                 queue.append(v)
-    return order`,tests:[['bfs_order({"A": ["B", "C"], "B": ["D"], "C": ["D"], "D": []}, "A")','["A", "B", "C", "D"]'],['bfs_order({1: [2], 2: [1]}, 1)','[1, 2]'],['bfs_order({0: []}, 0)','[0]']],hints:['A deque, a seen set, and mark nodes when you enqueue them.'],approach:'Standard BFS.',cx:'O(V + E)'},
+    return order`,tests:[['bfs_order({"A": ["B", "C"], "B": ["D"], "C": ["D"], "D": []}, "A")','["A", "B", "C", "D"]'],['bfs_order({1: [2], 2: [1]}, 1)','[1, 2]'],['bfs_order({0: []}, 0)','[0]'],['bfs_order({0: [1, 2], 1: [3], 2: [3], 3: [0]}, 0)','[0, 1, 2, 3]']],constraints:['1 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Marking nodes as visited when they are popped instead of when they are queued (duplicates).','Using list.pop(0).'],followup:'Return the distance of every node from start.',hints:['A deque, a seen set, and mark nodes when you enqueue them.','Use a deque and a visited set; mark a node visited as soon as you add it to the queue.'],approach:'Standard BFS.',cx:'O(V + E)'},
 {id:'g-dfs',type:'code',d:1,p:'dfs',title:'DFS Order',prompt:'<p>Return the recursive DFS (preorder) visiting order from <code>start</code>, visiting neighbours in the given order.</p>',starter:`def dfs_order(adj, start):
     pass`,solution:`def dfs_order(adj, start):
     order, seen = [], set()
@@ -259,7 +259,7 @@ def bfs_order(adj, start):
             if v not in seen:
                 dfs(v)
     dfs(start)
-    return order`,tests:[['dfs_order({"A": ["B", "C"], "B": ["D"], "C": ["E"], "D": [], "E": []}, "A")','["A", "B", "D", "C", "E"]'],['dfs_order({1: [2], 2: [3], 3: [1]}, 1)','[1, 2, 3]']],hints:['Recursion plus a seen set.'],approach:'Recursive DFS.',cx:'O(V + E)'},
+    return order`,tests:[['dfs_order({"A": ["B", "C"], "B": ["D"], "C": ["E"], "D": [], "E": []}, "A")','["A", "B", "D", "C", "E"]'],['dfs_order({1: [2], 2: [3], 3: [1]}, 1)','[1, 2, 3]'],['dfs_order({0: []}, 0)','[0]'],['dfs_order({0: [1, 2], 1: [2], 2: []}, 0)','[0, 1, 2]']],constraints:['1 ≤ number of nodes ≤ 1000'],mistakes:['Forgetting the visited set, which loops forever on cycles.','Using a stack and getting a different neighbour order than the recursive version.'],followup:'Write it with an explicit stack and the same visiting order.',hints:['Recursion plus a seen set.','Mark the node visited, record it, then recurse into each unvisited neighbour in order.'],approach:'Recursive DFS.',cx:'O(V + E)'},
 {id:'g-has-path',type:'code',d:1,p:'bfs',title:'Find if a Path Exists',prompt:'<p>Undirected graph with n nodes and an edge list. Return True if <code>source</code> can reach <code>dest</code>.</p>',starter:`def valid_path(n, edges, source, dest):
     pass`,solution:`from collections import deque
 
@@ -277,7 +277,7 @@ def valid_path(n, edges, source, dest):
             if v not in seen:
                 seen.add(v)
                 queue.append(v)
-    return False`,tests:[['valid_path(3, [[0, 1], [1, 2], [2, 0]], 0, 2)','True'],['valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5)','False'],['valid_path(1, [], 0, 0)','True']],hints:['Build an adjacency list, then BFS or DFS from source.'],approach:'Graph search.',cx:'O(V + E)'},
+    return False`,tests:[['valid_path(3, [[0, 1], [1, 2], [2, 0]], 0, 2)','True'],['valid_path(6, [[0, 1], [0, 2], [3, 5], [5, 4], [4, 3]], 0, 5)','False'],['valid_path(1, [], 0, 0)','True'],['valid_path(2, [], 0, 1)','False']],constraints:['1 ≤ n ≤ 2 × 10<sup>5</sup>'],mistakes:['Recursion deeper than Python’s limit on long chains (use a stack or BFS).','Treating edges as one-way.'],followup:'Answer many (source, dest) queries quickly with union-find.',hints:['Build an adjacency list, then BFS or DFS from source.','BFS or DFS from source; return True as soon as you reach dest.'],approach:'Graph search.',cx:'O(V + E)'},
 {id:'g-components',type:'code',d:2,p:'dfs',title:'Number of Connected Components',prompt:'<p>Return the number of connected components of an undirected graph with n nodes.</p>',starter:`def count_components(n, edges):
     pass`,solution:`def count_components(n, edges):
     adj = {i: [] for i in range(n)}
@@ -297,7 +297,7 @@ def valid_path(n, edges, source, dest):
                 if v not in seen:
                     seen.add(v)
                     stack.append(v)
-    return count`,tests:[['count_components(5, [[0, 1], [1, 2], [3, 4]])','2'],['count_components(5, [[0, 1], [1, 2], [2, 3], [3, 4]])','1'],['count_components(4, [])','4'],['count_components(20000, [[i, i + 1] for i in range(19999)])','1','','a 20,000-node chain (watch the recursion limit)']],hints:['Start a search from every node not yet seen; each start is a new component.','On a long chain, recursive DFS can hit Python’s recursion limit: use an explicit stack or BFS.'],approach:'Search from each unvisited node.',cx:'O(V + E)'},
+    return count`,tests:[['count_components(5, [[0, 1], [1, 2], [3, 4]])','2'],['count_components(5, [[0, 1], [1, 2], [2, 3], [3, 4]])','1'],['count_components(4, [])','4'],['count_components(20000, [[i, i + 1] for i in range(19999)])','1','','a 20,000-node chain (watch the recursion limit)']],constraints:['1 ≤ n ≤ 2 × 10<sup>4</sup>'],mistakes:['Forgetting isolated nodes (they are components too).','Starting a search only from node 0.'],followup:'Return the size of each component.',hints:['Start a search from every node not yet seen; each start is a new component.','On a long chain, recursive DFS can hit Python’s recursion limit: use an explicit stack or BFS.'],approach:'Search from each unvisited node.',cx:'O(V + E)'},
 {id:'g-islands',type:'code',d:2,p:'bfs',title:'Number of Islands',prompt:'<p><code>grid</code> holds "1" (land) and "0" (water). Count the islands (land connected up/down/left/right).</p>',starter:`def num_islands(grid):
     pass`,solution:`from collections import deque
 
@@ -319,7 +319,7 @@ def num_islands(grid):
                     if 0 <= ny < rows and 0 <= nx < cols and grid[ny][nx] == "1" and (ny, nx) not in seen:
                         seen.add((ny, nx))
                         queue.append((ny, nx))
-    return count`,tests:[['num_islands([["1", "1", "0", "0"], ["1", "1", "0", "0"], ["0", "0", "1", "0"], ["0", "0", "0", "1"]])','3'],['num_islands([["1", "1", "1"], ["0", "1", "0"], ["1", "1", "1"]])','1'],['num_islands([["0"]])','0'],['num_islands([])','0']],hints:['Every land cell is a node; neighbours are the 4 adjacent land cells.','Scan the grid; each unvisited land cell starts a BFS/DFS that marks its whole island.'],approach:'Flood fill from each new land cell.',cx:'O(rows × cols)'},
+    return count`,tests:[['num_islands([["1", "1", "0", "0"], ["1", "1", "0", "0"], ["0", "0", "1", "0"], ["0", "0", "0", "1"]])','3'],['num_islands([["1", "1", "1"], ["0", "1", "0"], ["1", "1", "1"]])','1'],['num_islands([["0"]])','0'],['num_islands([])','0']],constraints:['1 ≤ rows, cols ≤ 300'],mistakes:['Counting land cells instead of islands.','Including diagonal neighbours.'],followup:'Count islands with distinct shapes.',hints:['Every land cell is a node; neighbours are the 4 adjacent land cells.','Scan the grid; each unvisited land cell starts a BFS/DFS that marks its whole island.'],approach:'Flood fill from each new land cell.',cx:'O(rows × cols)'},
 {id:'g-flood-fill',type:'code',d:1,p:'dfs',title:'Flood Fill',prompt:'<p>Starting at (sr, sc), recolor the connected region of the same color (4-directional) to <code>color</code>. Return the image.</p>',starter:`def flood_fill(image, sr, sc, color):
     pass`,solution:`def flood_fill(image, sr, sc, color):
     old = image[sr][sc]
@@ -331,7 +331,7 @@ def num_islands(grid):
         if 0 <= r < len(image) and 0 <= c < len(image[0]) and image[r][c] == old:
             image[r][c] = color
             stack.extend([(r + 1, c), (r - 1, c), (r, c + 1), (r, c - 1)])
-    return image`,tests:[['flood_fill([[1, 1, 1], [1, 1, 0], [1, 0, 1]], 1, 1, 2)','[[2, 2, 2], [2, 2, 0], [2, 0, 1]]'],['flood_fill([[0, 0, 0], [0, 0, 0]], 0, 0, 0)','[[0, 0, 0], [0, 0, 0]]']],hints:['DFS from the start cell, recoloring cells of the original color.','If the new color equals the old one, return immediately (or you loop forever).'],approach:'DFS/BFS over same-colored cells.',cx:'O(rows × cols)'},
+    return image`,tests:[['flood_fill([[1, 1, 1], [1, 1, 0], [1, 0, 1]], 1, 1, 2)','[[2, 2, 2], [2, 2, 0], [2, 0, 1]]'],['flood_fill([[0, 0, 0], [0, 0, 0]], 0, 0, 0)','[[0, 0, 0], [0, 0, 0]]'],['flood_fill([[1]], 0, 0, 5)','[[5]]'],['flood_fill([[1, 2], [2, 1]], 0, 0, 3)','[[3, 2], [2, 1]]']],constraints:['1 ≤ rows, cols ≤ 50'],mistakes:['Recursing forever when the new color equals the old one.','Filling diagonally.'],followup:'Return the size of the filled region too.',hints:['DFS from the start cell, recoloring cells of the original color.','If the new color equals the old one, return immediately (or you loop forever).'],approach:'DFS/BFS over same-colored cells.',cx:'O(rows × cols)'},
 {id:'g-max-island',type:'code',d:2,p:'dfs',title:'Max Area of Island',prompt:'<p>Grid of 0/1. Return the area of the largest island (0 if none).</p>',starter:`def max_area(grid):
     pass`,solution:`def max_area(grid):
     rows, cols = len(grid), len(grid[0])
@@ -350,7 +350,7 @@ def num_islands(grid):
                         seen.add((ny, nx))
                         stack.append((ny, nx))
             best = max(best, area)
-    return best`,tests:[['max_area([[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]])','6'],['max_area([[0, 0, 0]])','0']],hints:['Same as counting islands, but count cells during each fill.'],approach:'Flood fill with a counter.',cx:'O(rows × cols)'},
+    return best`,tests:[['max_area([[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0], [0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0]])','6'],['max_area([[0, 0, 0]])','0'],['max_area([[1, 1], [1, 0]])','3'],['max_area([[0]])','0']],constraints:['1 ≤ rows, cols ≤ 50'],mistakes:['Counting cells twice by not marking them visited.','Returning the number of islands instead of the largest area.'],followup:'Allowed to change one water cell to land: what is the largest island now?',hints:['Same as counting islands, but count cells during each fill.','DFS from each unvisited land cell, counting cells; keep the maximum.'],approach:'Flood fill with a counter.',cx:'O(rows × cols)'},
 {id:'g-shortest-unweighted',type:'code',d:2,p:'bfs',title:'Shortest Path in a Grid',prompt:'<p>0 = open, 1 = wall. Return the fewest steps (4-directional) from the top-left to the bottom-right, or -1. Start and end count as reachable if open.</p>',starter:`def shortest_path(grid):
     pass`,solution:`from collections import deque
 
@@ -368,7 +368,7 @@ def shortest_path(grid):
             if 0 <= nr < rows and 0 <= nc < cols and not grid[nr][nc] and (nr, nc) not in dist:
                 dist[(nr, nc)] = dist[(r, c)] + 1
                 queue.append((nr, nc))
-    return -1`,tests:[['shortest_path([[0, 0, 0], [1, 1, 0], [0, 0, 0]])','4'],['shortest_path([[0, 1], [1, 0]])','-1'],['shortest_path([[0]])','0']],hints:['Every move costs 1: BFS.','Record each cell’s distance when you first reach it.'],approach:'BFS on grid cells.',cx:'O(rows × cols)'},
+    return -1`,tests:[['shortest_path([[0, 0, 0], [1, 1, 0], [0, 0, 0]])','4'],['shortest_path([[0, 1], [1, 0]])','-1'],['shortest_path([[0]])','0'],['shortest_path([[1, 0], [0, 0]])','-1']],constraints:['1 ≤ rows, cols ≤ 100'],mistakes:['Using DFS, which does not find shortest paths.','Forgetting that the start itself may be a wall.'],followup:'Allow 8-directional moves.',hints:['Every move costs 1: BFS.','Record each cell’s distance when you first reach it.'],approach:'BFS on grid cells.',cx:'O(rows × cols)'},
 {id:'g-rotting',type:'code',d:2,p:'bfs',title:'Rotting Oranges',prompt:'<p>2 = rotten, 1 = fresh, 0 = empty. Each minute, rotten oranges rot their 4 neighbours. Return the minutes until no fresh orange remains, or -1 if impossible.</p>',starter:`def oranges_rotting(grid):
     pass`,solution:`from collections import deque
 
@@ -390,7 +390,7 @@ def oranges_rotting(grid):
                 grid[nr][nc] = 2
                 fresh -= 1
                 queue.append((nr, nc, t + 1))
-    return -1 if fresh else minutes`,tests:[['oranges_rotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]])','4'],['oranges_rotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]])','-1'],['oranges_rotting([[0, 2]])','0']],hints:['All rotten oranges spread at the same time: start BFS from ALL of them (multi-source BFS).','Track minutes with the BFS level; count fresh oranges to detect the impossible case.'],approach:'Multi-source BFS.',cx:'O(rows × cols)'},
+    return -1 if fresh else minutes`,tests:[['oranges_rotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]])','4'],['oranges_rotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]])','-1'],['oranges_rotting([[0, 2]])','0'],['oranges_rotting([[1]])','-1']],constraints:['1 ≤ rows, cols ≤ 10'],mistakes:['Running BFS from each rotten orange separately (start them all at once).','Returning the minute count when fresh oranges remain.'],followup:'Some cells are walls that stop the rot.',hints:['All rotten oranges spread at the same time: start BFS from ALL of them (multi-source BFS).','Track minutes with the BFS level; count fresh oranges to detect the impossible case.'],approach:'Multi-source BFS.',cx:'O(rows × cols)'},
 {id:'g-bipartite',type:'code',d:2,p:'bfs',title:'Is the Graph Bipartite?',prompt:'<p><code>graph[i]</code> lists the neighbours of node i (undirected). Return True if the nodes can be split into two groups so every edge goes between the groups.</p>',starter:`def is_bipartite(graph):
     pass`,solution:`from collections import deque
 
@@ -409,7 +409,7 @@ def is_bipartite(graph):
                     queue.append(v)
                 elif color[v] == color[u]:
                     return False
-    return True`,tests:[['is_bipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]])','False'],['is_bipartite([[1, 3], [0, 2], [1, 3], [0, 2]])','True'],['is_bipartite([[], []])','True']],hints:['Two-color the graph: neighbours must get opposite colors.','If an edge connects two nodes of the same color, it is not bipartite. Remember disconnected parts.'],approach:'BFS two-coloring per component.',cx:'O(V + E)'},
+    return True`,tests:[['is_bipartite([[1, 2, 3], [0, 2], [0, 1, 3], [0, 2]])','False'],['is_bipartite([[1, 3], [0, 2], [1, 3], [0, 2]])','True'],['is_bipartite([[], []])','True'],['is_bipartite([[1], [0, 2], [1]])','True']],constraints:['1 ≤ n ≤ 100'],mistakes:['Only checking the component that contains node 0.','Colouring without checking already-coloured neighbours.'],followup:'Return the two groups.',hints:['Two-color the graph: neighbours must get opposite colors.','If an edge connects two nodes of the same color, it is not bipartite. Remember disconnected parts.'],approach:'BFS two-coloring per component.',cx:'O(V + E)'},
 {id:'g-judge',type:'code',d:1,p:'dfs',title:'Find the Town Judge',prompt:'<p>People 1..n; <code>trust[i] = [a, b]</code> means a trusts b. The judge trusts nobody and is trusted by everyone else. Return the judge, or -1.</p>',starter:`def find_judge(n, trust):
     pass`,solution:`def find_judge(n, trust):
     score = [0] * (n + 1)          # in-degree minus out-degree
@@ -419,7 +419,7 @@ def is_bipartite(graph):
     for p in range(1, n + 1):
         if score[p] == n - 1:
             return p
-    return -1`,tests:[['find_judge(2, [[1, 2]])','2'],['find_judge(3, [[1, 3], [2, 3]])','3'],['find_judge(3, [[1, 3], [2, 3], [3, 1]])','-1'],['find_judge(1, [])','1']],hints:['This is about in-degrees and out-degrees of a directed graph.'],approach:'Degree counting.',cx:'O(n + E)'},
+    return -1`,tests:[['find_judge(2, [[1, 2]])','2'],['find_judge(3, [[1, 3], [2, 3]])','3'],['find_judge(3, [[1, 3], [2, 3], [3, 1]])','-1'],['find_judge(1, [])','1']],constraints:['1 ≤ n ≤ 1000'],mistakes:['Only checking that someone is trusted by everyone (they must also trust nobody).','Treating people as 0-based.'],followup:'Solve it with one array of trust scores (in-degree − out-degree).',hints:['This is about in-degrees and out-degrees of a directed graph.','Count for each person how many trust them and how many they trust.'],approach:'Degree counting.',cx:'O(n + E)'},
 {id:'g-keys-rooms',type:'code',d:1,p:'dfs',title:'Keys and Rooms',prompt:'<p>Room 0 is open; <code>rooms[i]</code> lists the keys found in room i. Can you visit every room?</p>',starter:`def can_visit_all(rooms):
     pass`,solution:`def can_visit_all(rooms):
     seen, stack = {0}, [0]
@@ -428,7 +428,7 @@ def is_bipartite(graph):
             if key not in seen:
                 seen.add(key)
                 stack.append(key)
-    return len(seen) == len(rooms)`,tests:[['can_visit_all([[1], [2], [3], []])','True'],['can_visit_all([[1, 3], [3, 0, 1], [2], [0]])','False']],hints:['Rooms are nodes, keys are directed edges. Is everything reachable from 0?'],approach:'Reachability with DFS.',cx:'O(V + E)'},
+    return len(seen) == len(rooms)`,tests:[['can_visit_all([[1], [2], [3], []])','True'],['can_visit_all([[1, 3], [3, 0, 1], [2], [0]])','False'],['can_visit_all([[], [0]])','False'],['can_visit_all([[1], []])','True']],constraints:['2 ≤ n ≤ 1000'],mistakes:['Visiting rooms only in index order.','Not marking rooms as visited (loops on keys to visited rooms).'],followup:'Return the minimum number of rooms you must enter to collect all keys.',hints:['Rooms are nodes, keys are directed edges. Is everything reachable from 0?','DFS or BFS from room 0 using the keys as edges; compare the visited count with n.'],approach:'Reachability with DFS.',cx:'O(V + E)'},
 {id:'g-01-matrix',type:'code',d:2,p:'bfs',title:'Distance to the Nearest 0',prompt:'<p>For each cell of a 0/1 matrix, return the distance (4-directional steps) to the nearest 0.</p>',starter:`def update_matrix(mat):
     pass`,solution:`from collections import deque
 
@@ -447,7 +447,7 @@ def update_matrix(mat):
             if 0 <= nr < rows and 0 <= nc < cols and dist[nr][nc] == -1:
                 dist[nr][nc] = dist[r][c] + 1
                 queue.append((nr, nc))
-    return dist`,tests:[['update_matrix([[0, 0, 0], [0, 1, 0], [1, 1, 1]])','[[0, 0, 0], [0, 1, 0], [1, 2, 1]]'],['update_matrix([[0]])','[[0]]']],hints:['Running a BFS from every 1 is slow.','Reverse it: start ONE BFS from all the 0s at once.'],approach:'Multi-source BFS from every 0.',cx:'O(rows × cols)'},
+    return dist`,tests:[['update_matrix([[0, 0, 0], [0, 1, 0], [1, 1, 1]])','[[0, 0, 0], [0, 1, 0], [1, 2, 1]]'],['update_matrix([[0]])','[[0]]'],['update_matrix([[1, 0]])','[[1, 0]]'],['update_matrix([[0, 1, 1, 1]])','[[0, 1, 2, 3]]']],constraints:['1 ≤ rows, cols ≤ 10<sup>4</sup>, rows · cols ≤ 10<sup>4</sup>'],mistakes:['Running a BFS from every 1 cell: O((rc)²).','Not starting with all 0 cells in the queue.'],followup:'Solve it with two DP passes instead of BFS.',hints:['Running a BFS from every 1 is slow.','Reverse it: start ONE BFS from all the 0s at once.'],approach:'Multi-source BFS from every 0.',cx:'O(rows × cols)'},
 {id:'g-all-paths',type:'code',d:2,p:'backtracking',title:'All Paths From Source to Target',prompt:'<p>A DAG with nodes 0..n − 1; <code>graph[i]</code> lists i’s successors. Return all paths from 0 to n − 1 (in DFS order).</p>',starter:`def all_paths(graph):
     pass`,solution:`def all_paths(graph):
     target, out, path = len(graph) - 1, [], [0]
@@ -460,7 +460,7 @@ def update_matrix(mat):
             dfs(v)
             path.pop()
     dfs(0)
-    return out`,tests:[['all_paths([[1, 2], [3], [3], []])','[[0, 1, 3], [0, 2, 3]]'],['all_paths([[4, 3, 1], [3, 2, 4], [3], [4], []])','[[0, 4], [0, 3, 4], [0, 1, 3, 4], [0, 1, 2, 3, 4], [0, 1, 4]]']],hints:['It is a DAG, so no visited set is needed: paths cannot loop.','Backtracking: extend the path, recurse, undo.'],approach:'DFS backtracking over paths.',cx:'Exponential in the worst case (number of paths)'},
+    return out`,tests:[['all_paths([[1, 2], [3], [3], []])','[[0, 1, 3], [0, 2, 3]]'],['all_paths([[4, 3, 1], [3, 2, 4], [3], [4], []])','[[0, 4], [0, 3, 4], [0, 1, 3, 4], [0, 1, 2, 3, 4], [0, 1, 4]]'],['all_paths([[1], []])','[[0, 1]]'],['all_paths([[1, 2], [2], []])','[[0, 1, 2], [0, 2]]']],constraints:['2 ≤ n ≤ 15'],mistakes:['Appending the path list itself instead of a copy.','Adding a visited set (not needed in a DAG, and it would drop valid paths).'],followup:'Count the paths without listing them (DP on the DAG).',hints:['It is a DAG, so no visited set is needed: paths cannot loop.','Backtracking: extend the path, recurse, undo.'],approach:'DFS backtracking over paths.',cx:'Exponential in the worst case (number of paths)'},
 {id:'g-word-ladder',type:'code',d:3,p:'bfs',title:'Word Ladder',prompt:'<p>Change one letter at a time; every intermediate word must be in <code>word_list</code>. Return the number of words in the shortest sequence from begin to end (0 if impossible).</p>',starter:`def ladder_length(begin, end, word_list):
     pass`,solution:`from collections import deque
 
@@ -479,7 +479,7 @@ def ladder_length(begin, end, word_list):
                 if nxt in words and nxt not in seen:
                     seen.add(nxt)
                     queue.append((nxt, steps + 1))
-    return 0`,tests:[['ladder_length("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"])','5'],['ladder_length("hit", "cog", ["hot", "dot", "dog", "lot", "log"])','0'],['ladder_length("a", "c", ["a", "b", "c"])','2']],hints:['Words are nodes; an edge connects words that differ in one letter.','Shortest sequence → BFS. Generate neighbours by changing each position to every letter.'],approach:'BFS over implicit word graph.',cx:'O(N · L · 26)'},
+    return 0`,tests:[['ladder_length("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"])','5'],['ladder_length("hit", "cog", ["hot", "dot", "dog", "lot", "log"])','0'],['ladder_length("a", "c", ["a", "b", "c"])','2'],['ladder_length("hot", "dog", ["hot", "dog"])','0']],constraints:['1 ≤ len(word_list) ≤ 5000','all words have the same length'],mistakes:['Comparing every pair of words to build the graph: O(n² · L).','Counting edges instead of words.'],followup:'Return all shortest sequences.',hints:['Words are nodes; an edge connects words that differ in one letter.','Shortest sequence → BFS. Generate neighbours by changing each position to every letter.'],approach:'BFS over implicit word graph.',cx:'O(N · L · 26)'},
 {id:'g-pacific',type:'code',d:3,p:'dfs',title:'Pacific Atlantic Water Flow',prompt:'<p>Water flows to a neighbour with height ≤ the current cell. The Pacific touches the top and left edges, the Atlantic the bottom and right. Return all cells (sorted [r, c] pairs) that can reach both oceans.</p>',starter:`def pacific_atlantic(heights):
     pass`,solution:`def pacific_atlantic(heights):
     rows, cols = len(heights), len(heights[0])
@@ -494,5 +494,5 @@ def ladder_length(begin, end, word_list):
         return seen
     pac = reach([(0, c) for c in range(cols)] + [(r, 0) for r in range(rows)])
     atl = reach([(rows - 1, c) for c in range(cols)] + [(r, cols - 1) for r in range(rows)])
-    return sorted([list(p) for p in pac & atl])`,tests:[['pacific_atlantic([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])','[[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]'],['pacific_atlantic([[1]])','[[0, 0]]']],hints:['Searching from every cell is slow.','Reverse the flow: from each ocean’s border, walk uphill. Answer = cells reached from both.'],approach:'Two reverse searches from the borders + intersection.',cx:'O(rows × cols)'}
+    return sorted([list(p) for p in pac & atl])`,tests:[['pacific_atlantic([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])','[[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]'],['pacific_atlantic([[1]])','[[0, 0]]'],['pacific_atlantic([[2, 1], [1, 2]])','[[0, 0], [0, 1], [1, 0], [1, 1]]'],['pacific_atlantic([[3, 3, 3], [3, 1, 3], [3, 3, 3]])','[[0, 0], [0, 1], [0, 2], [1, 0], [1, 2], [2, 0], [2, 1], [2, 2]]']],constraints:['1 ≤ rows, cols ≤ 200'],mistakes:['Running a search from every cell (O((rc)²)).','Flowing downhill from the oceans instead of uphill.'],followup:'Return the cells that reach exactly one ocean.',hints:['Searching from every cell is slow.','Reverse the flow: from each ocean’s border, walk uphill. Answer = cells reached from both.'],approach:'Two reverse searches from the borders + intersection.',cx:'O(rows × cols)'}
 ]);

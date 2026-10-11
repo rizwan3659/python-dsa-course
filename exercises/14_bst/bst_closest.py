@@ -9,6 +9,11 @@ Examples:
     closest_value(build_tree([1]), 4.4)  ->  1
     closest_value(build_tree([4, 2, 5, 1, 3]), 3.5)  ->  3
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(h)
 
 Check your work:   python dsa.py test bst-closest

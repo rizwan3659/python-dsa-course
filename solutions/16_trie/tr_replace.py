@@ -3,6 +3,12 @@
 Complexity: O(total characters)
 
 Approach: Trie of roots; shortest match per word.
+
+Common mistakes:
+- Replacing with the longest root instead of the shortest.
+- Checking every root against every word: O(R · W).
+
+Follow-up challenge: Roots can contain wildcards.
 """
 
 

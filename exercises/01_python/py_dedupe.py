@@ -11,6 +11,12 @@ Examples:
     dedupe([])  ->  []
     dedupe(["b", "a", "b"])  ->  ["b", "a"]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(items) ≤ 10^5
+- items are hashable
+
 Target complexity: O(n) time, O(n) space
 
 Check your work:   python dsa.py test py-dedupe

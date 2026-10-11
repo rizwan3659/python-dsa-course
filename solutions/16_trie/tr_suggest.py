@@ -3,6 +3,13 @@
 Complexity: O(total characters)
 
 Approach: Trie with up to 3 cached suggestions per node.
+
+Common mistakes:
+- Returning more than three products.
+- Not sorting the products first.
+
+Follow-up challenge: Rank suggestions by popularity
+(projects/08_autocomplete).
 """
 
 

@@ -11,6 +11,12 @@ Examples:
     transpose([[7]])  ->  [[7]]
     transpose([])  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ rows, cols ≤ 1000
+- all rows have the same length
+
 Target complexity: O(rows × cols) time
 
 Check your work:   python dsa.py test py-transpose

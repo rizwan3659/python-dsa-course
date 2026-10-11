@@ -3,6 +3,14 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Middle (fast/slow) + reverse second half + compare.
+
+Common mistakes:
+- Reversing the whole list and comparing it with itself (they are the same
+  nodes).
+- Not restoring the list after reversing its second half.
+
+Follow-up challenge: Restore the list to its original order before
+returning.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

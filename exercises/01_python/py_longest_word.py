@@ -9,6 +9,12 @@ Examples:
     longest_word("")  ->  ""
     longest_word("a bb cc")  ->  "bb"
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(sentence) ≤ 10^4
+- words are separated by spaces
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test py-longest-word

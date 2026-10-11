@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 5 × 10^5
+
 Target complexity: O(n + k log k) for k distinct characters
 
 Check your work:   python dsa.py test h-freq-sort

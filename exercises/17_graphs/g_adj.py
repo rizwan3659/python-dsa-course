@@ -7,6 +7,13 @@ node to a sorted list of neighbours.
 Examples:
     adjacency(4, [(0, 1), (0, 2), (2, 3)])  ->  {0: [1, 2], 1: [0], 2: [0, 3], 3: [2]}
     adjacency(2, [])  ->  {0: [], 1: []}
+    adjacency(3, [(0, 1), (1, 2), (0, 2)])  ->  {0: [1, 2], 1: [0, 2], 2: [0, 1]}
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 10^5
+- 0 ≤ len(edges) ≤ 10^5
 
 Target complexity: O(V + E log E)
 

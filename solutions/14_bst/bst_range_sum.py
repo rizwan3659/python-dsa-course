@@ -3,6 +3,12 @@
 Complexity: O(n) worst, often much less
 
 Approach: DFS with pruning.
+
+Common mistakes:
+- Visiting subtrees that cannot contain values in range.
+- Using exclusive bounds.
+
+Follow-up challenge: Count the nodes in the range instead.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

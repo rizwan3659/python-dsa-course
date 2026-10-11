@@ -7,6 +7,14 @@ ms, i.e. in `[t - 3000, t]`.
 
 Examples:
     _t()  ->  [1, 2, 3, 3, 1]
+    (lambda c: [c.ping(t) for t in (1, 100, 3001, 3002)])(RecentCounter())  ->  [1, 2, 3, 3]
+    (lambda c: [c.ping(t) for t in (5, 10000, 20000)])(RecentCounter())  ->  [1, 1, 1]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ t ≤ 10^9, strictly increasing
+- up to 10^4 calls
 
 Target complexity: O(1) amortized per ping
 

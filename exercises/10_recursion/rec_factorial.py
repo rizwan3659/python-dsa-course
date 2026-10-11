@@ -8,6 +8,11 @@ Examples:
     factorial(5)  ->  120
     factorial(10)  ->  3628800
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 0 ≤ n ≤ 500
+
 Target complexity: O(n) time, O(n) stack
 
 Check your work:   python dsa.py test rec-factorial

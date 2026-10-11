@@ -8,6 +8,11 @@ Examples:
     to_list(remove_elements(build([7, 7, 7, 7]), 7))  ->  []
     to_list(remove_elements(build([]), 1))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test ll-remove-elements

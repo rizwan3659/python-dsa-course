@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) extra space (besides the output)
 
 Approach: Prefix products from the left, suffix products from the right.
+
+Common mistakes:
+- Dividing the total product by nums[i] (breaks with zeros).
+- Using two extra lists when the output list can hold the prefix products.
+
+Follow-up challenge: Use O(1) extra space besides the output.
 """
 
 

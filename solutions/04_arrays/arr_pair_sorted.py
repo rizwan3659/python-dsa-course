@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Opposite-direction two pointers on the sorted list.
+
+Common mistakes:
+- Using the same position twice (left == right).
+- Moving both pointers at once.
+
+Follow-up challenge: Count all pairs with the target sum.
 """
 
 

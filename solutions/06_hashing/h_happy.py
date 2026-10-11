@@ -4,6 +4,13 @@ Complexity: O(log n) per step
 
 Approach: Set of seen numbers detects the cycle (Floyd’s fast/slow pointers
 also work).
+
+Common mistakes:
+- Looping forever because you never detect the cycle.
+- Limiting the loop to a fixed number of steps.
+
+Follow-up challenge: Detect the cycle with fast and slow pointers instead of
+a set.
 """
 
 

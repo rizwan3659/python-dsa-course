@@ -6,6 +6,13 @@ Insert value v (not already present) and return the root.
 Examples:
     tree_to_list(insert_bst(build_tree([4, 2, 7, 1, 3]), 5))  ->  [4, 2, 7, 1, 3, 5]
     tree_to_list(insert_bst(None, 3))  ->  [3]
+    tree_to_list(insert_bst(build_tree([4, 2, 7]), 1))  ->  [4, 2, 7, 1]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+- v is not already in the tree
 
 Target complexity: O(h)
 

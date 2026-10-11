@@ -9,6 +9,12 @@ Examples:
     to_list(add_two_numbers(build([0]), build([0])))  ->  [0]
     to_list(add_two_numbers(build([9, 9, 9, 9, 9, 9, 9]), build([9, 9, 9, 9])))  ->  [8, 9, 9, 9, 0, 0, 0, 1]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ nodes in each list ≤ 100
+- no leading zeros except 0 itself
+
 Target complexity: O(max(n, m))
 
 Check your work:   python dsa.py test ll-add-two

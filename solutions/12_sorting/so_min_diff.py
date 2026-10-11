@@ -3,6 +3,13 @@
 Complexity: O(n log n)
 
 Approach: Sort, then scan adjacent differences.
+
+Common mistakes:
+- Comparing every pair: O(n²).
+- Forgetting to sort first.
+
+Follow-up challenge: Return just the minimum difference for a stream of
+insertions.
 """
 
 

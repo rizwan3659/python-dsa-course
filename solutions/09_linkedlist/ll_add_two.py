@@ -3,6 +3,13 @@
 Complexity: O(max(n, m))
 
 Approach: Grade-school addition with a dummy head.
+
+Common mistakes:
+- Forgetting the final carry ([9, 9] + [1] needs a new node).
+- Stopping when one list ends.
+
+Follow-up challenge: The digits are stored most significant first: add them
+without reversing the lists.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

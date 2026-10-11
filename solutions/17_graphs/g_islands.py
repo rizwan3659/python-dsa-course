@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: Flood fill from each new land cell.
+
+Common mistakes:
+- Counting land cells instead of islands.
+- Including diagonal neighbours.
+
+Follow-up challenge: Count islands with distinct shapes.
 """
 
 

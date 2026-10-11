@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ k ≤ number of nodes ≤ 5000
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test ll-reverse-k

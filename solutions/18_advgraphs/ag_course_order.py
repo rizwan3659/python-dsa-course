@@ -3,6 +3,13 @@
 Complexity: O(V + E)
 
 Approach: Kahn’s topological sort.
+
+Common mistakes:
+- Returning a partial order when there is a cycle.
+- Adding a course to the queue before all its prerequisites are done.
+
+Follow-up challenge: Return the lexicographically smallest order (use a
+heap).
 """
 
 

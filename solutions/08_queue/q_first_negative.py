@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Deque of negative indexes for the current window.
+
+Common mistakes:
+- Scanning each window from the start: O(n · k).
+- Not removing indexes that have left the window.
+
+Follow-up challenge: Return the last negative of every window instead.
 """
 
 

@@ -3,6 +3,13 @@
 Complexity: push O(n), pop O(1)
 
 Approach: Rotate on push so the newest item is always at the front.
+
+Common mistakes:
+- Using list.pop() (that is already a stack).
+- Rotating on both push and pop, doing twice the work.
+
+Follow-up challenge: Now build a queue from two stacks, with amortised O(1)
+operations.
 """
 
 

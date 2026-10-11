@@ -3,6 +3,13 @@
 Complexity: O(1) per operation
 
 Approach: Parallel stack of running minimums.
+
+Common mistakes:
+- Keeping a single min variable that breaks after popping the minimum.
+- Calling min() on the whole stack: O(n).
+
+Follow-up challenge: Use O(1) extra space per element by storing differences
+from the minimum.
 """
 
 

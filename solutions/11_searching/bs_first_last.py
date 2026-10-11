@@ -3,6 +3,13 @@
 Complexity: O(log n)
 
 Approach: Two boundary searches.
+
+Common mistakes:
+- Finding one position and walking left and right: O(n) for many duplicates.
+- Stopping at the first match.
+
+Follow-up challenge: Return the number of distinct values in the sorted list
+in O(d log n).
 """
 
 

@@ -3,6 +3,12 @@
 Complexity: O(E log E)
 
 Approach: Kruskal's algorithm.
+
+Common mistakes:
+- Not sorting edges by weight.
+- Adding an edge whose endpoints are already connected.
+
+Follow-up challenge: Return the edges of the MST.
 """
 
 

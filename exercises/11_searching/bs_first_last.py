@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^5
+- nums is sorted
+
 Target complexity: O(log n)
 
 Check your work:   python dsa.py test bs-first-last

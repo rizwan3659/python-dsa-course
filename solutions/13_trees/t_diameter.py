@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Postorder heights + a running maximum.
+
+Common mistakes:
+- Assuming the longest path passes through the root.
+- Counting nodes instead of edges.
+
+Follow-up challenge: Return the diameter of an n-ary tree.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

@@ -3,6 +3,12 @@
 Complexity: O(n · h)
 
 Approach: DFS with the current path.
+
+Common mistakes:
+- Adding a path at a node with one child.
+- Building strings with a shared list that is not undone.
+
+Follow-up challenge: Return the path with the largest sum.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

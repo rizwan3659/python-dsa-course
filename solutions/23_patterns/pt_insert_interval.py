@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Linear three-phase scan.
+
+Common mistakes:
+- Sorting again (the input is already sorted).
+- Not merging with several existing intervals.
+
+Follow-up challenge: Remove an interval instead of inserting.
 """
 
 

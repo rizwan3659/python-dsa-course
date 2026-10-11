@@ -12,6 +12,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(s) ≤ 30
+- 1 ≤ k ≤ 300
+
 Target complexity: O(output length)
 
 Check your work:   python dsa.py test s-decode

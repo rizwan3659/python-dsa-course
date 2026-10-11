@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Mirror comparison helper.
+
+Common mistakes:
+- Comparing left with left instead of left with right.
+- Checking only that each level is a palindrome (shape matters).
+
+Follow-up challenge: Solve it iteratively with a queue of node pairs.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

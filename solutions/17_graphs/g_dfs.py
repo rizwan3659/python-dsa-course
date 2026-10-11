@@ -3,6 +3,14 @@
 Complexity: O(V + E)
 
 Approach: Recursive DFS.
+
+Common mistakes:
+- Forgetting the visited set, which loops forever on cycles.
+- Using a stack and getting a different neighbour order than the recursive
+  version.
+
+Follow-up challenge: Write it with an explicit stack and the same visiting
+order.
 """
 
 

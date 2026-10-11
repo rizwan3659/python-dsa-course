@@ -18,7 +18,7 @@ By the end of the topic, students can:
 ## Duration and prerequisites
 
 - Lessons: about **54 minutes** of guided material (6 lessons)
-- Practice: 16 coding problems and 31 quick questions in the bank; plan at least as much practice time as lesson time
+- Practice: 17 coding problems and 31 quick questions in the bank; plan at least as much practice time as lesson time
 - Suggested format: one 90-minute session
 - Prerequisites: Topic 4 (Arrays / Python Lists)
 

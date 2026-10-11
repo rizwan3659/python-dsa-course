@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ n ≤ 2^31 − 1
+
 Target complexity: O(log n) per step
 
 Check your work:   python dsa.py test h-happy

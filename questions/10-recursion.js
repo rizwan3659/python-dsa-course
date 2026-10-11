@@ -198,7 +198,7 @@ while n > 1:
     pass`,solution:`def sum_digits(n):
     if n < 10:
         return n
-    return n % 10 + sum_digits(n // 10)`,tests:[['sum_digits(4096)','19'],['sum_digits(0)','0'],['sum_digits(7)','7'],['sum_digits(999999)','54']],hints:['A single digit is its own sum.','Last digit: n % 10. Everything else: n // 10.'],approach:'Peel off the last digit each call.',cx:'O(number of digits)'},
+    return n % 10 + sum_digits(n // 10)`,tests:[['sum_digits(4096)','19'],['sum_digits(0)','0'],['sum_digits(7)','7'],['sum_digits(999999)','54']],constraints:['0 ≤ n ≤ 10<sup>18</sup>'],mistakes:['A base case of n < 10 that returns 0 instead of n.','Using n / 10, which produces floats.'],followup:'Keep summing until a single digit remains.',hints:['A single digit is its own sum.','Last digit: n % 10. Everything else: n // 10.'],approach:'Peel off the last digit each call.',cx:'O(number of digits)'},
 {id:'rec-power',type:'code',d:1,p:'divide-conquer',title:'Fast Power',prompt:'<p><code>power(x, n)</code> returns x to the power n (n ≥ 0) using O(log n) multiplications. Do not use <code>**</code> or <code>pow</code>.</p>',starter:`def power(x, n):
     pass`,solution:`def power(x, n):
     if n == 0:
@@ -206,14 +206,14 @@ while n > 1:
     half = power(x, n // 2)
     if n % 2 == 0:
         return half * half
-    return half * half * x`,tests:[['power(2, 10)','1024'],['power(3, 0)','1'],['power(5, 3)','125'],['power(2, 200)','2 ** 200']],hints:['Compute <code>power(x, n // 2)</code> once and square it.','If n is odd, multiply by x once more.'],approach:'Halve n each call.',cx:'O(log n)'},
+    return half * half * x`,tests:[['power(2, 10)','1024'],['power(3, 0)','1'],['power(5, 3)','125'],['power(2, 200)','2 ** 200']],constraints:['−100 &lt; x &lt; 100, 0 ≤ n ≤ 10<sup>4</sup>'],mistakes:['Calling power(x, n // 2) twice, which makes it O(n) again.','Forgetting the extra factor of x for odd n.'],followup:'Support negative n (return 1 / power(x, −n)).',hints:['Compute <code>power(x, n // 2)</code> once and square it.','If n is odd, multiply by x once more.'],approach:'Halve n each call.',cx:'O(log n)'},
 {id:'rec-is-pal',type:'code',d:1,p:'recursion',title:'Recursive Palindrome',prompt:'<p><code>is_pal(s)</code> returns True if <code>s</code> reads the same backwards, recursively (compare the ends, then recurse on the middle).</p>',starter:`def is_pal(s):
     pass`,solution:`def is_pal(s):
     if len(s) <= 1:
         return True
     if s[0] != s[-1]:
         return False
-    return is_pal(s[1:-1])`,tests:[['is_pal("racecar")','True'],['is_pal("abca")','False'],['is_pal("")','True'],['is_pal("aa")','True'],['is_pal("ab")','False']],hints:['Strings of length 0 or 1 are palindromes.','If the ends match, the answer is the answer for the middle.'],approach:'Compare ends, recurse inward.',cx:'O(n²) with slicing (O(n) with indexes)'},
+    return is_pal(s[1:-1])`,tests:[['is_pal("racecar")','True'],['is_pal("abca")','False'],['is_pal("")','True'],['is_pal("aa")','True'],['is_pal("ab")','False']],constraints:['0 ≤ len(s) ≤ 900'],mistakes:['Missing the base case for strings of length 1.','Slicing in every call (O(n²) copying); pass indexes instead.'],followup:'Rewrite it with indexes (is_pal(s, i, j)) so no slices are copied.',hints:['Strings of length 0 or 1 are palindromes.','If the ends match, the answer is the answer for the middle.'],approach:'Compare ends, recurse inward.',cx:'O(n²) with slicing (O(n) with indexes)'},
 {id:'rec-flatten',type:'code',d:1,p:'recursion',title:'Flatten a Nested List',prompt:'<p><code>flatten(items)</code> takes a list that may contain lists (to any depth) and returns one flat list.</p><p><code>flatten([1, [2, [3, 4]], 5])</code> → <code>[1, 2, 3, 4, 5]</code></p>',starter:`def flatten(items):
     pass`,solution:`def flatten(items):
     result = []
@@ -222,22 +222,22 @@ while n > 1:
             result.extend(flatten(x))
         else:
             result.append(x)
-    return result`,tests:[['flatten([1, [2, [3, 4]], 5])','[1, 2, 3, 4, 5]'],['flatten([])','[]'],['flatten([[[]]])','[]'],['flatten([["a"], "b"])','["a", "b"]']],hints:['Loop over the items. If an item is a list, flatten it recursively and extend; otherwise append it.'],approach:'Recurse on sublists.',cx:'O(total elements)'},
+    return result`,tests:[['flatten([1, [2, [3, 4]], 5])','[1, 2, 3, 4, 5]'],['flatten([])','[]'],['flatten([[[]]])','[]'],['flatten([["a"], "b"])','["a", "b"]']],constraints:['nesting depth ≤ 100'],mistakes:['Only flattening one level.','Treating strings as lists (they are iterable too).'],followup:'Write it without recursion, using an explicit stack.',hints:['Loop over the items. If an item is a list, flatten it recursively and extend; otherwise append it.','For each item: if it is a list, extend the result with flatten(item); otherwise append the item.'],approach:'Recurse on sublists.',cx:'O(total elements)'},
 {id:'rec-factorial',type:'code',d:1,p:'recursion',title:'Factorial',prompt:'<p>Return n! recursively (0! = 1).</p>',starter:`def factorial(n):
     pass`,solution:`def factorial(n):
     if n <= 1:
         return 1
-    return n * factorial(n - 1)`,tests:[['factorial(0)','1'],['factorial(5)','120'],['factorial(10)','3628800']],hints:['Base case: n ≤ 1.'],approach:'n × factorial(n − 1).',cx:'O(n) time, O(n) stack'},
+    return n * factorial(n - 1)`,tests:[['factorial(0)','1'],['factorial(5)','120'],['factorial(10)','3628800'],['factorial(1)','1'],['factorial(20)','2432902008176640000']],constraints:['0 ≤ n ≤ 500'],mistakes:['A base case of n == 1 only, which recurses forever for n = 0.','Returning n * factorial(n) (no progress).'],followup:'Write it with a loop and compare the stack depth needed.',hints:['Base case: n ≤ 1.','factorial(n) = n × factorial(n − 1), and factorial(0) = 1.'],approach:'n × factorial(n − 1).',cx:'O(n) time, O(n) stack'},
 {id:'rec-reverse-string',type:'code',d:1,p:'recursion',title:'Reverse a String Recursively',prompt:'<p>Return the reversed string without slicing with [::-1] or reversed().</p>',starter:`def reverse(s):
     pass`,solution:`def reverse(s):
     if len(s) <= 1:
         return s
-    return reverse(s[1:]) + s[0]`,tests:[['reverse("hello")','"olleh"'],['reverse("")','""'],['reverse("a")','"a"']],hints:['The reverse of s is reverse(rest) + first character.'],approach:'Move the first character to the end of the reversed rest.',cx:'O(n²) with slicing'},
+    return reverse(s[1:]) + s[0]`,tests:[['reverse("hello")','"olleh"'],['reverse("")','""'],['reverse("a")','"a"'],['reverse("ab")','"ba"'],['reverse("racecar")','"racecar"']],constraints:['0 ≤ len(s) ≤ 900'],mistakes:['No base case for the empty string.','Putting the first character first again: s[0] + reverse(s[1:]).'],followup:'Reverse the words of a sentence recursively.',hints:['The reverse of s is reverse(rest) + first character.','reverse(s) = reverse(s[1:]) + s[0], with "" as the base case.'],approach:'Move the first character to the end of the reversed rest.',cx:'O(n²) with slicing'},
 {id:'rec-gcd',type:'code',d:1,p:'math',title:'Greatest Common Divisor',prompt:'<p>Return gcd(a, b) using Euclid’s rule: gcd(a, b) = gcd(b, a % b), and gcd(a, 0) = a.</p>',starter:`def gcd(a, b):
     pass`,solution:`def gcd(a, b):
     if b == 0:
         return a
-    return gcd(b, a % b)`,tests:[['gcd(48, 18)','6'],['gcd(7, 3)','1'],['gcd(10, 0)','10'],['gcd(0, 5)','5']],hints:['The rule is already recursive.'],approach:"Euclid's algorithm.",cx:'O(log min(a, b))'},
+    return gcd(b, a % b)`,tests:[['gcd(48, 18)','6'],['gcd(7, 3)','1'],['gcd(10, 0)','10'],['gcd(0, 5)','5']],constraints:['0 ≤ a, b ≤ 10<sup>18</sup>, not both 0'],mistakes:['Using subtraction instead of %, which takes very long for (10¹⁸, 1).','Base case on a == 0 only.'],followup:'Compute the gcd of a whole list of numbers.',hints:['The rule is already recursive.','gcd(a, b) = gcd(b, a % b) until b is 0; then the answer is a.'],approach:"Euclid's algorithm.",cx:'O(log min(a, b))'},
 {id:'rec-fib-memo',type:'code',kind:'optimize',d:1,p:'dp',title:'Fibonacci With Memoization',prompt:'<p>Return fib(n) (fib(0) = 0, fib(1) = 1). The starter is correct but exponential: make it fast for n = 300.</p>',starter:`def fib(n):
     if n < 2:
         return n
@@ -247,7 +247,7 @@ while n > 1:
 def fib(n):
     if n < 2:
         return n
-    return fib(n - 1) + fib(n - 2)`,tests:[['fib(10)','55'],['fib(1)','1'],['fib(300)','222232244629420445529739893461909967206666939096499764990979600','','fib(300) (must be fast)']],hints:['The starter recomputes the same values exponentially many times.','Cache each result: functools.lru_cache, or a dict.'],approach:'Memoization turns O(2ⁿ) into O(n).',cx:'O(n) time'},
+    return fib(n - 1) + fib(n - 2)`,tests:[['fib(10)','55'],['fib(1)','1'],['fib(300)','222232244629420445529739893461909967206666939096499764990979600','','fib(300) (must be fast)'],['fib(0)','0']],constraints:['0 ≤ n ≤ 300'],mistakes:['Creating a new memo dict inside every call (no sharing).','Using a mutable default without understanding that it persists between calls.'],followup:'Write it bottom-up with two variables.',hints:['The starter recomputes the same values exponentially many times.','Cache each result: functools.lru_cache, or a dict.'],approach:'Memoization turns O(2ⁿ) into O(n).',cx:'O(n) time'},
 {id:'rec-climb',type:'code',d:1,p:'dp',title:'Climbing Stairs',prompt:'<p>You climb 1 or 2 steps at a time. In how many distinct ways can you climb n steps?</p><p><code>climb(3)</code> → <code>3</code> (1+1+1, 1+2, 2+1)</p>',starter:`def climb(n):
     pass`,solution:`from functools import lru_cache
 
@@ -255,7 +255,7 @@ def fib(n):
 def climb(n):
     if n <= 2:
         return n
-    return climb(n - 1) + climb(n - 2)`,tests:[['climb(1)','1'],['climb(2)','2'],['climb(3)','3'],['climb(5)','8'],['climb(60)','2504730781961']],hints:['Your last move was either 1 step or 2 steps.','ways(n) = ways(n − 1) + ways(n − 2). Memoize it.'],approach:'Fibonacci-like recurrence with memoization.',cx:'O(n)'},
+    return climb(n - 1) + climb(n - 2)`,tests:[['climb(1)','1'],['climb(2)','2'],['climb(3)','3'],['climb(5)','8'],['climb(60)','2504730781961']],constraints:['1 ≤ n ≤ 90'],mistakes:['Base cases that give climb(2) = 1.','No memoization, so climb(60) never finishes.'],followup:'Allow steps of 1, 2 or 3.',hints:['Your last move was either 1 step or 2 steps.','ways(n) = ways(n − 1) + ways(n − 2). Memoize it.'],approach:'Fibonacci-like recurrence with memoization.',cx:'O(n)'},
 {id:'rec-count-paths',type:'code',d:2,p:'dp',title:'Count Grid Paths',prompt:'<p>Moving only right or down, how many paths go from (0, 0) to (r, c)?</p><p><code>count_paths(2, 2)</code> → <code>6</code></p>',starter:`def count_paths(r, c):
     pass`,solution:`from functools import lru_cache
 
@@ -263,20 +263,20 @@ def climb(n):
 def count_paths(r, c):
     if r == 0 or c == 0:
         return 1
-    return count_paths(r - 1, c) + count_paths(r, c - 1)`,tests:[['count_paths(2, 2)','6'],['count_paths(0, 5)','1'],['count_paths(3, 7)','120'],['count_paths(16, 16)','601080390','','16 × 16 (must be fast)']],hints:['The last step came from above or from the left.','Memoize, or the same cells are recomputed exponentially many times.'],approach:'paths(r, c) = paths(r − 1, c) + paths(r, c − 1), cached.',cx:'O(r × c)'},
+    return count_paths(r - 1, c) + count_paths(r, c - 1)`,tests:[['count_paths(2, 2)','6'],['count_paths(0, 5)','1'],['count_paths(3, 7)','120'],['count_paths(16, 16)','601080390','','16 × 16 (must be fast)']],constraints:['0 ≤ r, c ≤ 16'],mistakes:['Recursing without memoization (exponential).','Base case returning 0 on the edges instead of 1.'],followup:'Compute it with the binomial formula C(r + c, r).',hints:['The last step came from above or from the left.','Memoize, or the same cells are recomputed exponentially many times.'],approach:'paths(r, c) = paths(r − 1, c) + paths(r, c − 1), cached.',cx:'O(r × c)'},
 {id:'rec-hanoi',type:'code',d:2,p:'recursion',title:'Towers of Hanoi',prompt:'<p>Return the list of moves <code>(from, to)</code> that moves n disks from peg "A" to peg "C" using "B".</p><p><code>hanoi(2)</code> → <code>[("A", "B"), ("A", "C"), ("B", "C")]</code></p>',starter:`def hanoi(n, src="A", dst="C", via="B"):
     pass`,solution:`def hanoi(n, src="A", dst="C", via="B"):
     if n == 0:
         return []
     return (hanoi(n - 1, src, via, dst)      # park n - 1 disks on via
             + [(src, dst)]                   # move the biggest disk
-            + hanoi(n - 1, via, dst, src))   # bring the n - 1 disks over`,tests:[['hanoi(1)','[("A", "C")]'],['hanoi(2)','[("A", "B"), ("A", "C"), ("B", "C")]'],['len(hanoi(10))','1023']],hints:['To move n disks, the biggest disk must move once, from src to dst. Where must the other n − 1 disks be at that moment?'],approach:'Move n − 1 out of the way, move the biggest, move n − 1 back on top.',cx:'O(2ⁿ) moves'},
+            + hanoi(n - 1, via, dst, src))   # bring the n - 1 disks over`,tests:[['hanoi(1)','[("A", "C")]'],['hanoi(2)','[("A", "B"), ("A", "C"), ("B", "C")]'],['len(hanoi(10))','1023'],['hanoi(0)','[]'],['hanoi(3)[3]','("A", "C")']],constraints:['0 ≤ n ≤ 20'],mistakes:['Swapping the roles of via and dst in the recursive calls.','Returning moves in the wrong order.'],followup:'Prove that 2ⁿ − 1 moves is the minimum.',hints:['To move n disks, the biggest disk must move once, from src to dst. Where must the other n − 1 disks be at that moment?','Move n − 1 disks to via, the largest to dst, then n − 1 disks from via to dst.'],approach:'Move n − 1 out of the way, move the biggest, move n − 1 back on top.',cx:'O(2ⁿ) moves'},
 {id:'rec-binary-strings',type:'code',d:2,p:'backtracking',title:'All Binary Strings',prompt:'<p>Return all binary strings of length n in increasing order.</p><p><code>binary_strings(2)</code> → <code>["00", "01", "10", "11"]</code></p>',starter:`def binary_strings(n):
     pass`,solution:`def binary_strings(n):
     if n == 0:
         return [""]
     shorter = binary_strings(n - 1)
-    return ["0" + s for s in shorter] + ["1" + s for s in shorter]`,tests:[['binary_strings(2)','["00", "01", "10", "11"]'],['binary_strings(0)','[""]'],['len(binary_strings(10))','1024']],hints:['A string of length n is "0" or "1" followed by a string of length n − 1.'],approach:'Build from the strings of length n − 1.',cx:'O(n · 2ⁿ)'},
+    return ["0" + s for s in shorter] + ["1" + s for s in shorter]`,tests:[['binary_strings(2)','["00", "01", "10", "11"]'],['binary_strings(0)','[""]'],['len(binary_strings(10))','1024'],['binary_strings(1)','["0", "1"]'],['binary_strings(3)[5]','"101"']],constraints:['0 ≤ n ≤ 16'],mistakes:['Returning [] for n = 0 (the answer is [""]).','Generating out of order (try "0" before "1").'],followup:'Only strings with no two adjacent 1s.',hints:['A string of length n is "0" or "1" followed by a string of length n − 1.','binary_strings(n) = "0" + each string of length n − 1, then "1" + each.'],approach:'Build from the strings of length n − 1.',cx:'O(n · 2ⁿ)'},
 {id:'rec-subsets',type:'code',d:2,p:'backtracking',title:'Subsets',prompt:'<p>Return all subsets of a list of distinct numbers (any order).</p>',starter:`def subsets(nums):
     pass`,solution:`def subsets(nums):
     result, path = [], []
@@ -291,7 +291,7 @@ def count_paths(r, c):
         backtrack(i + 1)
 
     backtrack(0)
-    return result`,tests:[['subsets([1, 2, 3])','[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]','unordered'],['subsets([])','[[]]','unordered'],['len(subsets(list(range(10))))','1024']],hints:['Each number is either in or out.','Backtracking: choose, explore, un-choose. Record a copy at the end.'],approach:'Include/exclude decision tree.',cx:'O(n · 2ⁿ)'},
+    return result`,tests:[['subsets([1, 2, 3])','[[], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3]]','unordered'],['subsets([])','[[]]','unordered'],['len(subsets(list(range(10))))','1024'],['subsets([7])','[[7], []]','unordered']],constraints:['0 ≤ len(nums) ≤ 10','values are distinct'],mistakes:['Appending path itself instead of a copy.','Forgetting the empty subset.'],followup:'Subsets with duplicates (rec-subsets-dup).',hints:['Each number is either in or out.','Backtracking: choose, explore, un-choose. Record a copy at the end.'],approach:'Include/exclude decision tree.',cx:'O(n · 2ⁿ)'},
 {id:'rec-permutations',type:'code',d:2,p:'backtracking',title:'Permutations',prompt:'<p>Return all orderings of a list of distinct numbers (any order).</p>',starter:`def permutations(nums):
     pass`,solution:`def permutations(nums):
     result, path, used = [], [], [False] * len(nums)
@@ -309,7 +309,7 @@ def count_paths(r, c):
                 used[i] = False
 
     backtrack()
-    return result`,tests:[['permutations([1, 2, 3])','[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]','unordered'],['permutations([1])','[[1]]','unordered'],['len(permutations([1, 2, 3, 4, 5]))','120']],hints:['At each position, try every number not used yet.','Track used numbers; undo both the path and the used flag after exploring.'],approach:'Backtracking over unused elements.',cx:'O(n · n!)'},
+    return result`,tests:[['permutations([1, 2, 3])','[[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]','unordered'],['permutations([1])','[[1]]','unordered'],['len(permutations([1, 2, 3, 4, 5]))','120'],['permutations([1, 2])','[[1, 2], [2, 1]]','unordered']],constraints:['1 ≤ len(nums) ≤ 8','values are distinct'],mistakes:['Not undoing the "used" mark after the recursive call.','Appending path itself instead of a copy.'],followup:'The input may contain duplicates: return unique permutations.',hints:['At each position, try every number not used yet.','Track used numbers; undo both the path and the used flag after exploring.'],approach:'Backtracking over unused elements.',cx:'O(n · n!)'},
 {id:'rec-combination-sum',type:'code',d:2,p:'backtracking',title:'Combination Sum',prompt:'<p>Return all unique combinations of <code>candidates</code> (distinct positive numbers, each usable unlimited times) that sum to <code>target</code>. Each combination in non-decreasing order; any order of combinations.</p><p><code>([2, 3, 6, 7], 7)</code> → <code>[[2, 2, 3], [7]]</code></p>',starter:`def combination_sum(candidates, target):
     pass`,solution:`def combination_sum(candidates, target):
     candidates = sorted(candidates)
@@ -328,7 +328,7 @@ def count_paths(r, c):
             path.pop()
 
     backtrack(0, target)
-    return result`,tests:[['combination_sum([2, 3, 6, 7], 7)','[[2, 2, 3], [7]]','unordered'],['combination_sum([2, 3, 5], 8)','[[2, 2, 2, 2], [2, 3, 3], [3, 5]]','unordered'],['combination_sum([2], 1)','[]','unordered']],hints:['To avoid duplicates like [2, 3, 2], only pick candidates at or after the current index.','Pass the remaining target down; stop when it reaches 0 (record) or goes negative (prune).'],approach:'Backtracking with a start index and pruning.',cx:'Exponential in the worst case'},
+    return result`,tests:[['combination_sum([2, 3, 6, 7], 7)','[[2, 2, 3], [7]]','unordered'],['combination_sum([2, 3, 5], 8)','[[2, 2, 2, 2], [2, 3, 3], [3, 5]]','unordered'],['combination_sum([2], 1)','[]','unordered'],['combination_sum([1], 3)','[[1, 1, 1]]','unordered']],constraints:['1 ≤ len(candidates) ≤ 30','1 ≤ target ≤ 40'],mistakes:['Starting the loop at 0 every time, which produces duplicates like [2, 3, 2].','Not stopping when the remaining target goes negative.'],followup:'Each candidate may be used once (rec-combination-sum-ii).',hints:['To avoid duplicates like [2, 3, 2], only pick candidates at or after the current index.','Pass the remaining target down; stop when it reaches 0 (record) or goes negative (prune).'],approach:'Backtracking with a start index and pruning.',cx:'Exponential in the worst case'},
 {id:'rec-parens',type:'code',d:2,p:'backtracking',title:'Generate Parentheses',prompt:'<p>Return all balanced strings of n pairs of parentheses, in sorted order.</p><p><code>generate(3)</code> → <code>["((()))", "(()())", "(())()", "()(())", "()()()"]</code></p>',starter:`def generate(n):
     pass`,solution:`def generate(n):
     result = []
@@ -343,7 +343,7 @@ def count_paths(r, c):
             backtrack(s + ")", opened, closed + 1)
 
     backtrack("", 0, 0)
-    return sorted(result)`,tests:[['generate(3)','["((()))", "(()())", "(())()", "()(())", "()()()"]'],['generate(1)','["()"]'],['len(generate(6))','132']],hints:['You may add "(" while fewer than n are open.','You may add ")" only while closed < opened. Those two rules prune every invalid string.'],approach:'Backtracking with counts of opened/closed brackets.',cx:'O(Catalan(n)) results'},
+    return sorted(result)`,tests:[['generate(3)','["((()))", "(()())", "(())()", "()(())", "()()()"]'],['generate(1)','["()"]'],['len(generate(6))','132'],['generate(2)','["(())", "()()"]']],constraints:['1 ≤ n ≤ 8'],mistakes:['Generating all 2²ⁿ strings and filtering (very slow).','Allowing more closing than opening brackets at some point.'],followup:'Count them without generating (Catalan numbers).',hints:['You may add "(" while fewer than n are open.','You may add ")" only while closed < opened. Those two rules prune every invalid string.'],approach:'Backtracking with counts of opened/closed brackets.',cx:'O(Catalan(n)) results'},
 {id:'rec-letter-combos',type:'code',d:2,p:'backtracking',title:'Phone Letter Combinations',prompt:'<p>Digits 2–9 map to letters as on a phone (2 = abc, …, 9 = wxyz). Return all letter combinations for the digits, in order. Empty input → [].</p>',starter:`def letter_combinations(digits):
     pass`,solution:`def letter_combinations(digits):
     keys = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
@@ -360,7 +360,7 @@ def count_paths(r, c):
             backtrack(i + 1, path + ch)
 
     backtrack(0, "")
-    return result`,tests:[['letter_combinations("23")','["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]'],['letter_combinations("")','[]'],['letter_combinations("7")','["p", "q", "r", "s"]']],hints:['One level of recursion per digit; branch on that digit’s letters.'],approach:'Backtracking over digit positions.',cx:'O(4ⁿ · n)'},
+    return result`,tests:[['letter_combinations("23")','["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]'],['letter_combinations("")','[]'],['letter_combinations("7")','["p", "q", "r", "s"]'],['letter_combinations("79")[:3]','["pw", "px", "py"]']],constraints:['0 ≤ len(digits) ≤ 4','digits are 2–9'],mistakes:['Returning [""] for an empty input instead of [].','Hard-coding loops for a fixed number of digits.'],followup:'Return only combinations that are real words from a given set.',hints:['One level of recursion per digit; branch on that digit’s letters.','Recursively: for each letter of the first digit, prepend it to every combination of the remaining digits.'],approach:'Backtracking over digit positions.',cx:'O(4ⁿ · n)'},
 {id:'rec-n-queens',type:'code',d:3,p:'backtracking',title:'N-Queens (count solutions)',prompt:'<p>Count the ways to place n queens on an n × n board so that no two attack each other.</p><p><code>n_queens(4)</code> → <code>2</code> · <code>n_queens(8)</code> → <code>92</code></p>',starter:`def n_queens(n):
     pass`,solution:`def n_queens(n):
     cols, diag1, diag2 = set(), set(), set()
@@ -377,7 +377,7 @@ def count_paths(r, c):
             cols.remove(c); diag1.remove(row - c); diag2.remove(row + c)
         return count
 
-    return place(0)`,tests:[['n_queens(1)','1'],['n_queens(4)','2'],['n_queens(6)','4'],['n_queens(8)','92']],hints:['Place one queen per row; for each row try every column.','A square (r, c) is attacked if its column, its r − c diagonal or its r + c diagonal is taken. Keep three sets.'],approach:'Row-by-row backtracking with column and diagonal sets.',cx:'Exponential, heavily pruned'}
+    return place(0)`,tests:[['n_queens(1)','1'],['n_queens(4)','2'],['n_queens(6)','4'],['n_queens(8)','92']],constraints:['1 ≤ n ≤ 9'],mistakes:['Checking only columns, not diagonals.','Scanning the board to test safety instead of keeping sets.'],followup:'Return one board layout as strings.',hints:['Place one queen per row; for each row try every column.','A square (r, c) is attacked if its column, its r − c diagonal or its r + c diagonal is taken. Keep three sets.'],approach:'Row-by-row backtracking with column and diagonal sets.',cx:'Exponential, heavily pruned'}
 ]);
 
 /* ---------- pruning and constraint search (added with the v2 curriculum) ---------- */

@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 10^5
+- uppercase letters, 0 ≤ k ≤ len(s)
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test st-char-replace

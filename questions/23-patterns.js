@@ -53,7 +53,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
             merged[-1][1] = max(merged[-1][1], end)
         else:
             merged.append([start, end])
-    return merged`,tests:[['merge([[1, 3], [2, 6], [8, 10], [15, 18]])','[[1, 6], [8, 10], [15, 18]]'],['merge([[1, 4], [4, 5]])','[[1, 5]]'],['merge([[1, 4], [2, 3]])','[[1, 4]]'],['merge([])','[]']],hints:['Sort by start first.','Compare each interval with the LAST merged block only.'],approach:'Sort, then extend or start a new block.',cx:'O(n log n)'},
+    return merged`,tests:[['merge([[1, 3], [2, 6], [8, 10], [15, 18]])','[[1, 6], [8, 10], [15, 18]]'],['merge([[1, 4], [4, 5]])','[[1, 5]]'],['merge([[1, 4], [2, 3]])','[[1, 4]]'],['merge([])','[]']],constraints:['0 ≤ len(intervals) ≤ 10<sup>4</sup>'],mistakes:['Not sorting by start first.','Replacing the end instead of taking the max (an interval can contain another).'],followup:'Merge intervals arriving one by one (keep a sorted structure).',hints:['Sort by start first.','Compare each interval with the LAST merged block only.'],approach:'Sort, then extend or start a new block.',cx:'O(n log n)'},
 {id:'pt-insert-interval',type:'code',d:2,p:'intervals',title:'Insert Interval',prompt:'<p><code>intervals</code> is sorted and non-overlapping. Insert <code>new</code>, merging where needed.</p>',starter:`def insert(intervals, new):
     pass`,solution:`def insert(intervals, new):
     out, i, n = [], 0, len(intervals)
@@ -67,7 +67,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
         i += 1
     out.append([start, end])
     out.extend(intervals[i:])                        # entirely after
-    return out`,tests:[['insert([[1, 3], [6, 9]], [2, 5])','[[1, 5], [6, 9]]'],['insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8])','[[1, 2], [3, 10], [12, 16]]'],['insert([], [5, 7])','[[5, 7]]']],hints:['Three phases: intervals before the new one, the ones that overlap it, the ones after.'],approach:'Linear three-phase scan.',cx:'O(n)'},
+    return out`,tests:[['insert([[1, 3], [6, 9]], [2, 5])','[[1, 5], [6, 9]]'],['insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8])','[[1, 2], [3, 10], [12, 16]]'],['insert([], [5, 7])','[[5, 7]]'],['insert([[1, 5]], [2, 3])','[[1, 5]]']],constraints:['0 ≤ len(intervals) ≤ 10<sup>4</sup>','intervals is sorted and non-overlapping'],mistakes:['Sorting again (the input is already sorted).','Not merging with several existing intervals.'],followup:'Remove an interval instead of inserting.',hints:['Three phases: intervals before the new one, the ones that overlap it, the ones after.','Three phases: copy intervals that end before new, merge all that overlap new, copy the rest.'],approach:'Linear three-phase scan.',cx:'O(n)'},
 {id:'pt-non-overlap',type:'code',d:2,p:'greedy',title:'Non-overlapping Intervals',prompt:'<p>Return the minimum number of intervals to remove so the rest do not overlap (touching at an end point is fine).</p>',starter:`def erase_overlap(intervals):
     pass`,solution:`def erase_overlap(intervals):
     removed, last_end = 0, float("-inf")
@@ -76,7 +76,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
             last_end = end            # keep it
         else:
             removed += 1              # overlaps a kept interval: drop it
-    return removed`,tests:[['erase_overlap([[1, 2], [2, 3], [3, 4], [1, 3]])','1'],['erase_overlap([[1, 2], [1, 2], [1, 2]])','2'],['erase_overlap([[1, 2], [2, 3]])','0']],hints:['Keeping the interval that ends earliest leaves the most room for the others.','Sort by end time; keep an interval if it starts after the last kept one ends.'],approach:'Greedy by earliest end (activity selection).',cx:'O(n log n)'},
+    return removed`,tests:[['erase_overlap([[1, 2], [2, 3], [3, 4], [1, 3]])','1'],['erase_overlap([[1, 2], [1, 2], [1, 2]])','2'],['erase_overlap([[1, 2], [2, 3]])','0'],['erase_overlap([[1, 100], [11, 22], [1, 11], [2, 12]])','2']],constraints:['1 ≤ len(intervals) ≤ 10<sup>5</sup>'],mistakes:['Sorting by start and removing greedily (can remove too many).','Treating touching intervals as overlapping.'],followup:'Return the intervals to remove.',hints:['Keeping the interval that ends earliest leaves the most room for the others.','Sort by end time; keep an interval if it starts after the last kept one ends.'],approach:'Greedy by earliest end (activity selection).',cx:'O(n log n)'},
 {id:'pt-interval-intersection',type:'code',d:2,p:'two-pointers',title:'Interval List Intersections',prompt:'<p>Two lists of sorted, disjoint closed intervals. Return their intersections.</p>',starter:`def interval_intersection(a, b):
     pass`,solution:`def interval_intersection(a, b):
     i = j = 0
@@ -90,7 +90,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
             i += 1
         else:
             j += 1
-    return out`,tests:[['interval_intersection([[0, 2], [5, 10], [13, 23], [24, 25]], [[1, 5], [8, 12], [15, 24], [25, 26]])','[[1, 2], [5, 5], [8, 10], [15, 23], [24, 24], [25, 25]]'],['interval_intersection([[1, 3], [5, 9]], [])','[]']],hints:['Two pointers, one per list.','Overlap = [max of starts, min of ends] if non-empty; advance the interval that ends first.'],approach:'Two pointers over both lists.',cx:'O(n + m)'},
+    return out`,tests:[['interval_intersection([[0, 2], [5, 10], [13, 23], [24, 25]], [[1, 5], [8, 12], [15, 24], [25, 26]])','[[1, 2], [5, 5], [8, 10], [15, 23], [24, 24], [25, 25]]'],['interval_intersection([[1, 3], [5, 9]], [])','[]'],['interval_intersection([[1, 5]], [[5, 10]])','[[5, 5]]'],['interval_intersection([[1, 2]], [[3, 4]])','[]']],constraints:['0 ≤ len(a), len(b) ≤ 1000'],mistakes:['Advancing both pointers at once.','Advancing the interval that ends later.'],followup:'Intersect k lists of intervals.',hints:['Two pointers, one per list.','Overlap = [max of starts, min of ends] if non-empty; advance the interval that ends first.'],approach:'Two pointers over both lists.',cx:'O(n + m)'},
 
 /* ---------- greedy ---------- */
 {id:'pt-jump-game',type:'code',d:2,p:'greedy',title:'Jump Game',prompt:'<p><code>nums[i]</code> is the maximum jump length from i. Can you reach the last index from index 0?</p>',starter:`def can_jump(nums):
@@ -100,7 +100,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
         if i > reach:
             return False
         reach = max(reach, i + jump)
-    return True`,tests:[['can_jump([2, 3, 1, 1, 4])','True'],['can_jump([3, 2, 1, 0, 4])','False'],['can_jump([0])','True'],['can_jump([1, 0, 1])','False']],hints:['You do not need to know WHICH jumps to take.','Track the farthest index reachable so far.'],approach:'Greedy farthest reach.',cx:'O(n)'},
+    return True`,tests:[['can_jump([2, 3, 1, 1, 4])','True'],['can_jump([3, 2, 1, 0, 4])','False'],['can_jump([0])','True'],['can_jump([1, 0, 1])','False']],constraints:['1 ≤ len(nums) ≤ 10<sup>4</sup>'],mistakes:['Trying every jump with recursion (exponential).','Stopping only when reach is exactly the last index.'],followup:'Return the minimum number of jumps (pt-jump-game-ii).',hints:['You do not need to know WHICH jumps to take.','Track the farthest index reachable so far.'],approach:'Greedy farthest reach.',cx:'O(n)'},
 {id:'pt-jump-game-ii',type:'code',d:2,p:'greedy',title:'Jump Game II',prompt:'<p>The last index is always reachable. Return the minimum number of jumps to reach it.</p>',starter:`def min_jumps(nums):
     pass`,solution:`def min_jumps(nums):
     jumps = end = farthest = 0
@@ -109,7 +109,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
         if i == end:                 # must jump to go further
             jumps += 1
             end = farthest
-    return jumps`,tests:[['min_jumps([2, 3, 1, 1, 4])','2'],['min_jumps([2, 3, 0, 1, 4])','2'],['min_jumps([0])','0'],['min_jumps([1, 1, 1, 1])','3']],hints:['Think in BFS levels: all indexes reachable with j jumps form a range.','When you reach the end of the current range, you must take another jump; the new range ends at the farthest reach seen.'],approach:'Greedy BFS-by-ranges.',cx:'O(n)'},
+    return jumps`,tests:[['min_jumps([2, 3, 1, 1, 4])','2'],['min_jumps([2, 3, 0, 1, 4])','2'],['min_jumps([0])','0'],['min_jumps([1, 1, 1, 1])','3']],constraints:['1 ≤ len(nums) ≤ 10<sup>4</sup>','the end is always reachable'],mistakes:['Counting a jump at the last index.','BFS over every index is correct but slower.'],followup:'Return the indexes you jump to.',hints:['Think in BFS levels: all indexes reachable with j jumps form a range.','When you reach the end of the current range, you must take another jump; the new range ends at the farthest reach seen.'],approach:'Greedy BFS-by-ranges.',cx:'O(n)'},
 {id:'pt-assign-cookies',type:'code',d:1,p:'greedy',title:'Assign Cookies',prompt:'<p>Child i is content with a cookie of size ≥ <code>greed[i]</code>. Each child gets at most one cookie. Maximise content children.</p>',starter:`def find_content_children(greed, sizes):
     pass`,solution:`def find_content_children(greed, sizes):
     greed, sizes = sorted(greed), sorted(sizes)
@@ -117,10 +117,10 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
     for s in sizes:
         if child < len(greed) and s >= greed[child]:
             child += 1                # smallest cookie that satisfies this child
-    return child`,tests:[['find_content_children([1, 2, 3], [1, 1])','1'],['find_content_children([1, 2], [1, 2, 3])','2'],['find_content_children([], [1])','0']],hints:['Sort both lists.','Give cookies in increasing size to the least greedy child still waiting.'],approach:'Sort + greedy two pointers.',cx:'O(n log n)'},
+    return child`,tests:[['find_content_children([1, 2, 3], [1, 1])','1'],['find_content_children([1, 2], [1, 2, 3])','2'],['find_content_children([], [1])','0'],['find_content_children([10, 9, 8, 7], [5, 6, 7, 8])','2']],constraints:['0 ≤ len(greed), len(sizes) ≤ 3 × 10<sup>4</sup>'],mistakes:['Not sorting both lists.','Giving the biggest cookie to the least greedy child.'],followup:'Each cookie can be split once.',hints:['Sort both lists.','Give cookies in increasing size to the least greedy child still waiting.'],approach:'Sort + greedy two pointers.',cx:'O(n log n)'},
 {id:'pt-stock-ii',type:'code',d:1,p:'greedy',title:'Best Time to Buy and Sell Stock II',prompt:'<p>You may buy and sell many times (hold at most one share). Return the maximum profit.</p>',starter:`def max_profit(prices):
     pass`,solution:`def max_profit(prices):
-    return sum(max(0, prices[i] - prices[i - 1]) for i in range(1, len(prices)))`,tests:[['max_profit([7, 1, 5, 3, 6, 4])','7'],['max_profit([1, 2, 3, 4, 5])','4'],['max_profit([7, 6, 4, 3, 1])','0']],hints:['A long rise equals the sum of its daily rises.','Collect every positive day-to-day difference.'],approach:'Greedy: take every upward step.',cx:'O(n)'},
+    return sum(max(0, prices[i] - prices[i - 1]) for i in range(1, len(prices)))`,tests:[['max_profit([7, 1, 5, 3, 6, 4])','7'],['max_profit([1, 2, 3, 4, 5])','4'],['max_profit([7, 6, 4, 3, 1])','0'],['max_profit([1])','0']],constraints:['1 ≤ len(prices) ≤ 3 × 10<sup>4</sup>'],mistakes:['Looking for the single best buy/sell pair (that is a different problem).'],followup:'At most two transactions.',hints:['A long rise equals the sum of its daily rises.','Collect every positive day-to-day difference.'],approach:'Greedy: take every upward step.',cx:'O(n)'},
 {id:'pt-gas-station',type:'code',d:2,p:'greedy',title:'Gas Station',prompt:'<p>Stations in a circle: <code>gas[i]</code> fuel available, <code>cost[i]</code> to reach the next station. Return the start index to complete the circuit, or -1 (the answer is unique if it exists).</p>',starter:`def can_complete_circuit(gas, cost):
     pass`,solution:`def can_complete_circuit(gas, cost):
     if sum(gas) < sum(cost):
@@ -131,7 +131,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
         if tank < 0:                 # cannot get past i from start: try i + 1
             start = i + 1
             tank = 0
-    return start`,tests:[['can_complete_circuit([1, 2, 3, 4, 5], [3, 4, 5, 1, 2])','3'],['can_complete_circuit([2, 3, 4], [3, 4, 3])','-1'],['can_complete_circuit([5], [4])','0']],hints:['If total gas < total cost, it is impossible.','If you run out at station i starting from s, no station between s and i works either: restart at i + 1.'],approach:'One-pass greedy restart.',cx:'O(n)'},
+    return start`,tests:[['can_complete_circuit([1, 2, 3, 4, 5], [3, 4, 5, 1, 2])','3'],['can_complete_circuit([2, 3, 4], [3, 4, 3])','-1'],['can_complete_circuit([5], [4])','0'],['can_complete_circuit([3, 1, 1], [1, 2, 2])','0']],constraints:['1 ≤ n ≤ 10<sup>5</sup>'],mistakes:['Trying every start: O(n²).','Restarting at i instead of i + 1 after the tank goes negative.'],followup:'Prove why the start after the last failure is correct.',hints:['If total gas < total cost, it is impossible.','If you run out at station i starting from s, no station between s and i works either: restart at i + 1.'],approach:'One-pass greedy restart.',cx:'O(n)'},
 {id:'pt-partition-labels',type:'code',d:2,p:'greedy',title:'Partition Labels',prompt:'<p>Split the string into as many parts as possible so each letter appears in at most one part. Return the part sizes.</p><p><code>"ababcbacadefegdehijhklij"</code> → <code>[9, 7, 8]</code></p>',starter:`def partition_labels(s):
     pass`,solution:`def partition_labels(s):
     last = {ch: i for i, ch in enumerate(s)}
@@ -141,7 +141,7 @@ W('pt-r39',2,'greedy','Assign cookies','Give each child at most one cookie (size
         if i == end:
             sizes.append(end - start + 1)
             start = i + 1
-    return sizes`,tests:[['partition_labels("ababcbacadefegdehijhklij")','[9, 7, 8]'],['partition_labels("eccbbbbdec")','[10]'],['partition_labels("abc")','[1, 1, 1]']],hints:['Record the last index of every letter.','Extend the current part to the farthest last-index of its letters; cut when you reach it.'],approach:'Greedy extension, like merging intervals.',cx:'O(n)'},
+    return sizes`,tests:[['partition_labels("ababcbacadefegdehijhklij")','[9, 7, 8]'],['partition_labels("eccbbbbdec")','[10]'],['partition_labels("abc")','[1, 1, 1]'],['partition_labels("a")','[1]']],constraints:['1 ≤ len(s) ≤ 500','lowercase letters'],mistakes:['Closing a part as soon as one letter ends instead of when the furthest last-occurrence is reached.'],followup:'Return the parts themselves.',hints:['Record the last index of every letter.','Extend the current part to the farthest last-index of its letters; cut when you reach it.'],approach:'Greedy extension, like merging intervals.',cx:'O(n)'},
 
 /* ---------- mixed debug + dry run ---------- */
 {id:'pt-d1',type:'debug',d:2,p:'intervals',title:'Merging unsorted intervals',code:`def merge(intervals):

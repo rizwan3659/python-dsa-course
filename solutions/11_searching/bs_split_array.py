@@ -4,6 +4,12 @@ Complexity: O(n log(sum))
 
 Approach: Binary search on the answer + greedy feasibility (same shape as
 shipping capacity).
+
+Common mistakes:
+- A greedy check that starts a new part one element too late.
+- A low bound of 0 instead of max(nums).
+
+Follow-up challenge: Return the parts as well.
 """
 
 

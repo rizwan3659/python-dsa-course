@@ -10,6 +10,12 @@ Examples:
     time_required([5, 1, 1, 1], 0)  ->  8
     time_required([1], 0)  ->  1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(tickets) ≤ 100
+- 1 ≤ tickets[i] ≤ 100
+
 Target complexity: O(n) time (direct count)
 
 Check your work:   python dsa.py test q-tickets

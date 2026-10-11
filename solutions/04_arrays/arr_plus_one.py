@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Right-to-left carry, prepend 1 if every digit was 9.
+
+Common mistakes:
+- Converting to int and back (works in Python, but misses the point of the
+  exercise).
+- Forgetting the extra leading 1 for all nines.
+
+Follow-up challenge: Add two numbers stored as digit lists.
 """
 
 

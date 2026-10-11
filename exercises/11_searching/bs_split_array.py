@@ -11,6 +11,11 @@ Examples:
     split_array([1, 2, 3, 4, 5], 2)  ->  9
     split_array([1, 4, 4], 3)  ->  4
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ len(nums) ≤ 1000
+
 Target complexity: O(n log(sum))
 
 Check your work:   python dsa.py test bs-split-array

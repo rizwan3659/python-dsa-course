@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: DFS/BFS over same-colored cells.
+
+Common mistakes:
+- Recursing forever when the new color equals the old one.
+- Filling diagonally.
+
+Follow-up challenge: Return the size of the filled region too.
 """
 
 

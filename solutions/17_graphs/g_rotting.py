@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: Multi-source BFS.
+
+Common mistakes:
+- Running BFS from each rotten orange separately (start them all at once).
+- Returning the minute count when fresh oranges remain.
+
+Follow-up challenge: Some cells are walls that stop the rot.
 """
 
 

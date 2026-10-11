@@ -10,6 +10,12 @@ Examples:
     network_delay([[1, 2, 1]], 2, 1)  ->  1
     network_delay([[1, 2, 1]], 2, 2)  ->  -1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ n ≤ 100
+- 1 ≤ len(times) ≤ 6000
+
 Target complexity: O((V + E) log V)
 
 Check your work:   python dsa.py test ag-network-delay

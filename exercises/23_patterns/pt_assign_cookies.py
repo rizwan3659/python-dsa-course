@@ -9,6 +9,11 @@ Examples:
     find_content_children([1, 2], [1, 2, 3])  ->  2
     find_content_children([], [1])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(greed), len(sizes) ≤ 3 × 10^4
+
 Target complexity: O(n log n)
 
 Check your work:   python dsa.py test pt-assign-cookies

@@ -3,6 +3,12 @@
 Complexity: O(n + m) time
 
 Approach: One pointer per list; always take the smaller front element.
+
+Common mistakes:
+- Forgetting to copy what is left of one list after the other runs out.
+- Calling sorted(a + b): O((n + m) log(n + m)).
+
+Follow-up challenge: Merge k sorted lists with a heap.
 """
 
 

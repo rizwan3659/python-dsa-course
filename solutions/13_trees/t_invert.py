@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Recursive swap.
+
+Common mistakes:
+- Swapping only the root’s children.
+- Overwriting one child before saving it.
+
+Follow-up challenge: Do it iteratively with a queue.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

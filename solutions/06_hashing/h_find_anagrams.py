@@ -3,6 +3,12 @@
 Complexity: O(n) time (26-letter counters)
 
 Approach: Fixed sliding window with a Counter compared against Counter(p).
+
+Common mistakes:
+- Sorting every window: O(n · m log m).
+- Forgetting to remove the character that leaves the window.
+
+Follow-up challenge: Find the anagrams of any word from a list in one pass.
 """
 
 

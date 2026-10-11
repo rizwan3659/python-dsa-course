@@ -9,6 +9,12 @@ Examples:
     reverse_words("  hello world  ")  ->  "world hello"
     reverse_words("a good   example")  ->  "example good a"
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(s) ≤ 10^4
+- s has at least one word
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test st-reverse-words

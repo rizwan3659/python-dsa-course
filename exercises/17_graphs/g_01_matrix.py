@@ -7,6 +7,12 @@ the nearest 0.
 Examples:
     update_matrix([[0, 0, 0], [0, 1, 0], [1, 1, 1]])  ->  [[0, 0, 0], [0, 1, 0], [1, 2, 1]]
     update_matrix([[0]])  ->  [[0]]
+    update_matrix([[1, 0]])  ->  [[1, 0]]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ rows, cols ≤ 10^4, rows · cols ≤ 10^4
 
 Target complexity: O(rows × cols)
 

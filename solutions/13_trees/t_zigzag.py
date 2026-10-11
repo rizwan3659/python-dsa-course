@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: BFS by levels + a direction flag.
+
+Common mistakes:
+- Reversing the order you visit children (that changes the next level).
+- Reversing every level.
+
+Follow-up challenge: Use a deque and append on alternate sides instead of
+reversing.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

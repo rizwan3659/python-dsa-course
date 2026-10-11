@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Stack of folder names.
+
+Common mistakes:
+- Treating ".." at the root as an error.
+- Keeping empty parts from "//".
+
+Follow-up challenge: Support relative paths given a current directory.
 """
 
 

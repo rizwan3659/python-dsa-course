@@ -3,6 +3,13 @@
 Complexity: O(n² α(n))
 
 Approach: Union-find over the matrix (DFS also works).
+
+Common mistakes:
+- Counting connections instead of groups.
+- Reading only the upper triangle without symmetry.
+
+Follow-up challenge: The matrix is huge but sparse: what representation
+would you use?
 """
 
 

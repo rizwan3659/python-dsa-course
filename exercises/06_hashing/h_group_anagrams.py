@@ -14,6 +14,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(words) ≤ 10^4
+- 0 ≤ len(word) ≤ 100
+
 Target complexity: O(n · k log k) time
 
 Check your work:   python dsa.py test h-group-anagrams

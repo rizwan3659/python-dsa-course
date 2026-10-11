@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+- 0 ≤ k
+
 Target complexity: O(k)
 
 Check your work:   python dsa.py test ll-kth

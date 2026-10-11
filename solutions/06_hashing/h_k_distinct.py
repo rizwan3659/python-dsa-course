@@ -3,6 +3,14 @@
 Complexity: O(n) time
 
 Approach: Sliding window + dict of counts (delete keys that hit zero).
+
+Common mistakes:
+- Deleting a character from the count dict only when it reaches a negative
+  count.
+- Restarting the window after every violation.
+
+Follow-up challenge: Return the number of substrings with exactly k distinct
+characters.
 """
 
 

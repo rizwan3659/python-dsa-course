@@ -3,6 +3,12 @@
 Complexity: Exponential in word length, pruned by the trie
 
 Approach: Grid backtracking guided by a trie.
+
+Common mistakes:
+- Running a separate word search for every word (too slow).
+- Not marking found words, so they are reported twice.
+
+Follow-up challenge: Prune trie branches once all their words are found.
 """
 
 

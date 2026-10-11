@@ -3,6 +3,12 @@
 Complexity: O(n · 2ⁿ)
 
 Approach: Build from the strings of length n − 1.
+
+Common mistakes:
+- Returning [] for n = 0 (the answer is [""]).
+- Generating out of order (try "0" before "1").
+
+Follow-up challenge: Only strings with no two adjacent 1s.
 """
 
 

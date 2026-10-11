@@ -3,6 +3,12 @@
 Complexity: O(V + E)
 
 Approach: Topological sort / cycle check.
+
+Common mistakes:
+- Building edges in the wrong direction.
+- Only detecting cycles reachable from course 0.
+
+Follow-up challenge: Return one cycle when finishing is impossible.
 """
 
 

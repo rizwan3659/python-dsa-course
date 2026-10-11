@@ -3,6 +3,12 @@
 Complexity: O(n log n · L)
 
 Approach: Custom comparator sort.
+
+Common mistakes:
+- Sorting numerically or as plain strings.
+- Returning "00" for [0, 0].
+
+Follow-up challenge: Same comparator idea: the smallest number instead.
 """
 
 

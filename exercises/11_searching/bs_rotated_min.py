@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(nums) ≤ 5000
+- values are distinct
+
 Target complexity: O(log n)
 
 Check your work:   python dsa.py test bs-rotated-min

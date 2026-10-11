@@ -9,6 +9,11 @@ Examples:
     right_side_view(build_tree([1, 2, 3, 4]))  ->  [1, 3, 4]
     right_side_view(build_tree([]))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 100
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-right-view

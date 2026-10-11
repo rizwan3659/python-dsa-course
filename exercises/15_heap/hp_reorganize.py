@@ -9,7 +9,10 @@ Examples:
     "aaab" is impossible
     "vvvlo" → e.g. "vlvov"
 
-(1 more hidden test run when you check your work.)
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 1 ≤ len(s) ≤ 500
 
 Target complexity: O(n log 26)
 

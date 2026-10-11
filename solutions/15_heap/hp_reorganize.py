@@ -3,6 +3,13 @@
 Complexity: O(n log 26)
 
 Approach: Greedy with a max-heap and a one-step cooldown.
+
+Common mistakes:
+- Not checking impossibility: the most common letter can appear at most (n +
+  1) // 2 times.
+- Placing the most common letter repeatedly without alternating.
+
+Follow-up challenge: Every two equal letters must be at least k apart.
 """
 
 

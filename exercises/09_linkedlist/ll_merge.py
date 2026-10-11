@@ -9,6 +9,11 @@ Examples:
     to_list(merge_two(build([]), build([0])))  ->  [0]
     to_list(merge_two(build([]), build([])))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ nodes in each list ≤ 50
+
 Target complexity: O(n + m) time, O(1) space
 
 Check your work:   python dsa.py test ll-merge

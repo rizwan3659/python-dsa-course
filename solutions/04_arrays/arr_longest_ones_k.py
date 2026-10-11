@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Variable window tracking the number of zeros inside.
+
+Common mistakes:
+- Restarting the window from scratch after too many zeros (O(n²)).
+- Counting ones instead of zeros inside the window.
+
+Follow-up challenge: Return the window boundaries too.
 """
 
 

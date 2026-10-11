@@ -12,6 +12,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 5 × 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test st-longest-unique

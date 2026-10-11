@@ -3,6 +3,12 @@
 Complexity: O(h)
 
 Approach: Walk down until p and q are on different sides.
+
+Common mistakes:
+- Searching both subtrees like in a general tree.
+- Not handling the case where p is an ancestor of q.
+
+Follow-up challenge: Solve it iteratively in O(1) space.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

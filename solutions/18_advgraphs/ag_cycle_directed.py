@@ -3,6 +3,12 @@
 Complexity: O(V + E)
 
 Approach: Three-color DFS.
+
+Common mistakes:
+- Using two colours only, which reports a cycle for diamond shapes.
+- Recursion depth problems on long chains.
+
+Follow-up challenge: Return the nodes on one cycle.
 """
 
 

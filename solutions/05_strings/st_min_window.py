@@ -3,6 +3,12 @@
 Complexity: O(len(s) + len(t))
 
 Approach: Variable sliding window with a need-counter.
+
+Common mistakes:
+- Ignoring duplicate letters in t ("aa" needs two a’s).
+- Re-counting the window from scratch at every step.
+
+Follow-up challenge: Return the number of distinct minimum windows.
 """
 
 

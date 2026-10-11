@@ -9,6 +9,11 @@ Examples:
     fizzbuzz(15)[-1]  ->  "FizzBuzz"
     fizzbuzz(0)  ->  []
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 0 ≤ n ≤ 10^4
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test py-fizzbuzz

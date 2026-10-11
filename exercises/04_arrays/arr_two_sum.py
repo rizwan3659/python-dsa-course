@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 2 ≤ len(nums) ≤ 10^4
+- exactly one answer exists
+
 Target complexity: O(n) time, O(n) space
 
 Check your work:   python dsa.py test arr-two-sum

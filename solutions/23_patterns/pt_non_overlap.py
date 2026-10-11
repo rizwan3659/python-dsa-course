@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Greedy by earliest end (activity selection).
+
+Common mistakes:
+- Sorting by start and removing greedily (can remove too many).
+- Treating touching intervals as overlapping.
+
+Follow-up challenge: Return the intervals to remove.
 """
 
 

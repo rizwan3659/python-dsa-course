@@ -3,6 +3,12 @@
 Complexity: Exponential in the worst case (number of paths)
 
 Approach: DFS backtracking over paths.
+
+Common mistakes:
+- Appending the path list itself instead of a copy.
+- Adding a visited set (not needed in a DAG, and it would drop valid paths).
+
+Follow-up challenge: Count the paths without listing them (DP on the DAG).
 """
 
 

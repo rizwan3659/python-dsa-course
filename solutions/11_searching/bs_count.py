@@ -3,6 +3,12 @@
 Complexity: O(log n)
 
 Approach: bisect_right − bisect_left.
+
+Common mistakes:
+- Using nums.count(target), which is O(n).
+- bisect_right − bisect_left reversed (negative counts).
+
+Follow-up challenge: Write both bisect functions yourself.
 """
 
 

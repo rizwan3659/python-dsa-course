@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 10^5
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test bigo-first-repeat

@@ -8,6 +8,11 @@ Examples:
     to_list(reverse_list(build([1, 2])))  ->  [2, 1]
     to_list(reverse_list(build([])))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 5000
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test ll-reverse

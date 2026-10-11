@@ -7,6 +7,12 @@ removed to make it a tree again (the last such edge in the input).
 Examples:
     find_redundant([[1, 2], [1, 3], [2, 3]])  ->  [2, 3]
     find_redundant([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]])  ->  [1, 4]
+    find_redundant([[1, 2], [2, 3], [1, 3]])  ->  [1, 3]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 3 ≤ n ≤ 1000
 
 Target complexity: O(E α(V))
 

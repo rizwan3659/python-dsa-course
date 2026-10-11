@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Fixed-size sliding window: one add and one subtract per step.
+
+Common mistakes:
+- Recomputing each window with sum(): O(n · k).
+- Starting best at 0 when every sum can be negative.
+
+Follow-up challenge: Return the start index of the best window too.
 """
 
 

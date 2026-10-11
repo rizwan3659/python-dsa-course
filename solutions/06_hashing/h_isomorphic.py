@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Two dicts (s→t and t→s).
+
+Common mistakes:
+- Checking only s → t, so two letters can map to the same letter
+  ("badc"/"baba").
+
+Follow-up challenge: Group a list of words into isomorphism classes.
 """
 
 

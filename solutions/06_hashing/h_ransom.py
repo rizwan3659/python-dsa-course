@@ -3,6 +3,12 @@
 Complexity: O(n + m) time
 
 Approach: Counter of the magazine must cover the note’s counts.
+
+Common mistakes:
+- Using magazine.count(ch) for each letter of the note: O(n · m).
+- Checking that letters exist without checking counts.
+
+Follow-up challenge: Return which letters are missing and how many.
 """
 
 

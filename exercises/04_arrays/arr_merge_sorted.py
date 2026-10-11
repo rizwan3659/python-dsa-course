@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(a), len(b) ≤ 10^5
+- a and b are sorted
+
 Target complexity: O(n + m) time
 
 Check your work:   python dsa.py test arr-merge-sorted

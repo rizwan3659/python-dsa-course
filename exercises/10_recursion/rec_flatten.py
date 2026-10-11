@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- nesting depth ≤ 100
+
 Target complexity: O(total elements)
 
 Check your work:   python dsa.py test rec-flatten

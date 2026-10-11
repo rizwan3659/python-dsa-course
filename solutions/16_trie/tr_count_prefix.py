@@ -3,6 +3,12 @@
 Complexity: O(total characters + query length)
 
 Approach: Trie with pass-through counts.
+
+Common mistakes:
+- Walking the whole subtree to count (store counts in nodes).
+- Counting a word once per matching letter.
+
+Follow-up challenge: Support deleting words.
 """
 
 

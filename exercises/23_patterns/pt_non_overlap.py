@@ -9,6 +9,11 @@ Examples:
     erase_overlap([[1, 2], [1, 2], [1, 2]])  ->  2
     erase_overlap([[1, 2], [2, 3]])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(intervals) ≤ 10^5
+
 Target complexity: O(n log n)
 
 Check your work:   python dsa.py test pt-non-overlap

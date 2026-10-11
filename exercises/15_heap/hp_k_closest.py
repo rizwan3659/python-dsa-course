@@ -9,6 +9,11 @@ Examples:
     k_closest([[3, 3], [5, -1], [-2, 4]], 2)  ->  [[3, 3], [-2, 4]]
     k_closest([[0, 1], [1, 0]], 2)  ->  [[0, 1], [1, 0]]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ len(points) ≤ 10^4
+
 Target complexity: O(n log k)
 
 Check your work:   python dsa.py test hp-k-closest

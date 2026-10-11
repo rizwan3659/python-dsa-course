@@ -3,6 +3,12 @@
 Complexity: O(log n) add, O(1) median
 
 Approach: Two balanced heaps; the median sits at their tops.
+
+Common mistakes:
+- Sorting after every add: O(n log n) per add.
+- Letting the two heaps differ in size by more than one.
+
+Follow-up challenge: Support removing numbers too (sliding-window median).
 """
 
 

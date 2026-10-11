@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Counter, then a set of the counts.
+
+Common mistakes:
+- Comparing the number of distinct values with the length of the list.
+- Counting with list.count in a loop: O(n²).
+
+Follow-up challenge: Return the values that share an occurrence count with
+another value.
 """
 
 

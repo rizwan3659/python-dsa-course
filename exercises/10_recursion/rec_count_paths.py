@@ -12,6 +12,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ r, c ≤ 16
+
 Target complexity: O(r × c)
 
 Check your work:   python dsa.py test rec-count-paths

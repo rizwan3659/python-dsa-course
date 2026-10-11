@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Custom sort key (rank, value).
+
+Common mistakes:
+- Sorting the leftover values in arr1 order instead of ascending.
+- Using arr2.index() inside the key: O(n · m).
+
+Follow-up challenge: Do it with counting sort when values are small.
 """
 
 

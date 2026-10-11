@@ -54,7 +54,7 @@ while n > 0:
   {title:'Integer division',body:'Use <code>//</code> for whole numbers. <code>/</code> always gives a float and can lose precision.'}]},
  {t:'q',ids:['th-p4','th-p5','th-p7','th-m8','th-c2','th-c3']},
  {t:'q',ids:['th-dr2','th-b3','th-d1']},
- {t:'q',title:'Code it',ids:['th-sum-to-n','th-is-prime','th-gcd','th-count-divisors','th-collatz','th-diagonal-sum']}]},
+ {t:'q',title:'Code it',ids:['th-sum-to-n','th-is-prime','th-gcd','th-count-divisors','th-collatz','th-diagonal-sum','th-count-primes']}]},
 
 {title:'Test your own code',short:'Testing',mins:10,lead:'Passing the example is not the same as being correct. Professionals test edge cases on purpose and compare tricky code with a simple version.',does:['predict','complete','debug'],blocks:[
  {t:'task',items:['<b>Edge cases:</b> empty, one element, two elements, all equal, negatives, zero, the largest allowed value.','<b>Boundaries:</b> the first and last index, loops that run 0 or 1 times, &lt; versus &lt;=.','<b>Assertions:</b> <code>assert</code> your assumptions so a broken one fails loudly and early.','<b>Stress test:</b> run a fast solution and a brute force on hundreds of random small inputs and compare.']},

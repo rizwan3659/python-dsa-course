@@ -3,6 +3,12 @@
 Complexity: O(log n)
 
 Approach: Halve n each call.
+
+Common mistakes:
+- Calling power(x, n // 2) twice, which makes it O(n) again.
+- Forgetting the extra factor of x for odd n.
+
+Follow-up challenge: Support negative n (return 1 / power(x, −n)).
 """
 
 

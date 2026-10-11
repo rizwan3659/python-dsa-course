@@ -3,6 +3,12 @@
 Complexity: O(n log n) time, O(log n) recursion
 
 Approach: Merge sort on the list.
+
+Common mistakes:
+- Not cutting the list in half, so recursion never ends.
+- Copying into a Python list and calling sorted().
+
+Follow-up challenge: Sort with O(1) extra space using bottom-up merge sort.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

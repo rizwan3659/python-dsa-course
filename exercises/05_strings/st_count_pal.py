@@ -10,6 +10,11 @@ Examples:
     count_substrings("aaa")  ->  6
     count_substrings("")  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(s) ≤ 1000
+
 Target complexity: O(n²)
 
 Check your work:   python dsa.py test st-count-pal

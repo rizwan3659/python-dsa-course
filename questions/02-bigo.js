@@ -133,7 +133,7 @@ for i in range(3):
         if x in seen:
             return True
         seen.add(x)
-    return False`,tests:[['has_duplicate([1, 2, 3, 1])','True'],['has_duplicate([1, 2, 3])','False'],['has_duplicate([])','False'],['has_duplicate(list(range(100000)) + [5])','True','','100,001 numbers (must be fast)']],hints:['Comparing every pair is O(n²).','Keep a set of values seen so far. Or compare <code>len(set(nums))</code> with <code>len(nums)</code>.'],approach:'A set of seen values turns each “seen before?” check into O(1).',cx:'O(n) time, O(n) space'},
+    return False`,tests:[['has_duplicate([1, 2, 3, 1])','True'],['has_duplicate([1, 2, 3])','False'],['has_duplicate([])','False'],['has_duplicate(list(range(100000)) + [5])','True','','100,001 numbers (must be fast)']],constraints:['0 ≤ len(nums) ≤ 10<sup>5</sup>','must run in O(n)'],mistakes:['Comparing every pair: O(n²).','Sorting first: correct, but O(n log n).'],followup:'Return the first value that repeats, not just True or False.',hints:['Comparing every pair is O(n²).','Keep a set of values seen so far. Or compare <code>len(set(nums))</code> with <code>len(nums)</code>.'],approach:'A set of seen values turns each “seen before?” check into O(1).',cx:'O(n) time, O(n) space'},
 {id:'bigo-has-pair',type:'code',d:1,p:'hashing',title:'Pair With Target Sum (O(n))',prompt:'<p><code>has_pair(nums, target)</code> returns <code>True</code> if two <b>different positions</b> add up to <code>target</code>. Aim for O(n).</p><p><code>has_pair([3, 5, 8], 13)</code> → True · <code>has_pair([4], 8)</code> → False</p>',starter:`def has_pair(nums, target):
     # your code here
     pass`,solution:`def has_pair(nums, target):
@@ -142,7 +142,7 @@ for i in range(3):
         if target - x in seen:
             return True
         seen.add(x)
-    return False`,tests:[['has_pair([3, 5, 8], 13)','True'],['has_pair([4], 8)','False'],['has_pair([4, 4], 8)','True'],['has_pair([], 0)','False'],['has_pair([-2, 7, 1], -1)','True']],hints:['For each x, the partner you need is <code>target - x</code>.','Have you seen it already? A set answers that in O(1).'],approach:'Set of seen values; check for target − x before adding x.',cx:'O(n) time, O(n) space'},
+    return False`,tests:[['has_pair([3, 5, 8], 13)','True'],['has_pair([4], 8)','False'],['has_pair([4, 4], 8)','True'],['has_pair([], 0)','False'],['has_pair([-2, 7, 1], -1)','True']],constraints:['0 ≤ len(nums) ≤ 10<sup>5</sup>','must run in O(n)'],mistakes:['Adding nums[i] to the set before checking, so 4 + 4 = 8 matches with a single 4.','Nested loops: O(n²).'],followup:'Return the pair of positions, not just True.',hints:['For each x, the partner you need is <code>target - x</code>.','Have you seen it already? A set answers that in O(1).'],approach:'Set of seen values; check for target − x before adding x.',cx:'O(n) time, O(n) space'},
 {id:'bigo-first-repeat',type:'code',d:1,p:'hashing',title:'First Repeating Character',prompt:'<p><code>first_repeat(s)</code> returns the first character that appears for the second time while reading left to right, or <code>None</code>.</p><p><code>first_repeat("abcbad")</code> → <code>"b"</code></p>',starter:`def first_repeat(s):
     # your code here
     pass`,solution:`def first_repeat(s):
@@ -151,11 +151,11 @@ for i in range(3):
         if ch in seen:
             return ch
         seen.add(ch)
-    return None`,tests:[['first_repeat("abcbad")','"b"'],['first_repeat("abc")','None'],['first_repeat("aa")','"a"'],['first_repeat("")','None']],hints:['Read left to right and remember what you have read.'],approach:'Set of seen characters; return the first one already present.',cx:'O(n) time'},
+    return None`,tests:[['first_repeat("abcbad")','"b"'],['first_repeat("abc")','None'],['first_repeat("aa")','"a"'],['first_repeat("")','None']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>'],mistakes:['Returning the first character that appears twice anywhere ("abcbad" gives "a" instead of "b").','Using s.count() for every character: O(n²).'],followup:'Return the first character that never repeats.',hints:['Read left to right and remember what you have read.','Remember the characters you have already seen in a set; the first one you see again is the answer.'],approach:'Set of seen characters; return the first one already present.',cx:'O(n) time'},
 {id:'bigo-common',type:'code',kind:'optimize',d:2,p:'hashing',title:'Optimize: Common Elements',prompt:'<p>Return the elements of <code>a</code> (in order) that also appear in <code>b</code>. The starter is O(n · m): too slow for 50,000 items each. Make it O(n + m).</p>',starter:`def common(a, b):
     return [x for x in a if x in b]`,solution:`def common(a, b):
     bset = set(b)
-    return [x for x in a if x in bset]`,tests:[['common([1, 2, 3, 4], [4, 2])','[2, 4]'],['common([], [1])','[]'],['common(list(range(50000)), list(range(25000, 75000)))','list(range(25000, 50000))','','50,000 × 50,000 (must be fast)']],hints:['Which line is the hidden inner loop?','Make the lookups O(1).'],approach:'Convert b to a set once.',cx:'O(n + m) time'},
+    return [x for x in a if x in bset]`,tests:[['common([1, 2, 3, 4], [4, 2])','[2, 4]'],['common([], [1])','[]'],['common(list(range(50000)), list(range(25000, 75000)))','list(range(25000, 50000))','','50,000 × 50,000 (must be fast)'],['common([3, 3, 1], [3])','[3, 3]']],constraints:['0 ≤ len(a), len(b) ≤ 10<sup>5</sup>','must run in O(n + m)'],mistakes:['Keeping <code>x in b</code> with b as a list inside the loop.','Converting a to a set, which loses its order.'],followup:'Keep duplicates only as many times as they appear in b.',hints:['Which line is the hidden inner loop?','Make the lookups O(1).'],approach:'Convert b to a set once.',cx:'O(n + m) time'},
 {id:'bigo-count-pairs',type:'code',kind:'optimize',d:2,p:'hashing',title:'Optimize: Count Pairs With Difference k',prompt:'<p>Count pairs of positions i &lt; j with <code>abs(nums[i] - nums[j]) == k</code> (k ≥ 1). The starter checks every pair. Make it O(n).</p><p><code>count_diff_pairs([1, 5, 3, 4, 2], 2)</code> → <code>3</code> ((1, 3), (5, 3) and (4, 2))</p>',starter:`def count_diff_pairs(nums, k):
     count = 0
     for i in range(len(nums)):
@@ -168,5 +168,5 @@ for i in range(3):
     for x in nums:
         count += seen.get(x - k, 0) + seen.get(x + k, 0)
         seen[x] = seen.get(x, 0) + 1
-    return count`,tests:[['count_diff_pairs([1, 5, 3, 4, 2], 2)','3'],['count_diff_pairs([1, 1, 3], 2)','2'],['count_diff_pairs([], 1)','0'],['count_diff_pairs(list(range(30000)), 1)','29999','','30,000 numbers (must be fast)']],hints:['For each x, which partner values would make a valid pair with something earlier?','Count earlier occurrences of x − k and x + k with a dict.'],approach:'Hash map of counts of values seen so far.',cx:'O(n) time, O(n) space'}
+    return count`,tests:[['count_diff_pairs([1, 5, 3, 4, 2], 2)','3'],['count_diff_pairs([1, 1, 3], 2)','2'],['count_diff_pairs([], 1)','0'],['count_diff_pairs(list(range(30000)), 1)','29999','','30,000 numbers (must be fast)']],constraints:['0 ≤ len(nums) ≤ 10<sup>5</sup>','1 ≤ k'],mistakes:['Counting each pair twice by checking both x + k and x − k for every x.','Ignoring duplicate values (count them with a Counter).'],followup:'What changes if k can be 0?',hints:['For each x, which partner values would make a valid pair with something earlier?','Count earlier occurrences of x − k and x + k with a dict.'],approach:'Hash map of counts of values seen so far.',cx:'O(n) time, O(n) space'}
 ]);

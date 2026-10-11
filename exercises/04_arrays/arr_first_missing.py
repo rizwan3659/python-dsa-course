@@ -13,6 +13,10 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 1 ≤ len(nums) ≤ 10^5
+- O(n) time, O(1) extra space
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-first-missing

@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Careful left-to-right simulation.
+
+Common mistakes:
+- Accepting a sign after spaces in the middle of digits.
+- Forgetting to clamp to the 32-bit range.
+
+Follow-up challenge: Also parse an optional decimal part and return a float.
 """
 
 

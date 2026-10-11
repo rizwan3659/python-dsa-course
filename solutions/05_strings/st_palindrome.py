@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Two pointers with skipping.
+
+Common mistakes:
+- Forgetting to lower-case before comparing.
+- Building a cleaned copy is fine, but comparing before skipping
+  non-alphanumeric characters is not.
+
+Follow-up challenge: Allow one deletion (st-palindrome-ii).
 """
 
 

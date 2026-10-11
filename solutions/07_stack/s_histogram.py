@@ -4,6 +4,13 @@ Complexity: O(n) time
 
 Approach: Monotonic increasing stack; compute each bar’s area when it is
 popped.
+
+Common mistakes:
+- Forgetting a final sentinel bar of height 0 to flush the stack.
+- Computing the width with the popped index instead of the new stack top.
+
+Follow-up challenge: Use it to find the largest rectangle of 1s in a binary
+matrix.
 """
 
 

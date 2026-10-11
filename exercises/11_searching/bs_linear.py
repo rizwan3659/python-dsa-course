@@ -9,6 +9,11 @@ Examples:
     linear_search([4, 2], 9)  ->  -1
     linear_search([], 1)  ->  -1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(nums) ≤ 10^5
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test bs-linear

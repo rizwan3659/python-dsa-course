@@ -10,6 +10,12 @@ length, in their original order.
 Examples:
     group_by_len(["hi", "cat", "yo", "dog"])  ->  {2: ["hi", "yo"], 3: ["cat", "dog"]}
     group_by_len([])  ->  {}
+    group_by_len(["a"])  ->  {1: ["a"]}
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(words) ≤ 10^5
 
 Target complexity: O(n) time
 

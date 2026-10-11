@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: Counter, then scan.
+
+Common mistakes:
+- Using s.count() for each character: O(n²).
+- Returning the character instead of its index.
+
+Follow-up challenge: Answer the same question for a stream of characters
+arriving one by one.
 """
 
 

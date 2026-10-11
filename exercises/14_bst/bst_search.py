@@ -6,6 +6,12 @@ Return the node with value target (or None). Use the BST property: O(h).
 Examples:
     tree_to_list(search_bst(build_tree([4, 2, 7, 1, 3]), 2))  ->  [2, 1, 3]
     search_bst(build_tree([4, 2, 7, 1, 3]), 5)  ->  None
+    search_bst(build_tree([]), 1)  ->  None
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
 
 Target complexity: O(h)
 

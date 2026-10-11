@@ -8,6 +8,11 @@ Examples:
     binary_tree_paths(build_tree([1]))  ->  ["1"]
     binary_tree_paths(build_tree([]))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ number of nodes ≤ 100
+
 Target complexity: O(n · h)
 
 Check your work:   python dsa.py test t-paths

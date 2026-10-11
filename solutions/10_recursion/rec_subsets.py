@@ -3,6 +3,12 @@
 Complexity: O(n · 2ⁿ)
 
 Approach: Include/exclude decision tree.
+
+Common mistakes:
+- Appending path itself instead of a copy.
+- Forgetting the empty subset.
+
+Follow-up challenge: Subsets with duplicates (rec-subsets-dup).
 """
 
 

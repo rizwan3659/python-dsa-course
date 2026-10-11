@@ -3,6 +3,13 @@
 Complexity: O(n log n) expected, O(n²) worst
 
 Approach: Partition around a random pivot, recurse.
+
+Common mistakes:
+- Always picking the first element as pivot: O(n²) on sorted input.
+- Partition loops that never end when all values are equal.
+
+Follow-up challenge: Use a random pivot and a three-way partition for many
+duplicates.
 """
 
 

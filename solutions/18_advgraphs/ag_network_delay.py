@@ -3,6 +3,12 @@
 Complexity: O((V + E) log V)
 
 Approach: Dijkstra, then max.
+
+Common mistakes:
+- Using BFS (weights matter).
+- Returning the sum of times instead of the maximum shortest distance.
+
+Follow-up challenge: Return which node receives the signal last.
 """
 
 

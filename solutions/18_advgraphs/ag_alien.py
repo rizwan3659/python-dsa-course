@@ -4,6 +4,13 @@ Complexity: O(total characters)
 
 Approach: Build edges from adjacent words, then topological sort (heap for
 the smallest order).
+
+Common mistakes:
+- Comparing letters beyond the first difference.
+- Missing the invalid case where a word comes before its own prefix.
+
+Follow-up challenge: Count how many valid alphabets are consistent with the
+words.
 """
 
 

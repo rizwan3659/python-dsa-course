@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^4
+- values may be negative
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-pivot

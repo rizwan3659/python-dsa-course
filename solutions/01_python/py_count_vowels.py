@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Normalise case, then count matching characters.
+
+Common mistakes:
+- Forgetting upper-case vowels.
+- Counting "y" as a vowel.
+
+Follow-up challenge: Return a dict with the count of each vowel separately.
 """
 
 

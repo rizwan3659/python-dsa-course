@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: BFS by levels.
+
+Common mistakes:
+- Using integer division.
+- Averaging over the whole tree.
+
+Follow-up challenge: Return the maximum of each level.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

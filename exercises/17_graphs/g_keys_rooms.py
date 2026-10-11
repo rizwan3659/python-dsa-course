@@ -7,6 +7,12 @@ every room?
 Examples:
     can_visit_all([[1], [2], [3], []])  ->  True
     can_visit_all([[1, 3], [3, 0, 1], [2], [0]])  ->  False
+    can_visit_all([[], [0]])  ->  False
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 2 ≤ n ≤ 1000
 
 Target complexity: O(V + E)
 

@@ -8,6 +8,12 @@ Examples:
     counting_sort([], 5)  ->  []
     counting_sort([0, 0], 0)  ->  [0, 0]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(nums) ≤ 10^6
+- 0 ≤ nums[i] ≤ k ≤ 10^6
+
 Target complexity: O(n + k)
 
 Check your work:   python dsa.py test so-counting

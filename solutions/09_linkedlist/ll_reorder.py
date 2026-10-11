@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Fast/slow + reverse + weave.
+
+Common mistakes:
+- Not cutting the list in the middle, which creates a cycle.
+- Copying values into a Python list (not the intended O(1) space).
+
+Follow-up challenge: Do it with O(1) extra space and no recursion.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

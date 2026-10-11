@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Two dummy-headed chains, then concatenate.
+
+Common mistakes:
+- Not ending the second list, which leaves a cycle.
+- Changing the relative order inside a group.
+
+Follow-up challenge: Partition into three groups:  x.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

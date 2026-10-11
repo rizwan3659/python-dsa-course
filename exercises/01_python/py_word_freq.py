@@ -12,6 +12,12 @@ Examples:
     word_freq("")  ->  {}
     word_freq("a a a")  ->  {"a": 3}
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(text) ≤ 10^5
+- words are separated by single spaces
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test py-word-freq

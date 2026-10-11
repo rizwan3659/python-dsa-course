@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ n ≤ 1000
+
 Target complexity: O(n + E)
 
 Check your work:   python dsa.py test g-judge

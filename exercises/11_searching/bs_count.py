@@ -9,6 +9,12 @@ Examples:
     count_occurrences([1, 3], 2)  ->  0
     count_occurrences([], 2)  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(nums) ≤ 10^6
+- nums is sorted
+
 Target complexity: O(log n)
 
 Check your work:   python dsa.py test bs-count

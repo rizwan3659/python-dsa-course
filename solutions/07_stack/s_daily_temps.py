@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Monotonic stack of indexes; answer = distance when popped.
+
+Common mistakes:
+- Popping on >= instead of >, which treats equal days as warmer.
+- Nested loops: O(n²).
+
+Follow-up challenge: Return the actual warmer temperature instead of the
+wait.
 """
 
 

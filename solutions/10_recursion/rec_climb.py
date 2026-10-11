@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Fibonacci-like recurrence with memoization.
+
+Common mistakes:
+- Base cases that give climb(2) = 1.
+- No memoization, so climb(60) never finishes.
+
+Follow-up challenge: Allow steps of 1, 2 or 3.
 """
 
 

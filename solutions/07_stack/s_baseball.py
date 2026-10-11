@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Stack of valid scores.
+
+Common mistakes:
+- Using int(op) on "+", "D" or "C".
+- For "+", popping the two scores instead of reading them.
+
+Follow-up challenge: Add an "U" operation that undoes the last "C".
 """
 
 

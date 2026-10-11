@@ -3,6 +3,12 @@
 Complexity: O(Catalan(n)) results
 
 Approach: Backtracking with counts of opened/closed brackets.
+
+Common mistakes:
+- Generating all 2²ⁿ strings and filtering (very slow).
+- Allowing more closing than opening brackets at some point.
+
+Follow-up challenge: Count them without generating (Catalan numbers).
 """
 
 

@@ -9,6 +9,11 @@ Examples:
     last_stone_weight([1])  ->  1
     last_stone_weight([2, 2])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(stones) ≤ 30
+
 Target complexity: O(n log n)
 
 Check your work:   python dsa.py test hp-last-stone

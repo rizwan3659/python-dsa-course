@@ -17,7 +17,7 @@ By the end of the topic, students can:
 ## Duration and prerequisites
 
 - Lessons: about **41 minutes** of guided material (5 lessons)
-- Practice: 9 coding problems and 30 quick questions in the bank; plan at least as much practice time as lesson time
+- Practice: 10 coding problems and 30 quick questions in the bank; plan at least as much practice time as lesson time
 - Suggested format: one 90-minute session
 - Prerequisites: Topic 7 (Stack)
 

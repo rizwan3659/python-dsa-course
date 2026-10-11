@@ -9,6 +9,12 @@ Examples:
     roman_to_int("LVIII")  ->  58
     roman_to_int("MCMXCIV")  ->  1994
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 1 ≤ len(s) ≤ 15
+- s is a valid numeral for 1..3999
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test st-roman

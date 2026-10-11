@@ -10,6 +10,12 @@ Examples:
     cal_points(["5", "-2", "4", "C", "D", "9", "+", "+"])  ->  27
     cal_points(["1", "C"])  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(ops) ≤ 1000
+- operations are always valid
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test s-baseball

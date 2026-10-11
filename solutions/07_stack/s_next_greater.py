@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Monotonic decreasing stack of indexes.
+
+Common mistakes:
+- Scanning to the right for every element: O(n²).
+- Storing values on the stack when you need indexes to write the answer.
+
+Follow-up challenge: The list is circular: wrap around once.
 """
 
 

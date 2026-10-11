@@ -3,6 +3,13 @@
 Complexity: O(4ⁿ · n)
 
 Approach: Backtracking over digit positions.
+
+Common mistakes:
+- Returning [""] for an empty input instead of [].
+- Hard-coding loops for a fixed number of digits.
+
+Follow-up challenge: Return only combinations that are real words from a
+given set.
 """
 
 

@@ -45,7 +45,7 @@ Rules:
 
 - **The id is permanent.** It names the exercise file, the solution file, the pytest id and saved progress. Use `<topic prefix>-<slug>`; never rename or reuse one.
 - `d` is 1 (easy), 2 (medium) or 3 (hard). `p` must be a key of `C.PATTERNS` in `js/core.js`.
-- Give **at least four tests**. The first three are shown to the student as examples; the rest are hidden until they ask. Include edge cases (empty input, one element, duplicates, negatives).
+- Give **at least four tests** (the validator enforces it). The first three are shown to the student as examples; the rest are hidden until they ask. Include edge cases (empty input, one element, duplicates, negatives).
 - A test is `[call, expected]`, optionally `[call, expected, mode, label]`. `mode` can be `unordered`, `groups`, `float` or `check` (expected is a lambda). `label` replaces the call in messages, which is useful for class-based exercises.
 - The starter must **fail** the tests and the solution must **pass** them. The validator checks both.
 - Write for beginners: short sentences, clear names, type hints in new solutions, PEP 8.
@@ -53,7 +53,7 @@ Rules:
 
 ### Schema v2 fields
 
-New coding problems should also have these fields (they are **required** in topics 3 and 19–22, and optional elsewhere):
+Every coding problem (except build-from-scratch challenges) must also have these fields; the validator rejects it otherwise (`prereq` and `dry` are optional):
 
 ```js
 prereq:['arr-max-subarray'],                 // question or topic ids to do first

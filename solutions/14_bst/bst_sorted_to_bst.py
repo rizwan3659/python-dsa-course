@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Divide and conquer on the middle element.
+
+Common mistakes:
+- Inserting values one by one in order, which builds a linked list.
+- Slicing in every call (O(n log n) copying); pass indexes.
+
+Follow-up challenge: Build it from a sorted linked list.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

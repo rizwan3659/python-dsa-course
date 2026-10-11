@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Sort + greedy two pointers.
+
+Common mistakes:
+- Not sorting both lists.
+- Giving the biggest cookie to the least greedy child.
+
+Follow-up challenge: Each cookie can be split once.
 """
 
 

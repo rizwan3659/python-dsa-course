@@ -11,6 +11,12 @@ Examples:
     partition_labels("eccbbbbdec")  ->  [10]
     partition_labels("abc")  ->  [1, 1, 1]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(s) ≤ 500
+- lowercase letters
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test pt-partition-labels

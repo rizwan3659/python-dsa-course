@@ -4,6 +4,12 @@ Complexity: O(n) time, O(1) space
 
 Approach: Three reversals (O(1) extra space), or slice assignment nums[:] =
 nums[-k:] + nums[:-k] (O(n) extra).
+
+Common mistakes:
+- Forgetting k %= n, so large k does too much work or fails.
+- Rotating one step at a time: O(n · k).
+
+Follow-up challenge: Do it with three reversals in O(1) extra space.
 """
 
 

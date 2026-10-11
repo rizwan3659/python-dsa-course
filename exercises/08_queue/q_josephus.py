@@ -14,6 +14,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ k ≤ n ≤ 500
+
 Target complexity: O(n · k) time
 
 Check your work:   python dsa.py test q-josephus

@@ -3,6 +3,11 @@
 Complexity: O(h)
 
 Approach: Walk left; walk right.
+
+Common mistakes:
+- Traversing the whole tree (O(n) instead of O(h)).
+
+Follow-up challenge: Find the second smallest value in O(h).
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

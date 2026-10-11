@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Recursion, or a stack simulating it.
+
+Common mistakes:
+- Pushing right children before going left in the iterative version.
+- Forgetting the None base case.
+
+Follow-up challenge: Morris traversal: O(1) extra space.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

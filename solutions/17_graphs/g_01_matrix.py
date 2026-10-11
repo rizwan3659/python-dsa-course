@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: Multi-source BFS from every 0.
+
+Common mistakes:
+- Running a BFS from every 1 cell: O((rc)²).
+- Not starting with all 0 cells in the queue.
+
+Follow-up challenge: Solve it with two DP passes instead of BFS.
 """
 
 

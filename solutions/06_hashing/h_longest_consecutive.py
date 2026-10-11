@@ -4,6 +4,12 @@ Complexity: O(n) time, O(n) space
 
 Approach: Set + count upward only from run starts, so each number is visited
 O(1) times.
+
+Common mistakes:
+- Starting a count from every number, not just run starts: O(n²).
+- Sorting: O(n log n).
+
+Follow-up challenge: Return the run itself.
 """
 
 

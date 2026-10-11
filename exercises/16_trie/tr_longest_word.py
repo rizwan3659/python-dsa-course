@@ -11,6 +11,12 @@ Examples:
     longest_word(["a", "banana", "app", "appl", "ap", "apply", "apple"])  ->  "apple"
     longest_word(["b"])  ->  "b"
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(words) ≤ 1000
+- 1 ≤ len(word) ≤ 30
+
 Target complexity: O(total characters · L)
 
 Check your work:   python dsa.py test tr-longest-word

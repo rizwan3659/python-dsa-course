@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Greedy farthest reach.
+
+Common mistakes:
+- Trying every jump with recursion (exponential).
+- Stopping only when reach is exactly the last index.
+
+Follow-up challenge: Return the minimum number of jumps (pt-jump-game-ii).
 """
 
 

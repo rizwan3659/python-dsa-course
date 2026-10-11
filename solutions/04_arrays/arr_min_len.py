@@ -4,6 +4,13 @@ Complexity: O(n) time, O(1) space
 
 Approach: Variable-size sliding window: expand right, shrink left while
 valid.
+
+Common mistakes:
+- Not shrinking the window as far as possible.
+- Returning n + 1 or infinity instead of 0 when no window works.
+
+Follow-up challenge: What changes if numbers can be negative?
+(pt-shortest-subarray-k)
 """
 
 

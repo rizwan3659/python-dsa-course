@@ -3,6 +3,12 @@
 Complexity: O(output length)
 
 Approach: Stack of (prefix, count) pairs for each open bracket.
+
+Common mistakes:
+- Reading only one-digit counts ("10[x]").
+- Using one stack and losing the text before the bracket.
+
+Follow-up challenge: Write the encoder that produces the shortest encoding.
 """
 
 

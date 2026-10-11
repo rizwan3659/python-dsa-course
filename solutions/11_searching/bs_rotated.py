@@ -3,6 +3,12 @@
 Complexity: O(log n)
 
 Approach: Binary search choosing the half by which side is sorted.
+
+Common mistakes:
+- Not deciding which half is sorted before comparing with target.
+- Using < where <= is needed when comparing with nums[lo].
+
+Follow-up challenge: Allow duplicates. What happens to the worst case?
 """
 
 

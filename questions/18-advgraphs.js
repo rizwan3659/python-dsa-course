@@ -237,7 +237,7 @@ def can_finish(n, prereqs):
             indeg[v] -= 1
             if indeg[v] == 0:
                 queue.append(v)
-    return taken == n`,tests:[['can_finish(2, [[1, 0]])','True'],['can_finish(2, [[1, 0], [0, 1]])','False'],['can_finish(3, [])','True'],['can_finish(4, [[1, 0], [2, 1], [3, 2], [1, 3]])','False']],hints:['Courses are nodes; b → a edges. You can finish everything iff there is no cycle.','Kahn: repeatedly take courses with no remaining prerequisites; count them.'],approach:'Topological sort / cycle check.',cx:'O(V + E)'},
+    return taken == n`,tests:[['can_finish(2, [[1, 0]])','True'],['can_finish(2, [[1, 0], [0, 1]])','False'],['can_finish(3, [])','True'],['can_finish(4, [[1, 0], [2, 1], [3, 2], [1, 3]])','False']],constraints:['1 ≤ n ≤ 2000','0 ≤ len(prereqs) ≤ 5000'],mistakes:['Building edges in the wrong direction.','Only detecting cycles reachable from course 0.'],followup:'Return one cycle when finishing is impossible.',hints:['Courses are nodes; b → a edges. You can finish everything iff there is no cycle.','Kahn: repeatedly take courses with no remaining prerequisites; count them.'],approach:'Topological sort / cycle check.',cx:'O(V + E)'},
 {id:'ag-course-order',type:'code',d:2,p:'topo-sort',post:TOPO,title:'Course Schedule II',prompt:'<p>Return any valid order to take all n courses (<code>[a, b]</code> = b before a), or <code>[]</code> if impossible.</p>',starter:`def find_order(n, prereqs):
     pass`,solution:`from collections import deque
 
@@ -255,7 +255,7 @@ def find_order(n, prereqs):
             indeg[v] -= 1
             if indeg[v] == 0:
                 queue.append(v)
-    return order if len(order) == n else []`,tests:[['find_order(4, [[1, 0], [2, 0], [3, 1], [3, 2]])','lambda order: _valid_topo(order, 4, [[1, 0], [2, 0], [3, 1], [3, 2]])','check','any valid order for 4 courses'],['find_order(2, [[0, 1], [1, 0]])','[]'],['find_order(1, [])','[0]']],hints:['Kahn’s algorithm records the order in which nodes become free.'],approach:'Kahn’s topological sort.',cx:'O(V + E)'},
+    return order if len(order) == n else []`,tests:[['find_order(4, [[1, 0], [2, 0], [3, 1], [3, 2]])','lambda order: _valid_topo(order, 4, [[1, 0], [2, 0], [3, 1], [3, 2]])','check','any valid order for 4 courses'],['find_order(2, [[0, 1], [1, 0]])','[]'],['find_order(1, [])','[0]'],['find_order(3, [[1, 0], [2, 1]])','lambda o: o == [0, 1, 2]','check']],constraints:['1 ≤ n ≤ 2000'],mistakes:['Returning a partial order when there is a cycle.','Adding a course to the queue before all its prerequisites are done.'],followup:'Return the lexicographically smallest order (use a heap).',hints:['Kahn’s algorithm records the order in which nodes become free.','Kahn\'s algorithm: start with courses with no prerequisites and remove edges as you take courses.'],approach:'Kahn’s topological sort.',cx:'O(V + E)'},
 {id:'ag-cycle-directed',type:'code',d:2,p:'dfs',title:'Cycle in a Directed Graph',prompt:'<p>Nodes 0..n − 1, directed edges. Return True if there is a cycle. Use DFS with three colors.</p>',starter:`def has_cycle(n, edges):
     pass`,solution:`def has_cycle(n, edges):
     graph = {i: [] for i in range(n)}
@@ -271,7 +271,7 @@ def find_order(n, prereqs):
                 return True
         color[u] = 2
         return False
-    return any(color[u] == 0 and dfs(u) for u in range(n))`,tests:[['has_cycle(3, [(0, 1), (1, 2), (2, 0)])','True'],['has_cycle(3, [(0, 1), (0, 2), (1, 2)])','False'],['has_cycle(1, [(0, 0)])','True'],['has_cycle(4, [(0, 1), (2, 3)])','False']],hints:['A visited set alone is not enough: in a DAG you can meet an already-visited node without a cycle (0 → 1 → 2 and 0 → 2).','Only a node still on the CURRENT path (gray) signals a cycle.'],approach:'Three-color DFS.',cx:'O(V + E)'},
+    return any(color[u] == 0 and dfs(u) for u in range(n))`,tests:[['has_cycle(3, [(0, 1), (1, 2), (2, 0)])','True'],['has_cycle(3, [(0, 1), (0, 2), (1, 2)])','False'],['has_cycle(1, [(0, 0)])','True'],['has_cycle(4, [(0, 1), (2, 3)])','False']],constraints:['1 ≤ n ≤ 10<sup>4</sup>'],mistakes:['Using two colours only, which reports a cycle for diamond shapes.','Recursion depth problems on long chains.'],followup:'Return the nodes on one cycle.',hints:['A visited set alone is not enough: in a DAG you can meet an already-visited node without a cycle (0 → 1 → 2 and 0 → 2).','Only a node still on the CURRENT path (gray) signals a cycle.'],approach:'Three-color DFS.',cx:'O(V + E)'},
 {id:'ag-cycle-undirected',type:'code',d:2,p:'union-find',title:'Cycle in an Undirected Graph',prompt:'<p>Return True if an undirected graph (n nodes, edge list) has a cycle. Use union-find.</p>',starter:`def has_cycle_undirected(n, edges):
     pass`,solution:`def has_cycle_undirected(n, edges):
     parent = list(range(n))
@@ -285,7 +285,7 @@ def find_order(n, prereqs):
         if ru == rv:
             return True           # already connected: this edge closes a loop
         parent[rv] = ru
-    return False`,tests:[['has_cycle_undirected(3, [(0, 1), (1, 2), (2, 0)])','True'],['has_cycle_undirected(4, [(0, 1), (1, 2), (2, 3)])','False'],['has_cycle_undirected(2, [])','False']],hints:['Process edges one by one, merging components.','An edge whose two ends are already in the same component makes a cycle.'],approach:'Union-find.',cx:'O(E α(V))'},
+    return False`,tests:[['has_cycle_undirected(3, [(0, 1), (1, 2), (2, 0)])','True'],['has_cycle_undirected(4, [(0, 1), (1, 2), (2, 3)])','False'],['has_cycle_undirected(2, [])','False'],['has_cycle_undirected(3, [(0, 1), (0, 2)])','False']],constraints:['1 ≤ n ≤ 10<sup>5</sup>'],mistakes:['Treating the edge back to the parent as a cycle (with DFS).','Union without path compression on long chains (slow).'],followup:'Detect a cycle with DFS instead.',hints:['Process edges one by one, merging components.','An edge whose two ends are already in the same component makes a cycle.'],approach:'Union-find.',cx:'O(E α(V))'},
 {id:'ag-provinces',type:'code',d:2,p:'union-find',title:'Number of Provinces',prompt:'<p><code>is_connected[i][j] == 1</code> means cities i and j are directly connected. Return the number of provinces (connected groups).</p>',starter:`def find_circle_num(is_connected):
     pass`,solution:`def find_circle_num(is_connected):
     n = len(is_connected)
@@ -303,7 +303,7 @@ def find_order(n, prereqs):
                 if ri != rj:
                     parent[rj] = ri
                     groups -= 1
-    return groups`,tests:[['find_circle_num([[1, 1, 0], [1, 1, 0], [0, 0, 1]])','2'],['find_circle_num([[1, 0, 0], [0, 1, 0], [0, 0, 1]])','3'],['find_circle_num([[1]])','1']],hints:['The input is an adjacency matrix.','Each successful union reduces the number of groups by one.'],approach:'Union-find over the matrix (DFS also works).',cx:'O(n² α(n))'},
+    return groups`,tests:[['find_circle_num([[1, 1, 0], [1, 1, 0], [0, 0, 1]])','2'],['find_circle_num([[1, 0, 0], [0, 1, 0], [0, 0, 1]])','3'],['find_circle_num([[1]])','1'],['find_circle_num([[1, 1], [1, 1]])','1']],constraints:['1 ≤ n ≤ 200'],mistakes:['Counting connections instead of groups.','Reading only the upper triangle without symmetry.'],followup:'The matrix is huge but sparse: what representation would you use?',hints:['The input is an adjacency matrix.','Each successful union reduces the number of groups by one.'],approach:'Union-find over the matrix (DFS also works).',cx:'O(n² α(n))'},
 {id:'ag-redundant',type:'code',d:2,p:'union-find',title:'Redundant Connection',prompt:'<p>A tree with n nodes (1..n) got one extra edge. Return the edge that can be removed to make it a tree again (the last such edge in the input).</p>',starter:`def find_redundant(edges):
     pass`,solution:`def find_redundant(edges):
     parent = list(range(len(edges) + 1))
@@ -316,7 +316,7 @@ def find_order(n, prereqs):
         ru, rv = find(u), find(v)
         if ru == rv:
             return [u, v]
-        parent[rv] = ru`,tests:[['find_redundant([[1, 2], [1, 3], [2, 3]])','[2, 3]'],['find_redundant([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]])','[1, 4]']],hints:['The redundant edge is the first one that connects two already-connected nodes.'],approach:'Union-find; report the edge that closes a cycle.',cx:'O(E α(V))'},
+        parent[rv] = ru`,tests:[['find_redundant([[1, 2], [1, 3], [2, 3]])','[2, 3]'],['find_redundant([[1, 2], [2, 3], [3, 4], [1, 4], [1, 5]])','[1, 4]'],['find_redundant([[1, 2], [2, 3], [1, 3]])','[1, 3]'],['find_redundant([[2, 3], [1, 2], [3, 1]])','[3, 1]']],constraints:['3 ≤ n ≤ 1000'],mistakes:['Returning the first edge that closes a cycle instead of the one found last in input order.','Union-find with 0-based arrays for 1-based nodes.'],followup:'The graph is directed (Redundant Connection II).',hints:['The redundant edge is the first one that connects two already-connected nodes.','Union the endpoints of each edge in order; the first edge whose endpoints are already connected is the answer.'],approach:'Union-find; report the edge that closes a cycle.',cx:'O(E α(V))'},
 {id:'ag-network-delay',type:'code',d:2,p:'shortest-path',title:'Network Delay Time',prompt:'<p><code>times[i] = (u, v, w)</code>: a signal from u reaches v after w. Nodes are 1..n. Starting at k, how long until every node has the signal? -1 if some never do.</p>',starter:`import heapq
 
 def network_delay(times, n, k):
@@ -336,7 +336,7 @@ def network_delay(times, n, k):
             if d + w < dist.get(v, float("inf")):
                 dist[v] = d + w
                 heapq.heappush(pq, (d + w, v))
-    return max(dist.values()) if len(dist) == n else -1`,tests:[['network_delay([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2)','2'],['network_delay([[1, 2, 1]], 2, 1)','1'],['network_delay([[1, 2, 1]], 2, 2)','-1']],hints:['Shortest times from k to every node: Dijkstra.','The answer is the largest of those shortest times.'],approach:'Dijkstra, then max.',cx:'O((V + E) log V)'},
+    return max(dist.values()) if len(dist) == n else -1`,tests:[['network_delay([[2, 1, 1], [2, 3, 1], [3, 4, 1]], 4, 2)','2'],['network_delay([[1, 2, 1]], 2, 1)','1'],['network_delay([[1, 2, 1]], 2, 2)','-1'],['network_delay([[1, 2, 5], [1, 3, 1], [3, 2, 1]], 3, 1)','2']],constraints:['1 ≤ k ≤ n ≤ 100','1 ≤ len(times) ≤ 6000'],mistakes:['Using BFS (weights matter).','Returning the sum of times instead of the maximum shortest distance.'],followup:'Return which node receives the signal last.',hints:['Shortest times from k to every node: Dijkstra.','The answer is the largest of those shortest times.'],approach:'Dijkstra, then max.',cx:'O((V + E) log V)'},
 {id:'ag-min-cost-points',type:'code',d:2,p:'mst',title:'Min Cost to Connect All Points',prompt:'<p>Connecting points (x1, y1) and (x2, y2) costs |x1 − x2| + |y1 − y2|. Return the minimum cost to connect all points.</p>',starter:`import heapq
 
 def min_cost_connect(points):
@@ -357,7 +357,7 @@ def min_cost_connect(points):
             if j not in seen:
                 d = abs(xi - points[j][0]) + abs(yi - points[j][1])
                 heapq.heappush(pq, (d, j))
-    return total`,tests:[['min_cost_connect([[0, 0], [2, 2], [3, 10], [5, 2], [7, 0]])','20'],['min_cost_connect([[3, 12], [-2, 5], [-4, 1]])','18'],['min_cost_connect([[0, 0]])','0']],hints:['Every pair of points is a possible edge: a complete graph.','Grow a tree with Prim’s algorithm (or sort all pairs and use Kruskal).'],approach:"Prim's MST on the complete graph.",cx:'O(n² log n)'},
+    return total`,tests:[['min_cost_connect([[0, 0], [2, 2], [3, 10], [5, 2], [7, 0]])','20'],['min_cost_connect([[3, 12], [-2, 5], [-4, 1]])','18'],['min_cost_connect([[0, 0]])','0'],['min_cost_connect([[0, 0], [1, 1]])','2']],constraints:['1 ≤ len(points) ≤ 1000'],mistakes:['Building all n² edges and sorting them (works, but O(n² log n)).','Using Euclidean instead of Manhattan distance.'],followup:'Use Prim\'s algorithm with an O(n²) array instead of a heap.',hints:['Every pair of points is a possible edge: a complete graph.','Grow a tree with Prim’s algorithm (or sort all pairs and use Kruskal).'],approach:"Prim's MST on the complete graph.",cx:'O(n² log n)'},
 {id:'ag-kruskal',type:'code',d:2,p:'mst',title:"Kruskal's MST Weight",prompt:'<p>Nodes 0..n − 1, weighted undirected edges <code>(u, v, w)</code>. Return the total weight of a minimum spanning tree (the graph is connected).</p>',starter:`def mst_weight(n, edges):
     pass`,solution:`def mst_weight(n, edges):
     parent = list(range(n))
@@ -375,7 +375,7 @@ def min_cost_connect(points):
             used += 1
             if used == n - 1:
                 break
-    return total`,tests:[['mst_weight(4, [(0, 1, 1), (1, 2, 2), (0, 2, 3), (2, 3, 4), (1, 3, 5)])','7'],['mst_weight(2, [(0, 1, 9)])','9'],['mst_weight(3, [(0, 1, 5), (1, 2, 5), (0, 2, 1)])','6']],hints:['Sort edges by weight.','Take an edge only if it joins two different components (union-find).'],approach:"Kruskal's algorithm.",cx:'O(E log E)'},
+    return total`,tests:[['mst_weight(4, [(0, 1, 1), (1, 2, 2), (0, 2, 3), (2, 3, 4), (1, 3, 5)])','7'],['mst_weight(2, [(0, 1, 9)])','9'],['mst_weight(3, [(0, 1, 5), (1, 2, 5), (0, 2, 1)])','6'],['mst_weight(1, [])','0']],constraints:['1 ≤ n ≤ 10<sup>4</sup>','the graph is connected'],mistakes:['Not sorting edges by weight.','Adding an edge whose endpoints are already connected.'],followup:'Return the edges of the MST.',hints:['Sort edges by weight.','Take an edge only if it joins two different components (union-find).'],approach:"Kruskal's algorithm.",cx:'O(E log E)'},
 {id:'ag-k-stops',type:'code',d:3,p:'shortest-path',title:'Cheapest Flights Within K Stops',prompt:'<p>Flights <code>(u, v, price)</code>. Return the cheapest price from src to dst with at most k stops, or -1.</p>',starter:`def find_cheapest_price(n, flights, src, dst, k):
     pass`,solution:`def find_cheapest_price(n, flights, src, dst, k):
     cost = [float("inf")] * n
@@ -386,7 +386,7 @@ def min_cost_connect(points):
             if cost[u] + p < new[v]:
                 new[v] = cost[u] + p
         cost = new
-    return -1 if cost[dst] == float("inf") else cost[dst]`,tests:[['find_cheapest_price(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]], 0, 3, 1)','700'],['find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 1)','200'],['find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 0)','500']],hints:['Plain Dijkstra ignores the stop limit.','Bellman-Ford limited to k + 1 rounds: each round allows one more flight. Copy the array each round so a round adds at most one edge.'],approach:'Bellman-Ford with k + 1 rounds.',cx:'O(k · E)'},
+    return -1 if cost[dst] == float("inf") else cost[dst]`,tests:[['find_cheapest_price(4, [[0, 1, 100], [1, 2, 100], [2, 0, 100], [1, 3, 600], [2, 3, 200]], 0, 3, 1)','700'],['find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 1)','200'],['find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 0)','500'],['find_cheapest_price(2, [[0, 1, 5]], 1, 0, 1)','-1']],constraints:['1 ≤ n ≤ 100','0 ≤ k &lt; n'],mistakes:['Plain Dijkstra, which ignores the stop limit.','Relaxing edges using distances updated in the same round.'],followup:'Return the route as well as the price.',hints:['Plain Dijkstra ignores the stop limit.','Bellman-Ford limited to k + 1 rounds: each round allows one more flight. Copy the array each round so a round adds at most one edge.'],approach:'Bellman-Ford with k + 1 rounds.',cx:'O(k · E)'},
 {id:'ag-bellman',type:'code',d:3,p:'shortest-path',title:'Shortest Paths With Negative Weights',prompt:'<p>Directed edges <code>(u, v, w)</code>, weights may be negative. Return the list of shortest distances from node 0 (use <code>None</code> for unreachable), or the string <code>"negative cycle"</code> if one is reachable.</p>',starter:`def bellman_ford(n, edges):
     pass`,solution:`def bellman_ford(n, edges):
     INF = float("inf")
@@ -403,7 +403,7 @@ def min_cost_connect(points):
     for u, v, w in edges:                  # still improving → negative cycle
         if dist[u] != INF and dist[u] + w < dist[v]:
             return "negative cycle"
-    return [None if d == INF else d for d in dist]`,tests:[['bellman_ford(4, [(0, 1, 4), (0, 2, 5), (1, 2, -3), (2, 3, 2)])','[0, 4, 1, 3]'],['bellman_ford(3, [(0, 1, 1), (1, 2, -1), (2, 1, -1)])','"negative cycle"'],['bellman_ford(3, [(0, 1, 2)])','[0, 2, None]']],hints:['Relax every edge n − 1 times.','If an edge can still be relaxed after that, a negative cycle is reachable.'],approach:'Bellman-Ford.',cx:'O(V · E)'},
+    return [None if d == INF else d for d in dist]`,tests:[['bellman_ford(4, [(0, 1, 4), (0, 2, 5), (1, 2, -3), (2, 3, 2)])','[0, 4, 1, 3]'],['bellman_ford(3, [(0, 1, 1), (1, 2, -1), (2, 1, -1)])','"negative cycle"'],['bellman_ford(3, [(0, 1, 2)])','[0, 2, None]'],['bellman_ford(1, [])','[0]']],constraints:['1 ≤ n ≤ 500','0 ≤ len(edges) ≤ 5000'],mistakes:['Running fewer than n − 1 rounds.','Relaxing from unreachable nodes (infinity + negative).'],followup:'Return the actual paths, not just distances.',hints:['Relax every edge n − 1 times.','If an edge can still be relaxed after that, a negative cycle is reachable.'],approach:'Bellman-Ford.',cx:'O(V · E)'},
 {id:'ag-alien',type:'code',d:3,p:'topo-sort',title:'Alien Dictionary',prompt:'<p>Words are sorted in an unknown alphabet. Return the letters (all letters that appear) in an order consistent with it; if several orders work, return the alphabetically smallest; return "" if the input is invalid.</p>',starter:`def alien_order(words):
     pass`,solution:`import heapq
 
@@ -431,7 +431,7 @@ def alien_order(words):
             indeg[d] -= 1
             if indeg[d] == 0:
                 heapq.heappush(heap, d)
-    return "".join(order) if len(order) == len(letters) else ""`,tests:[['alien_order(["wrt", "wrf", "er", "ett", "rftt"])','"wertf"'],['alien_order(["z", "x"])','"zx"'],['alien_order(["z", "x", "z"])','""'],['alien_order(["abc", "ab"])','""']],hints:['Compare each pair of neighbouring words: the first differing letters give one ordering rule (an edge).','Topologically sort the letters; a cycle (or a longer word before its own prefix) means invalid.'],approach:'Build edges from adjacent words, then topological sort (heap for the smallest order).',cx:'O(total characters)'}
+    return "".join(order) if len(order) == len(letters) else ""`,tests:[['alien_order(["wrt", "wrf", "er", "ett", "rftt"])','"wertf"'],['alien_order(["z", "x"])','"zx"'],['alien_order(["z", "x", "z"])','""'],['alien_order(["abc", "ab"])','""']],constraints:['1 ≤ len(words) ≤ 100','lowercase letters'],mistakes:['Comparing letters beyond the first difference.','Missing the invalid case where a word comes before its own prefix.'],followup:'Count how many valid alphabets are consistent with the words.',hints:['Compare each pair of neighbouring words: the first differing letters give one ordering rule (an edge).','Topologically sort the letters; a cycle (or a longer word before its own prefix) means invalid.'],approach:'Build edges from adjacent words, then topological sort (heap for the smallest order).',cx:'O(total characters)'}
 ]);
 })();
 

@@ -8,6 +8,11 @@ Examples:
     is_same(build_tree([1, 2]), build_tree([1, None, 2]))  ->  False
     is_same(build_tree([]), build_tree([]))  ->  True
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 100
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-same

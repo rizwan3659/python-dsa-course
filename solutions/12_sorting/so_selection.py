@@ -3,6 +3,12 @@
 Complexity: O(n²)
 
 Approach: Select the minimum each pass.
+
+Common mistakes:
+- Swapping on every smaller element instead of once per pass.
+- Searching for the minimum from index 0 every time.
+
+Follow-up challenge: Is selection sort stable? Find an example.
 """
 
 

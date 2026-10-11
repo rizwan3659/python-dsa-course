@@ -3,6 +3,12 @@
 Complexity: O(n log n) time, O(n) space
 
 Approach: Divide and conquer.
+
+Common mistakes:
+- Merging with list.pop(0), which is O(n) per pop.
+- Forgetting to copy what is left of one half.
+
+Follow-up challenge: Make it stable and prove that it is.
 """
 
 

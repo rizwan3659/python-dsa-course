@@ -4,6 +4,13 @@ Complexity: O(n) time, O(1) space
 
 Approach: Kadane for the max and for the min; answer = max(best_max, total −
 best_min), unless everything is negative.
+
+Common mistakes:
+- Returning total − min subarray when every number is negative (that empties
+  the subarray).
+- Doubling the list and running Kadane without limiting the length to n.
+
+Follow-up challenge: Return the indexes of the best circular subarray.
 """
 
 

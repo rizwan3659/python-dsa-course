@@ -8,6 +8,11 @@ Examples:
     to_list(middle_node(build([1, 2, 3, 4, 5, 6])))  ->  [4, 5, 6]
     to_list(middle_node(build([1])))  ->  [1]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ number of nodes ≤ 100
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test ll-middle

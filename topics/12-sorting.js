@@ -46,6 +46,7 @@ print(sorted(words, key=len, reverse=True))`},
  {t:'q',title:'Code it',ids:['so-counting']}]}],
 
 challenge:[
+ {t:'q',title:'Hard problems',intro:'Interview-level problems for this topic. Try each without hints first, and write the brute force and its complexity before you code.',ids:['so-inversions','so-max-gap']},
  {t:'b2o',title:'Count Inversions: every pair → merge sort',qid:'so-inversions',problem:'<p>Count pairs i &lt; j with nums[i] &gt; nums[j].</p>',
   brute:{code:`def count_inversions(nums):
     count = 0

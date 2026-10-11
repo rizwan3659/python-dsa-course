@@ -3,6 +3,13 @@
 Complexity: O(n log n) time
 
 Approach: Queue of indexes simulates the order positions are revealed.
+
+Common mistakes:
+- Simulating forward instead of placing cards into the positions the process
+  will visit.
+
+Follow-up challenge: Given the order of revealing, reconstruct the deck for
+"move two cards to the bottom" instead of one.
 """
 
 

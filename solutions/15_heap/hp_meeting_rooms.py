@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Sort by start + min-heap of end times.
+
+Common mistakes:
+- Sorting by end time.
+- Not freeing a room when a meeting ends exactly when another starts.
+
+Follow-up challenge: Return which room each meeting uses.
 """
 
 

@@ -8,6 +8,12 @@ Examples:
     to_list(delete_duplicates(build([1, 1, 1])))  ->  [1]
     to_list(delete_duplicates(build([])))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 300
+- the list is sorted
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test ll-dedupe-sorted

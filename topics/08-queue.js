@@ -31,6 +31,7 @@ learn:[
  {t:'q',title:'Code it',ids:['q-first-negative','q-window-max']}]}],
 
 challenge:[
+ {t:'q',title:'Hard problems',intro:'Interview-level problems for this topic. Try each without hints first, and write the brute force and its complexity before you code.',ids:['q-window-max','q-jump-max-score']},
  {t:'b2o',title:'Sliding Window Maximum: max of every window → monotonic deque',qid:'q-window-max',problem:'<p>Return the maximum of every window of size k.</p>',
   brute:{code:`def max_sliding_window(nums, k):
     return [max(nums[i:i + k]) for i in range(len(nums) - k + 1)]`,cx:'O(n · k)',cxOpts:['O(n)','O(n · k)','O(n log n)','O(k)'],why:'Each of about n windows scans k numbers.'},

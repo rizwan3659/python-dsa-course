@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Two pointers with one retry.
+
+Common mistakes:
+- Trying every deletion: O(n²).
+- Only trying to skip the left character at the first mismatch.
+
+Follow-up challenge: Allow up to k deletions (DP on intervals).
 """
 
 

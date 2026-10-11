@@ -3,6 +3,12 @@
 Complexity: O(n²) worst, O(n) best
 
 Approach: Grow a sorted prefix.
+
+Common mistakes:
+- Swapping repeatedly instead of shifting and inserting once.
+- Moving equal elements past each other (breaks stability).
+
+Follow-up challenge: Use binary search to find the insertion point.
 """
 
 

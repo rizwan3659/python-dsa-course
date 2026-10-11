@@ -11,6 +11,12 @@ Examples:
     deck_revealed_increasing([1, 1000])  ->  [1, 1000]
     deck_revealed_increasing([3])  ->  [3]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(deck) ≤ 1000
+- values are distinct
+
 Target complexity: O(n log n) time
 
 Check your work:   python dsa.py test q-reveal-cards

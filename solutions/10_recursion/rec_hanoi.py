@@ -4,6 +4,12 @@ Complexity: O(2ⁿ) moves
 
 Approach: Move n − 1 out of the way, move the biggest, move n − 1 back on
 top.
+
+Common mistakes:
+- Swapping the roles of via and dst in the recursive calls.
+- Returning moves in the wrong order.
+
+Follow-up challenge: Prove that 2ⁿ − 1 moves is the minimum.
 """
 
 

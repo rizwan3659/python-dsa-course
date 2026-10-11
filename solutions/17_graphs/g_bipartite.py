@@ -3,6 +3,12 @@
 Complexity: O(V + E)
 
 Approach: BFS two-coloring per component.
+
+Common mistakes:
+- Only checking the component that contains node 0.
+- Colouring without checking already-coloured neighbours.
+
+Follow-up challenge: Return the two groups.
 """
 
 

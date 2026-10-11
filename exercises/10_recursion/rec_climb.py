@@ -13,6 +13,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 1 ≤ n ≤ 90
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test rec-climb

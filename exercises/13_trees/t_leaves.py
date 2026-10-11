@@ -8,6 +8,11 @@ Examples:
     leaf_sum(build_tree([7]))  ->  7
     leaf_sum(build_tree([]))  ->  0
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-leaves

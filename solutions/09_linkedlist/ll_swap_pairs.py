@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Dummy node; rewire three pointers per pair.
+
+Common mistakes:
+- Swapping values instead of nodes.
+- Losing the link from the previous pair to the swapped pair.
+
+Follow-up challenge: Swap in groups of k (ll-reverse-k).
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

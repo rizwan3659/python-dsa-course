@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Two maps, or the distinct-count trick.
+
+Common mistakes:
+- Not checking that the number of words equals the pattern length.
+- Using only one direction of mapping.
+
+Follow-up challenge: Find all words from a list that match a pattern.
 """
 
 

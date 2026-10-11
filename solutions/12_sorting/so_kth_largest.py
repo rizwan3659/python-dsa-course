@@ -3,6 +3,12 @@
 Complexity: O(n) average
 
 Approach: Quickselect (or heap of size k).
+
+Common mistakes:
+- Sorting ascending and returning nums[k].
+- A quickselect without random pivots, which is slow on sorted input.
+
+Follow-up challenge: Solve it with a min-heap of size k and compare.
 """
 
 

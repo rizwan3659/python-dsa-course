@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ rows, cols ≤ 300
+
 Target complexity: O(rows × cols)
 
 Check your work:   python dsa.py test g-islands

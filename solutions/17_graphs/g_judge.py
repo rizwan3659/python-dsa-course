@@ -3,6 +3,14 @@
 Complexity: O(n + E)
 
 Approach: Degree counting.
+
+Common mistakes:
+- Only checking that someone is trusted by everyone (they must also trust
+  nobody).
+- Treating people as 0-based.
+
+Follow-up challenge: Solve it with one array of trust scores (in-degree −
+out-degree).
 """
 
 

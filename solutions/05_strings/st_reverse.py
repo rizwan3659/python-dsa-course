@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Two pointers.
+
+Common mistakes:
+- Returning a reversed copy instead of changing the list.
+- Swapping all the way to the end, which undoes the reversal.
+
+Follow-up challenge: Reverse each word of a sentence in place, keeping the
+word order.
 """
 
 

@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(n) space
 
 Approach: A set of seen values turns each “seen before?” check into O(1).
+
+Common mistakes:
+- Comparing every pair: O(n²).
+- Sorting first: correct, but O(n log n).
+
+Follow-up challenge: Return the first value that repeats, not just True or
+False.
 """
 
 

@@ -13,6 +13,10 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 5 × 10^4
+- 0 ≤ k ≤ 50
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test h-k-distinct

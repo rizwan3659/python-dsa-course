@@ -208,7 +208,7 @@ while cur:
     while head:
         n += 1
         head = head.next
-    return n`,tests:[['length(build([1, 2, 3]))','3'],['length(build([]))','0']],hints:['Walk until None, counting.'],approach:'Traversal.',cx:'O(n)'},
+    return n`,tests:[['length(build([1, 2, 3]))','3'],['length(build([]))','0'],['length(build([7]))','1'],['length(build(list(range(1000))))','1000']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Starting the count at 1 and returning 1 for an empty list.','Moving head itself is fine in Python, but losing it matters if you need it later.'],followup:'Write it recursively. What happens for 10,000 nodes?',hints:['Walk until None, counting.','Walk with cur = cur.next until cur is None, counting the nodes.'],approach:'Traversal.',cx:'O(n)'},
 {id:'ll-kth',type:'code',d:1,p:'linked-list',prelude:'list',title:'Value at Index k',prompt:'<p>Return the value of the node at index k (0-based), or None if the list is too short.</p>',starter:`def get_kth(head, k):
     pass`,solution:`def get_kth(head, k):
     cur = head
@@ -216,7 +216,7 @@ while cur:
         if cur is None:
             return None
         cur = cur.next
-    return cur.val if cur else None`,tests:[['get_kth(build([5, 6, 7]), 0)','5'],['get_kth(build([5, 6, 7]), 2)','7'],['get_kth(build([5, 6, 7]), 3)','None'],['get_kth(build([]), 0)','None']],hints:['Walk k steps, checking for None.'],approach:'Walk k steps.',cx:'O(k)'},
+    return cur.val if cur else None`,tests:[['get_kth(build([5, 6, 7]), 0)','5'],['get_kth(build([5, 6, 7]), 2)','7'],['get_kth(build([5, 6, 7]), 3)','None'],['get_kth(build([]), 0)','None']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>','0 ≤ k'],mistakes:['Following .next past the end and crashing on None.','Off-by-one: index 0 is the head itself.'],followup:'Return the k-th node from the end in one pass.',hints:['Walk k steps, checking for None.','Step k times, stopping early if you reach None.'],approach:'Walk k steps.',cx:'O(k)'},
 {id:'ll-reverse',type:'code',d:1,p:'linked-list',prelude:'list',title:'Reverse Linked List',prompt:'<p>Reverse the list and return the new head. Use O(1) extra space.</p>',starter:`def reverse_list(head):
     pass`,solution:`def reverse_list(head):
     prev, cur = None, head
@@ -225,14 +225,14 @@ while cur:
         cur.next = prev
         prev = cur
         cur = nxt
-    return prev`,tests:[['to_list(reverse_list(build([1, 2, 3, 4, 5])))','[5, 4, 3, 2, 1]'],['to_list(reverse_list(build([1, 2])))','[2, 1]'],['to_list(reverse_list(build([])))','[]']],hints:['Three variables: prev, cur, and the saved next.','Point cur back at prev, then move both forward.'],approach:'Iterative pointer reversal.',cx:'O(n) time, O(1) space'},
+    return prev`,tests:[['to_list(reverse_list(build([1, 2, 3, 4, 5])))','[5, 4, 3, 2, 1]'],['to_list(reverse_list(build([1, 2])))','[2, 1]'],['to_list(reverse_list(build([])))','[]'],['to_list(reverse_list(build([9])))','[9]']],constraints:['0 ≤ number of nodes ≤ 5000'],mistakes:['Overwriting cur.next before saving it, which loses the rest of the list.','Returning the old head instead of prev.'],followup:'Write it recursively, then reverse only positions left..right (ll-reverse-between).',hints:['Three variables: prev, cur, and the saved next.','Point cur back at prev, then move both forward.'],approach:'Iterative pointer reversal.',cx:'O(n) time, O(1) space'},
 {id:'ll-middle',type:'code',d:1,p:'fast-slow',prelude:'list',title:'Middle of the Linked List',prompt:'<p>Return the middle node (the second middle for even lengths), in one pass.</p>',starter:`def middle_node(head):
     pass`,solution:`def middle_node(head):
     slow = fast = head
     while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
-    return slow`,tests:[['to_list(middle_node(build([1, 2, 3, 4, 5])))','[3, 4, 5]'],['to_list(middle_node(build([1, 2, 3, 4, 5, 6])))','[4, 5, 6]'],['to_list(middle_node(build([1])))','[1]']],hints:['Counting then walking half takes two passes.','One pass: fast moves 2, slow moves 1.'],approach:'Fast/slow pointers.',cx:'O(n) time, O(1) space'},
+    return slow`,tests:[['to_list(middle_node(build([1, 2, 3, 4, 5])))','[3, 4, 5]'],['to_list(middle_node(build([1, 2, 3, 4, 5, 6])))','[4, 5, 6]'],['to_list(middle_node(build([1])))','[1]'],['to_list(middle_node(build([1, 2])))','[2]']],constraints:['1 ≤ number of nodes ≤ 100'],mistakes:['Counting first and walking again: correct but two passes.','Returning the first middle for even lengths.'],followup:'Delete the middle node instead of returning it.',hints:['Counting then walking half takes two passes.','One pass: fast moves 2, slow moves 1.'],approach:'Fast/slow pointers.',cx:'O(n) time, O(1) space'},
 {id:'ll-has-cycle',type:'code',d:1,p:'fast-slow',prelude:'list',post:CYC,title:'Linked List Cycle',prompt:'<p>Return True if the list has a cycle. Aim for O(1) extra space.</p>',starter:`def has_cycle(head):
     pass`,solution:`def has_cycle(head):
     slow = fast = head
@@ -241,7 +241,7 @@ while cur:
         fast = fast.next.next
         if slow is fast:
             return True
-    return False`,tests:[['has_cycle(make_cycle([3, 2, 0, -4], 1))','True','','3 → 2 → 0 → −4 → back to 2'],['has_cycle(make_cycle([1, 2], 0))','True','','1 → 2 → back to 1'],['has_cycle(make_cycle([1], -1))','False','','single node, no cycle'],['has_cycle(make_cycle([], -1))','False','','empty list']],hints:['A set of visited nodes works, with O(n) space.','O(1) space: two pointers at different speeds meet if and only if there is a cycle.'],approach:"Floyd's tortoise and hare.",cx:'O(n) time, O(1) space'},
+    return False`,tests:[['has_cycle(make_cycle([3, 2, 0, -4], 1))','True','','3 → 2 → 0 → −4 → back to 2'],['has_cycle(make_cycle([1, 2], 0))','True','','1 → 2 → back to 1'],['has_cycle(make_cycle([1], -1))','False','','single node, no cycle'],['has_cycle(make_cycle([], -1))','False','','empty list']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Comparing values instead of nodes (two nodes can hold equal values).','Not checking fast.next before moving two steps.'],followup:'Return the length of the cycle.',hints:['A set of visited nodes works, with O(n) space.','O(1) space: two pointers at different speeds meet if and only if there is a cycle.'],approach:"Floyd's tortoise and hare.",cx:'O(n) time, O(1) space'},
 {id:'ll-merge',type:'code',d:1,p:'linked-list',prelude:'list',title:'Merge Two Sorted Lists',prompt:'<p>Merge two sorted linked lists into one sorted list by relinking the nodes. Return its head.</p>',starter:`def merge_two(a, b):
     pass`,solution:`def merge_two(a, b):
     dummy = tail = ListNode()
@@ -252,7 +252,7 @@ while cur:
             tail.next, b = b, b.next
         tail = tail.next
     tail.next = a or b
-    return dummy.next`,tests:[['to_list(merge_two(build([1, 2, 4]), build([1, 3, 4])))','[1, 1, 2, 3, 4, 4]'],['to_list(merge_two(build([]), build([0])))','[0]'],['to_list(merge_two(build([]), build([])))','[]']],hints:['A dummy node avoids special-casing the first node of the result.','Attach the smaller front node to the tail; at the end, attach whatever remains.'],approach:'Dummy head + tail pointer.',cx:'O(n + m) time, O(1) space'},
+    return dummy.next`,tests:[['to_list(merge_two(build([1, 2, 4]), build([1, 3, 4])))','[1, 1, 2, 3, 4, 4]'],['to_list(merge_two(build([]), build([0])))','[0]'],['to_list(merge_two(build([]), build([])))','[]'],['to_list(merge_two(build([5]), build([1, 2, 3])))','[1, 2, 3, 5]']],constraints:['0 ≤ nodes in each list ≤ 50'],mistakes:['Forgetting to attach the leftover nodes of the longer list.','Creating new nodes instead of relinking existing ones.'],followup:'Merge k sorted lists (hp-merge-k).',hints:['A dummy node avoids special-casing the first node of the result.','Attach the smaller front node to the tail; at the end, attach whatever remains.'],approach:'Dummy head + tail pointer.',cx:'O(n + m) time, O(1) space'},
 {id:'ll-remove-elements',type:'code',d:1,p:'linked-list',prelude:'list',title:'Remove All Occurrences',prompt:'<p>Remove every node whose value equals <code>x</code>; return the new head.</p>',starter:`def remove_elements(head, x):
     pass`,solution:`def remove_elements(head, x):
     dummy = ListNode(0, head)
@@ -262,7 +262,7 @@ while cur:
             cur.next = cur.next.next        # do not advance: check the new next
         else:
             cur = cur.next
-    return dummy.next`,tests:[['to_list(remove_elements(build([1, 2, 6, 3, 4, 5, 6]), 6))','[1, 2, 3, 4, 5]'],['to_list(remove_elements(build([7, 7, 7, 7]), 7))','[]'],['to_list(remove_elements(build([]), 1))','[]']],hints:['Use a dummy node.','After removing, stay put: the new cur.next might also match.'],approach:'Dummy node; only advance when you keep the next node.',cx:'O(n)'},
+    return dummy.next`,tests:[['to_list(remove_elements(build([1, 2, 6, 3, 4, 5, 6]), 6))','[1, 2, 3, 4, 5]'],['to_list(remove_elements(build([7, 7, 7, 7]), 7))','[]'],['to_list(remove_elements(build([]), 1))','[]'],['to_list(remove_elements(build([1, 2, 3]), 4))','[1, 2, 3]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Special-casing the head and forgetting runs of matches at the start.','Advancing prev after a deletion, which skips the next node.'],followup:'Remove every node whose value appears more than once (keep none of them).',hints:['Use a dummy node.','After removing, stay put: the new cur.next might also match.'],approach:'Dummy node; only advance when you keep the next node.',cx:'O(n)'},
 {id:'ll-dedupe-sorted',type:'code',d:1,p:'linked-list',prelude:'list',title:'Remove Duplicates from Sorted List',prompt:'<p>The list is sorted. Delete duplicates so each value appears once.</p>',starter:`def delete_duplicates(head):
     pass`,solution:`def delete_duplicates(head):
     cur = head
@@ -271,7 +271,7 @@ while cur:
             cur.next = cur.next.next
         else:
             cur = cur.next
-    return head`,tests:[['to_list(delete_duplicates(build([1, 1, 2, 3, 3])))','[1, 2, 3]'],['to_list(delete_duplicates(build([1, 1, 1])))','[1]'],['to_list(delete_duplicates(build([])))','[]']],hints:['Duplicates are neighbours.'],approach:'Skip next nodes equal to the current one.',cx:'O(n)'},
+    return head`,tests:[['to_list(delete_duplicates(build([1, 1, 2, 3, 3])))','[1, 2, 3]'],['to_list(delete_duplicates(build([1, 1, 1])))','[1]'],['to_list(delete_duplicates(build([])))','[]'],['to_list(delete_duplicates(build([1, 2, 3])))','[1, 2, 3]']],constraints:['0 ≤ number of nodes ≤ 300','the list is sorted'],mistakes:['Advancing cur after removing a duplicate, which misses a third copy.','Using a set: correct, but ignores that the list is sorted.'],followup:'The list is not sorted: remove duplicates with a set in one pass.',hints:['Duplicates are neighbours.','While cur.next has the same value as cur, skip it with cur.next = cur.next.next.'],approach:'Skip next nodes equal to the current one.',cx:'O(n)'},
 {id:'ll-palindrome',type:'code',d:2,p:'fast-slow',prelude:'list',title:'Palindrome Linked List',prompt:'<p>Return True if the values read the same forwards and backwards. Bonus: O(1) extra space.</p>',starter:`def is_palindrome(head):
     pass`,solution:`def is_palindrome(head):
     slow = fast = head
@@ -286,7 +286,7 @@ while cur:
         if left.val != right.val:
             return False
         left, right = left.next, right.next
-    return True`,tests:[['is_palindrome(build([1, 2, 2, 1]))','True'],['is_palindrome(build([1, 2]))','False'],['is_palindrome(build([]))','True'],['is_palindrome(build([1, 2, 3, 2, 1]))','True'],['is_palindrome(build([1, 2, 3, 1]))','False']],hints:['Easy version: copy the values to a Python list and compare with its reverse (O(n) space).','O(1) space: find the middle with fast/slow, reverse the second half, compare.'],approach:'Middle (fast/slow) + reverse second half + compare.',cx:'O(n) time, O(1) space'},
+    return True`,tests:[['is_palindrome(build([1, 2, 2, 1]))','True'],['is_palindrome(build([1, 2]))','False'],['is_palindrome(build([]))','True'],['is_palindrome(build([1, 2, 3, 2, 1]))','True'],['is_palindrome(build([1, 2, 3, 1]))','False']],constraints:['0 ≤ number of nodes ≤ 10<sup>5</sup>'],mistakes:['Reversing the whole list and comparing it with itself (they are the same nodes).','Not restoring the list after reversing its second half.'],followup:'Restore the list to its original order before returning.',hints:['Easy version: copy the values to a Python list and compare with its reverse (O(n) space).','O(1) space: find the middle with fast/slow, reverse the second half, compare.'],approach:'Middle (fast/slow) + reverse second half + compare.',cx:'O(n) time, O(1) space'},
 {id:'ll-intersection',type:'code',d:1,p:'two-pointers',prelude:'list',title:'Intersection of Two Linked Lists',prompt:'<p>Two lists may merge into a shared tail. Return the first shared <b>node</b> (compare nodes with <code>is</code>, not values), or None.</p>',starter:`def get_intersection(a, b):
     pass`,solution:`def get_intersection(a, b):
     p, q = a, b
@@ -303,7 +303,7 @@ while cur:
             cur = cur.next
         cur.next = c
         return h
-    return get_intersection(attach(build(a)), attach(build(b))) is c`,tests:[['_inter([4, 1], [5, 6, 1], [8, 4, 5])','True','','4 → 1 ↘ and 5 → 6 → 1 ↘ meet at 8 → 4 → 5'],['_inter([1, 9, 1], [3], [2, 4])','True','','different lengths'],['_inter([2, 6, 4], [1, 5], [])','True','','no intersection → None'],['_inter([], [], [7])','True','','both lists are just the shared part']],hints:['A set of nodes from list a works in O(n) space.','O(1) space: two pointers; when one reaches the end, restart it on the OTHER list. Both travel len(a) + len(b) and meet at the junction.'],approach:'Two pointers that switch lists equalise the path lengths.',cx:'O(n + m) time, O(1) space'},
+    return get_intersection(attach(build(a)), attach(build(b))) is c`,tests:[['_inter([4, 1], [5, 6, 1], [8, 4, 5])','True','','4 → 1 ↘ and 5 → 6 → 1 ↘ meet at 8 → 4 → 5'],['_inter([1, 9, 1], [3], [2, 4])','True','','different lengths'],['_inter([2, 6, 4], [1, 5], [])','True','','no intersection → None'],['_inter([], [], [7])','True','','both lists are just the shared part']],constraints:['0 ≤ nodes in each list ≤ 3 × 10<sup>4</sup>'],mistakes:['Comparing values instead of node identity.','Assuming the lists have the same length.'],followup:'Find it in O(1) extra space by switching heads when a pointer reaches the end.',hints:['A set of nodes from list a works in O(n) space.','O(1) space: two pointers; when one reaches the end, restart it on the OTHER list. Both travel len(a) + len(b) and meet at the junction.'],approach:'Two pointers that switch lists equalise the path lengths.',cx:'O(n + m) time, O(1) space'},
 {id:'ll-remove-nth',type:'code',d:2,p:'two-pointers',prelude:'list',title:'Remove Nth Node From End',prompt:'<p>Remove the n-th node from the end (n ≥ 1, always valid) in one pass.</p>',starter:`def remove_nth_from_end(head, n):
     pass`,solution:`def remove_nth_from_end(head, n):
     dummy = ListNode(0, head)
@@ -314,7 +314,7 @@ while cur:
         fast = fast.next
         slow = slow.next
     slow.next = slow.next.next   # slow is just before the target
-    return dummy.next`,tests:[['to_list(remove_nth_from_end(build([1, 2, 3, 4, 5]), 2))','[1, 2, 3, 5]'],['to_list(remove_nth_from_end(build([1]), 1))','[]'],['to_list(remove_nth_from_end(build([1, 2]), 1))','[1]'],['to_list(remove_nth_from_end(build([1, 2]), 2))','[2]']],hints:['Two passes: count, then walk to length − n.','One pass: give one pointer an n-node head start; when it hits the end, the other is just before the target. Use a dummy node.'],approach:'Gap of n between two pointers, starting from a dummy.',cx:'O(n) time, O(1) space'},
+    return dummy.next`,tests:[['to_list(remove_nth_from_end(build([1, 2, 3, 4, 5]), 2))','[1, 2, 3, 5]'],['to_list(remove_nth_from_end(build([1]), 1))','[]'],['to_list(remove_nth_from_end(build([1, 2]), 1))','[1]'],['to_list(remove_nth_from_end(build([1, 2]), 2))','[2]']],constraints:['1 ≤ n ≤ number of nodes ≤ 30'],mistakes:['Failing when the head itself is removed (use a dummy node).','Starting the gap between the pointers at n − 1 or n + 1.'],followup:'Remove the n-th node from the end of a doubly linked list.',hints:['Two passes: count, then walk to length − n.','One pass: give one pointer an n-node head start; when it hits the end, the other is just before the target. Use a dummy node.'],approach:'Gap of n between two pointers, starting from a dummy.',cx:'O(n) time, O(1) space'},
 {id:'ll-cycle-start',type:'code',d:2,p:'fast-slow',prelude:'list',post:CYC,title:'Linked List Cycle II (start of the cycle)',prompt:'<p>Return the node where the cycle begins, or None. O(1) extra space.</p>',starter:`def cycle_start(head):
     pass`,solution:`def cycle_start(head):
     slow = fast = head
@@ -327,7 +327,7 @@ while cur:
                 p = p.next
                 slow = slow.next
             return p
-    return None`,tests:[['cycle_start(make_cycle([3, 2, 0, -4], 1)).val','2'],['cycle_start(make_cycle([1, 2], 0)).val','1'],['cycle_start(make_cycle([1], -1))','None'],['cycle_start(make_cycle([1, 2, 3, 4, 5, 6], 3)).val','4']],hints:['First detect the meeting point with fast/slow.','Then move one pointer back to head; advance both one step at a time. They meet at the cycle start.'],approach:"Floyd's algorithm, phase two: distance from head to the start equals distance from the meeting point to the start (mod cycle length).",cx:'O(n) time, O(1) space'},
+    return None`,tests:[['cycle_start(make_cycle([3, 2, 0, -4], 1)).val','2'],['cycle_start(make_cycle([1, 2], 0)).val','1'],['cycle_start(make_cycle([1], -1))','None'],['cycle_start(make_cycle([1, 2, 3, 4, 5, 6], 3)).val','4']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Restarting both pointers from the head after they meet (only one should restart).','Returning the meeting point, which is not the cycle start in general.'],followup:'Prove why the second phase lands on the cycle start.',hints:['First detect the meeting point with fast/slow.','Then move one pointer back to head; advance both one step at a time. They meet at the cycle start.'],approach:"Floyd's algorithm, phase two: distance from head to the start equals distance from the meeting point to the start (mod cycle length).",cx:'O(n) time, O(1) space'},
 {id:'ll-odd-even',type:'code',d:2,p:'linked-list',prelude:'list',title:'Odd Even Linked List',prompt:'<p>Group nodes at odd positions (1st, 3rd, …) followed by those at even positions, keeping relative order. O(1) extra space.</p>',starter:`def odd_even(head):
     pass`,solution:`def odd_even(head):
     if not head:
@@ -340,7 +340,7 @@ while cur:
         even.next = odd.next
         even = even.next
     odd.next = even_head
-    return head`,tests:[['to_list(odd_even(build([1, 2, 3, 4, 5])))','[1, 3, 5, 2, 4]'],['to_list(odd_even(build([2, 1, 3, 5, 6, 4, 7])))','[2, 3, 6, 7, 1, 5, 4]'],['to_list(odd_even(build([])))','[]']],hints:['Weave two chains (odd and even) in one pass, then connect odd’s end to even’s start.'],approach:'Two interleaved pointers.',cx:'O(n) time, O(1) space'},
+    return head`,tests:[['to_list(odd_even(build([1, 2, 3, 4, 5])))','[1, 3, 5, 2, 4]'],['to_list(odd_even(build([2, 1, 3, 5, 6, 4, 7])))','[2, 3, 6, 7, 1, 5, 4]'],['to_list(odd_even(build([])))','[]'],['to_list(odd_even(build([1, 2])))','[1, 2]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>','O(1) extra space'],mistakes:['Grouping by odd or even values instead of positions.','Not ending the even list, which creates a cycle.'],followup:'Split the list into k groups by position modulo k.',hints:['Weave two chains (odd and even) in one pass, then connect odd’s end to even’s start.','Keep two chains (odd and even positions) and link the end of the odd chain to the start of the even chain.'],approach:'Two interleaved pointers.',cx:'O(n) time, O(1) space'},
 {id:'ll-add-two',type:'code',d:2,p:'linked-list',prelude:'list',title:'Add Two Numbers',prompt:'<p>Two numbers are stored as digit lists in <b>reverse</b> order (2 → 4 → 3 is 342). Return their sum the same way.</p>',starter:`def add_two_numbers(a, b):
     pass`,solution:`def add_two_numbers(a, b):
     dummy = tail = ListNode()
@@ -352,7 +352,7 @@ while cur:
         tail = tail.next
         a = a.next if a else None
         b = b.next if b else None
-    return dummy.next`,tests:[['to_list(add_two_numbers(build([2, 4, 3]), build([5, 6, 4])))','[7, 0, 8]'],['to_list(add_two_numbers(build([0]), build([0])))','[0]'],['to_list(add_two_numbers(build([9, 9, 9, 9, 9, 9, 9]), build([9, 9, 9, 9])))','[8, 9, 9, 9, 0, 0, 0, 1]']],hints:['Add digit by digit like on paper, keeping a carry.','Keep going while either list has digits OR there is a carry.'],approach:'Grade-school addition with a dummy head.',cx:'O(max(n, m))'},
+    return dummy.next`,tests:[['to_list(add_two_numbers(build([2, 4, 3]), build([5, 6, 4])))','[7, 0, 8]'],['to_list(add_two_numbers(build([0]), build([0])))','[0]'],['to_list(add_two_numbers(build([9, 9, 9, 9, 9, 9, 9]), build([9, 9, 9, 9])))','[8, 9, 9, 9, 0, 0, 0, 1]'],['to_list(add_two_numbers(build([5]), build([5])))','[0, 1]']],constraints:['1 ≤ nodes in each list ≤ 100','no leading zeros except 0 itself'],mistakes:['Forgetting the final carry ([9, 9] + [1] needs a new node).','Stopping when one list ends.'],followup:'The digits are stored most significant first: add them without reversing the lists.',hints:['Add digit by digit like on paper, keeping a carry.','Keep going while either list has digits OR there is a carry.'],approach:'Grade-school addition with a dummy head.',cx:'O(max(n, m))'},
 {id:'ll-reorder',type:'code',d:2,p:'fast-slow',prelude:'list',title:'Reorder List',prompt:'<p>Reorder L0 → L1 → … → Ln into L0 → Ln → L1 → Ln−1 → …, in place (return nothing).</p>',starter:`def reorder_list(head):
     pass`,solution:`def reorder_list(head):
     if not head:
@@ -372,7 +372,7 @@ while cur:
         a, b = a_next, b_next`,post:`def _check(vals):
     h = build(vals)
     reorder_list(h)
-    return to_list(h)`,tests:[['_check([1, 2, 3, 4])','[1, 4, 2, 3]'],['_check([1, 2, 3, 4, 5])','[1, 5, 2, 4, 3]'],['_check([1])','[1]'],['_check([])','[]']],hints:['Three known steps: find the middle, reverse the second half, merge alternately.'],approach:'Fast/slow + reverse + weave.',cx:'O(n) time, O(1) space'},
+    return to_list(h)`,tests:[['_check([1, 2, 3, 4])','[1, 4, 2, 3]'],['_check([1, 2, 3, 4, 5])','[1, 5, 2, 4, 3]'],['_check([1])','[1]'],['_check([])','[]']],constraints:['0 ≤ number of nodes ≤ 5 × 10<sup>4</sup>','in place'],mistakes:['Not cutting the list in the middle, which creates a cycle.','Copying values into a Python list (not the intended O(1) space).'],followup:'Do it with O(1) extra space and no recursion.',hints:['Three known steps: find the middle, reverse the second half, merge alternately.','Three steps: find the middle, reverse the second half, then merge the two halves alternately.'],approach:'Fast/slow + reverse + weave.',cx:'O(n) time, O(1) space'},
 {id:'ll-rotate',type:'code',d:2,p:'linked-list',prelude:'list',title:'Rotate List',prompt:'<p>Rotate the list to the right by k places.</p><p><code>[1, 2, 3, 4, 5], k = 2</code> → <code>[4, 5, 1, 2, 3]</code></p>',starter:`def rotate_right(head, k):
     pass`,solution:`def rotate_right(head, k):
     if not head:
@@ -390,7 +390,7 @@ while cur:
         new_tail = new_tail.next
     new_head = new_tail.next
     new_tail.next = None             # cut it open again
-    return new_head`,tests:[['to_list(rotate_right(build([1, 2, 3, 4, 5]), 2))','[4, 5, 1, 2, 3]'],['to_list(rotate_right(build([0, 1, 2]), 4))','[2, 0, 1]'],['to_list(rotate_right(build([]), 1))','[]'],['to_list(rotate_right(build([1, 2]), 2))','[1, 2]']],hints:['Find the length and the tail; reduce k with % n.','Join tail to head to form a ring, then cut it n − k nodes from the start.'],approach:'Make a ring, then break it at the right place.',cx:'O(n)'},
+    return new_head`,tests:[['to_list(rotate_right(build([1, 2, 3, 4, 5]), 2))','[4, 5, 1, 2, 3]'],['to_list(rotate_right(build([0, 1, 2]), 4))','[2, 0, 1]'],['to_list(rotate_right(build([]), 1))','[]'],['to_list(rotate_right(build([1, 2]), 2))','[1, 2]']],constraints:['0 ≤ number of nodes ≤ 500','0 ≤ k ≤ 2 × 10<sup>9</sup>'],mistakes:['Forgetting k %= length, which is very slow for large k.','Leaving the old tail linked to the old head (a cycle).'],followup:'Rotate to the left instead.',hints:['Find the length and the tail; reduce k with % n.','Join tail to head to form a ring, then cut it n − k nodes from the start.'],approach:'Make a ring, then break it at the right place.',cx:'O(n)'},
 {id:'ll-swap-pairs',type:'code',d:2,p:'linked-list',prelude:'list',title:'Swap Nodes in Pairs',prompt:'<p>Swap every two adjacent nodes (by relinking, not by swapping values).</p>',starter:`def swap_pairs(head):
     pass`,solution:`def swap_pairs(head):
     dummy = prev = ListNode(0, head)
@@ -398,7 +398,7 @@ while cur:
         a, b = prev.next, prev.next.next
         prev.next, a.next, b.next = b, b.next, a
         prev = a
-    return dummy.next`,tests:[['to_list(swap_pairs(build([1, 2, 3, 4])))','[2, 1, 4, 3]'],['to_list(swap_pairs(build([])))','[]'],['to_list(swap_pairs(build([1])))','[1]'],['to_list(swap_pairs(build([1, 2, 3])))','[2, 1, 3]']],hints:['With prev → a → b → rest, you want prev → b → a → rest.','A dummy node makes the first pair like every other pair.'],approach:'Dummy node; rewire three pointers per pair.',cx:'O(n)'},
+    return dummy.next`,tests:[['to_list(swap_pairs(build([1, 2, 3, 4])))','[2, 1, 4, 3]'],['to_list(swap_pairs(build([])))','[]'],['to_list(swap_pairs(build([1])))','[1]'],['to_list(swap_pairs(build([1, 2, 3])))','[2, 1, 3]']],constraints:['0 ≤ number of nodes ≤ 100'],mistakes:['Swapping values instead of nodes.','Losing the link from the previous pair to the swapped pair.'],followup:'Swap in groups of k (ll-reverse-k).',hints:['With prev → a → b → rest, you want prev → b → a → rest.','A dummy node makes the first pair like every other pair.'],approach:'Dummy node; rewire three pointers per pair.',cx:'O(n)'},
 {id:'ll-partition',type:'code',d:2,p:'linked-list',prelude:'list',title:'Partition List',prompt:'<p>Put all nodes with value &lt; x before the nodes ≥ x, keeping the relative order inside each group.</p>',starter:`def partition(head, x):
     pass`,solution:`def partition(head, x):
     small = s_tail = ListNode()
@@ -413,7 +413,7 @@ while cur:
         head = head.next
     b_tail.next = None
     s_tail.next = big.next
-    return small.next`,tests:[['to_list(partition(build([1, 4, 3, 2, 5, 2]), 3))','[1, 2, 2, 4, 3, 5]'],['to_list(partition(build([2, 1]), 2))','[1, 2]'],['to_list(partition(build([]), 0))','[]']],hints:['Build two separate lists with two dummy heads, then join them.','Remember to end the big list with None.'],approach:'Two dummy-headed chains, then concatenate.',cx:'O(n)'},
+    return small.next`,tests:[['to_list(partition(build([1, 4, 3, 2, 5, 2]), 3))','[1, 2, 2, 4, 3, 5]'],['to_list(partition(build([2, 1]), 2))','[1, 2]'],['to_list(partition(build([]), 0))','[]'],['to_list(partition(build([3, 1, 2]), 2))','[1, 3, 2]']],constraints:['0 ≤ number of nodes ≤ 200'],mistakes:['Not ending the second list, which leaves a cycle.','Changing the relative order inside a group.'],followup:'Partition into three groups: < x, == x and > x.',hints:['Build two separate lists with two dummy heads, then join them.','Remember to end the big list with None.'],approach:'Two dummy-headed chains, then concatenate.',cx:'O(n)'},
 {id:'ll-reverse-between',type:'code',d:2,p:'linked-list',prelude:'list',title:'Reverse Between Positions',prompt:'<p>Reverse the nodes from position <code>left</code> to <code>right</code> (1-indexed, inclusive).</p><p><code>[1, 2, 3, 4, 5], 2, 4</code> → <code>[1, 4, 3, 2, 5]</code></p>',starter:`def reverse_between(head, left, right):
     pass`,solution:`def reverse_between(head, left, right):
     dummy = ListNode(0, head)
@@ -426,7 +426,7 @@ while cur:
         cur.next = moved.next
         moved.next = before.next
         before.next = moved
-    return dummy.next`,tests:[['to_list(reverse_between(build([1, 2, 3, 4, 5]), 2, 4))','[1, 4, 3, 2, 5]'],['to_list(reverse_between(build([5]), 1, 1))','[5]'],['to_list(reverse_between(build([3, 5]), 1, 2))','[5, 3]']],hints:['Walk to the node just BEFORE the section (a dummy helps when left = 1).','Repeatedly take the node after cur and move it to the front of the section.'],approach:'Front-insertion inside the section.',cx:'O(n)'},
+    return dummy.next`,tests:[['to_list(reverse_between(build([1, 2, 3, 4, 5]), 2, 4))','[1, 4, 3, 2, 5]'],['to_list(reverse_between(build([5]), 1, 1))','[5]'],['to_list(reverse_between(build([3, 5]), 1, 2))','[5, 3]'],['to_list(reverse_between(build([1, 2, 3, 4]), 1, 4))','[4, 3, 2, 1]']],constraints:['1 ≤ left ≤ right ≤ number of nodes ≤ 500'],mistakes:['Failing when left is 1 (use a dummy node).','Losing the node after position right.'],followup:'Do it in one pass.',hints:['Walk to the node just BEFORE the section (a dummy helps when left = 1).','Repeatedly take the node after cur and move it to the front of the section.'],approach:'Front-insertion inside the section.',cx:'O(n)'},
 {id:'ll-sort',type:'code',d:3,p:'divide-conquer',prelude:'list',title:'Sort a Linked List',prompt:'<p>Sort the list in O(n log n) time (do not copy the values into a Python list).</p>',starter:`def sort_list(head):
     pass`,solution:`def sort_list(head):
     if not head or not head.next:
@@ -445,7 +445,7 @@ while cur:
             tail.next, b = b, b.next
         tail = tail.next
     tail.next = a or b
-    return dummy.next`,tests:[['to_list(sort_list(build([4, 2, 1, 3])))','[1, 2, 3, 4]'],['to_list(sort_list(build([-1, 5, 3, 4, 0])))','[-1, 0, 3, 4, 5]'],['to_list(sort_list(build([])))','[]'],['to_list(sort_list(build(list(range(2000, 0, -1)))))','list(range(1, 2001))','','2,000 nodes']],hints:['Merge sort suits linked lists: splitting and merging need no random access.','Split with fast/slow, sort each half recursively, merge.'],approach:'Merge sort on the list.',cx:'O(n log n) time, O(log n) recursion'},
+    return dummy.next`,tests:[['to_list(sort_list(build([4, 2, 1, 3])))','[1, 2, 3, 4]'],['to_list(sort_list(build([-1, 5, 3, 4, 0])))','[-1, 0, 3, 4, 5]'],['to_list(sort_list(build([])))','[]'],['to_list(sort_list(build(list(range(2000, 0, -1)))))','list(range(1, 2001))','','2,000 nodes']],constraints:['0 ≤ number of nodes ≤ 5 × 10<sup>4</sup>'],mistakes:['Not cutting the list in half, so recursion never ends.','Copying into a Python list and calling sorted().'],followup:'Sort with O(1) extra space using bottom-up merge sort.',hints:['Merge sort suits linked lists: splitting and merging need no random access.','Split with fast/slow, sort each half recursively, merge.'],approach:'Merge sort on the list.',cx:'O(n log n) time, O(log n) recursion'},
 {id:'ll-reverse-k',type:'code',d:3,p:'linked-list',prelude:'list',title:'Reverse Nodes in k-Group',prompt:'<p>Reverse every consecutive group of k nodes. A final group shorter than k stays as it is.</p><p><code>[1, 2, 3, 4, 5], k = 2</code> → <code>[2, 1, 4, 3, 5]</code></p>',starter:`def reverse_k_group(head, k):
     pass`,solution:`def reverse_k_group(head, k):
     dummy = ListNode(0, head)
@@ -462,6 +462,6 @@ while cur:
             cur.next, prev, cur = prev, cur, cur.next
         before.next = prev                 # prev is the new group head
         first.next = cur                   # old first is now the group tail
-        before = first`,tests:[['to_list(reverse_k_group(build([1, 2, 3, 4, 5]), 2))','[2, 1, 4, 3, 5]'],['to_list(reverse_k_group(build([1, 2, 3, 4, 5]), 3))','[3, 2, 1, 4, 5]'],['to_list(reverse_k_group(build([1, 2]), 1))','[1, 2]'],['to_list(reverse_k_group(build([]), 2))','[]']],hints:['Before reversing a group, check that k nodes exist.','Reverse exactly k nodes, then reconnect: the node before the group → new group head; old group head → the rest.'],approach:'Group-by-group reversal with careful reconnection.',cx:'O(n) time, O(1) space'}
+        before = first`,tests:[['to_list(reverse_k_group(build([1, 2, 3, 4, 5]), 2))','[2, 1, 4, 3, 5]'],['to_list(reverse_k_group(build([1, 2, 3, 4, 5]), 3))','[3, 2, 1, 4, 5]'],['to_list(reverse_k_group(build([1, 2]), 1))','[1, 2]'],['to_list(reverse_k_group(build([]), 2))','[]']],constraints:['1 ≤ k ≤ number of nodes ≤ 5000'],mistakes:['Reversing the last group even when it is shorter than k.','Not reconnecting the reversed group to the rest.'],followup:'Also reverse the last group when it is shorter than k.',hints:['Before reversing a group, check that k nodes exist.','Reverse exactly k nodes, then reconnect: the node before the group → new group head; old group head → the rest.'],approach:'Group-by-group reversal with careful reconnection.',cx:'O(n) time, O(1) space'}
 ]);
 })();

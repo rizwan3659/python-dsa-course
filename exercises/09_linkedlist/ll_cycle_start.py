@@ -10,6 +10,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test ll-cycle-start

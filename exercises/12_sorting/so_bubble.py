@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(a) ≤ 1000
+
 Target complexity: O(n²) worst, O(n) best
 
 Check your work:   python dsa.py test so-bubble

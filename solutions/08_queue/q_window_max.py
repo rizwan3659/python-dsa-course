@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(k) space
 
 Approach: Monotonic decreasing deque of indexes; the front is the max.
+
+Common mistakes:
+- Storing values instead of indexes, so you cannot tell when one leaves the
+  window.
+- Taking max() of every window: O(n · k).
+
+Follow-up challenge: Return the window minimum and maximum together.
 """
 
 

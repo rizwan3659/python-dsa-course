@@ -3,6 +3,13 @@
 Complexity: O(len(t))
 
 Approach: Two pointers (greedy matching).
+
+Common mistakes:
+- Using str.find without moving past the previous match.
+- Checking that the characters exist but not their order.
+
+Follow-up challenge: Answer many s queries against the same t quickly (index
+lists + binary search).
 """
 
 

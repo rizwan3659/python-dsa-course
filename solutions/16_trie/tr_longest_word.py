@@ -3,6 +3,12 @@
 Complexity: O(total characters · L)
 
 Approach: Check prefixes (set or trie).
+
+Common mistakes:
+- Not checking every prefix of the word, only the longest one.
+- Breaking ties by length only.
+
+Follow-up challenge: Return all such words, longest first.
 """
 
 

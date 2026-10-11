@@ -10,6 +10,11 @@ Examples:
     level_order(build_tree([1]))  ->  [[1]]
     level_order(build_tree([]))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 2000
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-level-order

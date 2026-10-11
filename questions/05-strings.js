@@ -106,7 +106,7 @@ for ch in "abba":
         right -= 1`,post:`def _check(s):
     a = list(s)
     reverse_string(a)
-    return "".join(a)`,tests:[['_check("hello")','"olleh"','','["h", "e", "l", "l", "o"]'],['_check("ab")','"ba"','','["a", "b"]'],['_check("")','""','','[]']],hints:['Swap the ends and move inward.'],approach:'Two pointers.',cx:'O(n) time, O(1) space'},
+    return "".join(a)`,tests:[['_check("hello")','"olleh"','','["h", "e", "l", "l", "o"]'],['_check("ab")','"ba"','','["a", "b"]'],['_check("")','""','','[]'],['_check("abcde")','"edcba"']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>','O(1) extra space'],mistakes:['Returning a reversed copy instead of changing the list.','Swapping all the way to the end, which undoes the reversal.'],followup:'Reverse each word of a sentence in place, keeping the word order.',hints:['Swap the ends and move inward.','Swap the two ends, then move both pointers inward until they meet.'],approach:'Two pointers.',cx:'O(n) time, O(1) space'},
 {id:'st-palindrome',type:'code',d:1,p:'two-pointers',title:'Valid Palindrome',prompt:'<p>Ignoring case and every non-alphanumeric character, is the string a palindrome?</p>',starter:`def is_palindrome(s):
     pass`,solution:`def is_palindrome(s):
     left, right = 0, len(s) - 1
@@ -120,12 +120,12 @@ for ch in "abba":
         else:
             left += 1
             right -= 1
-    return True`,tests:[['is_palindrome("A man, a plan, a canal: Panama")','True'],['is_palindrome("race a car")','False'],['is_palindrome(" ")','True'],['is_palindrome("0P")','False']],hints:['Cleaning into a new string is fine (O(n) space).','O(1) space: two pointers that skip characters which are not letters or digits.'],approach:'Two pointers with skipping.',cx:'O(n) time, O(1) space'},
+    return True`,tests:[['is_palindrome("A man, a plan, a canal: Panama")','True'],['is_palindrome("race a car")','False'],['is_palindrome(" ")','True'],['is_palindrome("0P")','False']],constraints:['1 ≤ len(s) ≤ 2 × 10<sup>5</sup>'],mistakes:['Forgetting to lower-case before comparing.','Building a cleaned copy is fine, but comparing before skipping non-alphanumeric characters is not.'],followup:'Allow one deletion (st-palindrome-ii).',hints:['Cleaning into a new string is fine (O(n) space).','O(1) space: two pointers that skip characters which are not letters or digits.'],approach:'Two pointers with skipping.',cx:'O(n) time, O(1) space'},
 {id:'st-char-freq',type:'code',d:1,p:'hashing',title:'Character Frequency',prompt:'<p>Return a list of <code>(char, count)</code> pairs for the characters of s, most frequent first; ties alphabetical.</p>',starter:`def char_frequency(s):
     pass`,solution:`from collections import Counter
 
 def char_frequency(s):
-    return sorted(Counter(s).items(), key=lambda kv: (-kv[1], kv[0]))`,tests:[['char_frequency("banana")','[("a", 3), ("n", 2), ("b", 1)]'],['char_frequency("")','[]'],['char_frequency("abab")','[("a", 2), ("b", 2)]']],hints:['Count, then sort by (−count, char).'],approach:'Counter + sorted with a tuple key.',cx:'O(n + k log k)'},
+    return sorted(Counter(s).items(), key=lambda kv: (-kv[1], kv[0]))`,tests:[['char_frequency("banana")','[("a", 3), ("n", 2), ("b", 1)]'],['char_frequency("")','[]'],['char_frequency("abab")','[("a", 2), ("b", 2)]'],['char_frequency("aaab")','[("a", 3), ("b", 1)]']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>'],mistakes:['Sorting by count only, so ties come out in random order.','Sorting ascending instead of most frequent first.'],followup:'Return only the k most frequent characters with a heap.',hints:['Count, then sort by (−count, char).','Count with a dict or Counter, then sort with the key (−count, char).'],approach:'Counter + sorted with a tuple key.',cx:'O(n + k log k)'},
 {id:'st-first-unique',type:'code',d:1,p:'hashing',title:'First Unique Character',prompt:'<p>Return the index of the first character that appears exactly once, or -1.</p>',starter:`def first_uniq_char(s):
     pass`,solution:`from collections import Counter
 
@@ -134,7 +134,7 @@ def first_uniq_char(s):
     for i, ch in enumerate(s):
         if counts[ch] == 1:
             return i
-    return -1`,tests:[['first_uniq_char("leetcode")','0'],['first_uniq_char("loveleetcode")','2'],['first_uniq_char("aabb")','-1'],['first_uniq_char("")','-1']],hints:['Two passes: count everything, then find the first count of 1.'],approach:'Counter, then scan.',cx:'O(n)'},
+    return -1`,tests:[['first_uniq_char("leetcode")','0'],['first_uniq_char("loveleetcode")','2'],['first_uniq_char("aabb")','-1'],['first_uniq_char("")','-1']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>','lowercase letters'],mistakes:['Using s.count() for each character: O(n²).','Returning the character instead of its index.'],followup:'Answer the same question for a stream of characters arriving one by one.',hints:['Two passes: count everything, then find the first count of 1.','Count first; then scan again and return the first index whose count is 1.'],approach:'Counter, then scan.',cx:'O(n)'},
 {id:'st-compress',type:'code',d:2,p:'two-pointers',title:'String Compression',prompt:'<p>Replace each run of a repeated character by the character and the run length; single characters keep no number. If the result is not shorter than s, return s.</p><p><code>"aabcccccaaa"</code> → <code>"a2bc5a3"</code></p>',starter:`def compress(s):
     pass`,solution:`def compress(s):
     out, i = [], 0
@@ -145,7 +145,7 @@ def first_uniq_char(s):
         out.append(s[i] + (str(j - i) if j - i > 1 else ""))
         i = j
     result = "".join(out)
-    return result if len(result) < len(s) else s`,tests:[['compress("aabcccccaaa")','"a2bc5a3"'],['compress("abc")','"abc"'],['compress("")','""'],['compress("aaaaaaaaaaaa")','"a12"']],hints:['Walk over groups of equal characters with two indexes.','Build pieces in a list and join at the end.'],approach:'Run-length encoding with a group pointer.',cx:'O(n)'},
+    return result if len(result) < len(s) else s`,tests:[['compress("aabcccccaaa")','"a2bc5a3"'],['compress("abc")','"abc"'],['compress("")','""'],['compress("aaaaaaaaaaaa")','"a12"']],constraints:['0 ≤ len(s) ≤ 10<sup>4</sup>'],mistakes:['Forgetting to write the last run after the loop.','Building the result with += inside the loop instead of a list + join.'],followup:'Write the inverse function that decompresses "a2bc5".',hints:['Walk over groups of equal characters with two indexes.','Build pieces in a list and join at the end.'],approach:'Run-length encoding with a group pointer.',cx:'O(n)'},
 {id:'st-longest-unique',type:'code',d:2,p:'sliding-window',title:'Longest Substring Without Repeating Characters',prompt:'<p>Return the length of the longest substring with no repeated characters.</p><p><code>"abcabcbb"</code> → <code>3</code> ("abc")</p>',starter:`def length_of_longest_substring(s):
     pass`,solution:`def length_of_longest_substring(s):
     last = {}                      # char -> last index seen
@@ -164,17 +164,17 @@ def first_uniq_char(s):
                 break
             seen.add(s[j])
             best = max(best, j - i + 1)
-    return best`,cx:'O(n²)'},tests:[['length_of_longest_substring("abcabcbb")','3'],['length_of_longest_substring("bbbbb")','1'],['length_of_longest_substring("pwwkew")','3'],['length_of_longest_substring("")','0'],['length_of_longest_substring("abba")','2']],hints:['Brute force restarts from every index.','Keep a window with no repeats. When a repeat enters, move left just past its previous position.'],approach:'Sliding window + last-seen index dict.',cx:'O(n)'},
+    return best`,cx:'O(n²)'},tests:[['length_of_longest_substring("abcabcbb")','3'],['length_of_longest_substring("bbbbb")','1'],['length_of_longest_substring("pwwkew")','3'],['length_of_longest_substring("")','0'],['length_of_longest_substring("abba")','2']],constraints:['0 ≤ len(s) ≤ 5 × 10<sup>4</sup>'],mistakes:['Moving the left edge backwards when an old repeat is found (use max).','Restarting the scan after every repeat: O(n²).'],followup:'Return the substring itself, not just its length.',hints:['Brute force restarts from every index.','Keep a window with no repeats. When a repeat enters, move left just past its previous position.'],approach:'Sliding window + last-seen index dict.',cx:'O(n)'},
 {id:'st-reverse-words',type:'code',d:1,p:'python',title:'Reverse Words in a String',prompt:'<p>Return the words in reverse order, separated by single spaces (ignore extra spaces).</p>',starter:`def reverse_words(s):
     pass`,solution:`def reverse_words(s):
-    return " ".join(reversed(s.split()))`,tests:[['reverse_words("the sky is blue")','"blue is sky the"'],['reverse_words("  hello world  ")','"world hello"'],['reverse_words("a good   example")','"example good a"']],hints:['split() handles the spaces for you.'],approach:'split, reverse, join.',cx:'O(n)'},
+    return " ".join(reversed(s.split()))`,tests:[['reverse_words("the sky is blue")','"blue is sky the"'],['reverse_words("  hello world  ")','"world hello"'],['reverse_words("a good   example")','"example good a"'],['reverse_words("one")','"one"']],constraints:['1 ≤ len(s) ≤ 10<sup>4</sup>','s has at least one word'],mistakes:['Using split(" "), which keeps empty strings from repeated spaces.','Reversing the characters instead of the words.'],followup:'Do it in place on a list of characters with O(1) extra space.',hints:['split() handles the spaces for you.','s.split() with no argument drops all extra spaces.'],approach:'split, reverse, join.',cx:'O(n)'},
 {id:'st-subsequence',type:'code',d:1,p:'two-pointers',title:'Is Subsequence',prompt:'<p>Return True if s can be obtained from t by deleting some characters (keeping order).</p>',starter:`def is_subsequence(s, t):
     pass`,solution:`def is_subsequence(s, t):
     i = 0
     for ch in t:
         if i < len(s) and s[i] == ch:
             i += 1
-    return i == len(s)`,tests:[['is_subsequence("abc", "ahbgdc")','True'],['is_subsequence("axc", "ahbgdc")','False'],['is_subsequence("", "abc")','True']],hints:['Walk through t, advancing a pointer into s whenever the characters match.'],approach:'Two pointers (greedy matching).',cx:'O(len(t))'},
+    return i == len(s)`,tests:[['is_subsequence("abc", "ahbgdc")','True'],['is_subsequence("axc", "ahbgdc")','False'],['is_subsequence("", "abc")','True'],['is_subsequence("abc", "")','False'],['is_subsequence("aaa", "aa")','False']],constraints:['0 ≤ len(s) ≤ 100, 0 ≤ len(t) ≤ 10<sup>4</sup>'],mistakes:['Using str.find without moving past the previous match.','Checking that the characters exist but not their order.'],followup:'Answer many s queries against the same t quickly (index lists + binary search).',hints:['Walk through t, advancing a pointer into s whenever the characters match.','Walk through t with a pointer into s; advance it on every match.'],approach:'Two pointers (greedy matching).',cx:'O(len(t))'},
 {id:'st-roman',type:'code',d:1,p:'hashing',title:'Roman to Integer',prompt:'<p>Convert a Roman numeral (I, V, X, L, C, D, M) to an integer. A smaller value before a larger one is subtracted (IV = 4).</p>',starter:`def roman_to_int(s):
     pass`,solution:`def roman_to_int(s):
     val = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
@@ -184,7 +184,7 @@ def first_uniq_char(s):
             total -= val[ch]
         else:
             total += val[ch]
-    return total`,tests:[['roman_to_int("III")','3'],['roman_to_int("LVIII")','58'],['roman_to_int("MCMXCIV")','1994']],hints:['Look at the next character: if it is bigger, this one is subtracted.'],approach:'Dict of values + look-ahead.',cx:'O(n)'},
+    return total`,tests:[['roman_to_int("III")','3'],['roman_to_int("LVIII")','58'],['roman_to_int("MCMXCIV")','1994'],['roman_to_int("IV")','4'],['roman_to_int("MMMCMXCIX")','3999']],constraints:['1 ≤ len(s) ≤ 15','s is a valid numeral for 1..3999'],mistakes:['Always adding, so IV becomes 6.','Comparing a symbol with the previous one instead of the next one.'],followup:'Write the reverse: integer to Roman numeral.',hints:['Look at the next character: if it is bigger, this one is subtracted.','Subtract a symbol when it is smaller than the symbol after it; otherwise add it.'],approach:'Dict of values + look-ahead.',cx:'O(n)'},
 {id:'st-caesar',type:'code',d:1,p:'math',title:'Caesar Cipher',prompt:'<p>Shift each lowercase letter k places forward in the alphabet (wrapping z → a). Leave other characters unchanged.</p>',starter:`def caesar(s, k):
     pass`,solution:`def caesar(s, k):
     out = []
@@ -193,7 +193,7 @@ def first_uniq_char(s):
             out.append(chr((ord(ch) - ord("a") + k) % 26 + ord("a")))
         else:
             out.append(ch)
-    return "".join(out)`,tests:[['caesar("abc xyz", 3)','"def abc"'],['caesar("hello!", 26)','"hello!"'],['caesar("", 5)','""']],hints:['Map the letter to 0..25, add k, take % 26, map back.'],approach:'ord/chr arithmetic.',cx:'O(n)'},
+    return "".join(out)`,tests:[['caesar("abc xyz", 3)','"def abc"'],['caesar("hello!", 26)','"hello!"'],['caesar("", 5)','""'],['caesar("z", 1)','"a"']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>','0 ≤ k ≤ 10<sup>9</sup>'],mistakes:['Forgetting to wrap with % 26 (z goes past the alphabet).','Shifting spaces and punctuation too.'],followup:'Decrypt a message when you do not know k (try all 26 and score by letter frequency).',hints:['Map the letter to 0..25, add k, take % 26, map back.','(ord(ch) − ord("a") + k) % 26 + ord("a") gives the shifted letter.'],approach:'ord/chr arithmetic.',cx:'O(n)'},
 {id:'st-palindrome-ii',type:'code',d:2,p:'two-pointers',title:'Valid Palindrome II',prompt:'<p>Return True if s can become a palindrome after deleting at most one character.</p>',starter:`def valid_palindrome(s):
     pass`,solution:`def valid_palindrome(s):
     def is_pal(i, j):
@@ -209,7 +209,7 @@ def first_uniq_char(s):
             return is_pal(i + 1, j) or is_pal(i, j - 1)   # skip one side
         i += 1
         j -= 1
-    return True`,tests:[['valid_palindrome("aba")','True'],['valid_palindrome("abca")','True'],['valid_palindrome("abc")','False'],['valid_palindrome("deeee")','True']],hints:['Use two pointers until the first mismatch.','At a mismatch, try skipping the left character OR the right one.'],approach:'Two pointers with one retry.',cx:'O(n)'},
+    return True`,tests:[['valid_palindrome("aba")','True'],['valid_palindrome("abca")','True'],['valid_palindrome("abc")','False'],['valid_palindrome("deeee")','True']],constraints:['1 ≤ len(s) ≤ 10<sup>5</sup>'],mistakes:['Trying every deletion: O(n²).','Only trying to skip the left character at the first mismatch.'],followup:'Allow up to k deletions (DP on intervals).',hints:['Use two pointers until the first mismatch.','At a mismatch, try skipping the left character OR the right one.'],approach:'Two pointers with one retry.',cx:'O(n)'},
 {id:'st-longest-pal',type:'code',d:2,p:'two-pointers',title:'Longest Palindromic Substring',prompt:'<p>Return the longest palindromic substring (the first one if there is a tie).</p>',starter:`def longest_palindrome(s):
     pass`,solution:`def longest_palindrome(s):
     best = ""
@@ -222,7 +222,7 @@ def first_uniq_char(s):
         for cand in (expand(i, i), expand(i, i + 1)):   # odd and even centres
             if len(cand) > len(best):
                 best = cand
-    return best`,tests:[['longest_palindrome("babad")','"bab"'],['longest_palindrome("cbbd")','"bb"'],['longest_palindrome("a")','"a"'],['longest_palindrome("")','""']],hints:['Every palindrome has a centre: a character or a gap between two characters.','Expand outward from each of the 2n − 1 centres.'],approach:'Expand around centres.',cx:'O(n²) time, O(1) space'},
+    return best`,tests:[['longest_palindrome("babad")','"bab"'],['longest_palindrome("cbbd")','"bb"'],['longest_palindrome("a")','"a"'],['longest_palindrome("")','""']],constraints:['0 ≤ len(s) ≤ 1000'],mistakes:['Only expanding around single characters, missing even-length palindromes.','Checking every substring: O(n³).'],followup:'Solve it in O(n) with Manacher\'s algorithm.',hints:['Every palindrome has a centre: a character or a gap between two characters.','Expand outward from each of the 2n − 1 centres.'],approach:'Expand around centres.',cx:'O(n²) time, O(1) space'},
 {id:'st-count-pal',type:'code',d:2,p:'two-pointers',title:'Count Palindromic Substrings',prompt:'<p>Count the substrings (by position) that are palindromes.</p><p><code>"aaa"</code> → <code>6</code></p>',starter:`def count_substrings(s):
     pass`,solution:`def count_substrings(s):
     count = 0
@@ -232,7 +232,7 @@ def first_uniq_char(s):
             count += 1
             l -= 1
             r += 1
-    return count`,tests:[['count_substrings("abc")','3'],['count_substrings("aaa")','6'],['count_substrings("")','0']],hints:['Expand around every centre and count each successful expansion.'],approach:'Expand around centres.',cx:'O(n²)'},
+    return count`,tests:[['count_substrings("abc")','3'],['count_substrings("aaa")','6'],['count_substrings("")','0'],['count_substrings("abba")','6']],constraints:['0 ≤ len(s) ≤ 1000'],mistakes:['Counting distinct palindromes instead of positions.','Forgetting even-length centres between two characters.'],followup:'Count only the palindromic substrings of length ≥ 3.',hints:['Expand around every centre and count each successful expansion.','Every palindrome has a centre: expand from each of the 2n − 1 centres and count as you go.'],approach:'Expand around centres.',cx:'O(n²)'},
 {id:'st-char-replace',type:'code',d:2,p:'sliding-window',title:'Longest Repeating Character Replacement',prompt:'<p>You may replace at most k characters. Return the length of the longest substring of one repeated letter you can get.</p><p><code>("AABABBA", 1)</code> → <code>4</code></p>',starter:`def character_replacement(s, k):
     pass`,solution:`from collections import defaultdict
 
@@ -246,7 +246,7 @@ def character_replacement(s, k):
             counts[s[left]] -= 1
             left += 1
         best = max(best, right - left + 1)
-    return best`,tests:[['character_replacement("ABAB", 2)','4'],['character_replacement("AABABBA", 1)','4'],['character_replacement("", 2)','0'],['character_replacement("AAAA", 0)','4']],hints:['A window is fine if (window length − count of its most common letter) ≤ k.','Grow right; shrink left while the window needs too many replacements.'],approach:'Sliding window with letter counts.',cx:'O(n)'},
+    return best`,tests:[['character_replacement("ABAB", 2)','4'],['character_replacement("AABABBA", 1)','4'],['character_replacement("", 2)','0'],['character_replacement("AAAA", 0)','4']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>','uppercase letters, 0 ≤ k ≤ len(s)'],mistakes:['Recomputing the max count from scratch each step (fine for 26 letters, but understand why).','Shrinking the window to empty instead of by one.'],followup:'Return the window boundaries too.',hints:['A window is fine if (window length − count of its most common letter) ≤ k.','Grow right; shrink left while the window needs too many replacements.'],approach:'Sliding window with letter counts.',cx:'O(n)'},
 {id:'st-atoi',type:'code',d:2,p:'simulation',title:'String to Integer',prompt:'<p>Parse an integer: skip leading spaces, an optional + or −, then digits until a non-digit. Clamp to the 32-bit range [−2³¹, 2³¹ − 1]. No digits → 0.</p>',starter:`def my_atoi(s):
     pass`,solution:`def my_atoi(s):
     i, n = 0, len(s)
@@ -261,7 +261,7 @@ def character_replacement(s, k):
         num = num * 10 + int(s[i])
         i += 1
     num *= sign
-    return max(-2 ** 31, min(2 ** 31 - 1, num))`,tests:[['my_atoi("42")','42'],['my_atoi("   -42")','-42'],['my_atoi("4193 with words")','4193'],['my_atoi("words 987")','0'],['my_atoi("-91283472332")','-2147483648']],hints:['Handle each phase in order with one index: spaces, sign, digits.'],approach:'Careful left-to-right simulation.',cx:'O(n)'},
+    return max(-2 ** 31, min(2 ** 31 - 1, num))`,tests:[['my_atoi("42")','42'],['my_atoi("   -42")','-42'],['my_atoi("4193 with words")','4193'],['my_atoi("words 987")','0'],['my_atoi("-91283472332")','-2147483648']],constraints:['0 ≤ len(s) ≤ 200'],mistakes:['Accepting a sign after spaces in the middle of digits.','Forgetting to clamp to the 32-bit range.'],followup:'Also parse an optional decimal part and return a float.',hints:['Handle each phase in order with one index: spaces, sign, digits.','Walk with an index: skip spaces, read one optional sign, then read digits while they last.'],approach:'Careful left-to-right simulation.',cx:'O(n)'},
 {id:'st-min-window',type:'code',d:3,p:'sliding-window',title:'Minimum Window Substring',prompt:'<p>Return the shortest substring of s that contains every character of t (with multiplicity), or "".</p><p><code>("ADOBECODEBANC", "ABC")</code> → <code>"BANC"</code></p>',starter:`def min_window(s, t):
     pass`,solution:`from collections import Counter
 
@@ -281,5 +281,34 @@ def min_window(s, t):
             if need[s[left]] > 0:
                 missing += 1
             left += 1
-    return s[best[1]:best[2]] if best[0] != float("inf") else ""`,tests:[['min_window("ADOBECODEBANC", "ABC")','"BANC"'],['min_window("a", "a")','"a"'],['min_window("a", "aa")','""'],['min_window("aaflslflsldkalskaaa", "aaa")','"aaa"']],hints:['Grow the window until it contains all of t; then shrink from the left while it still does.','Track how many required characters are still missing so the validity check is O(1).'],approach:'Variable sliding window with a need-counter.',cx:'O(len(s) + len(t))'}
+    return s[best[1]:best[2]] if best[0] != float("inf") else ""`,tests:[['min_window("ADOBECODEBANC", "ABC")','"BANC"'],['min_window("a", "a")','"a"'],['min_window("a", "aa")','""'],['min_window("aaflslflsldkalskaaa", "aaa")','"aaa"']],constraints:['1 ≤ len(s), len(t) ≤ 10<sup>5</sup>'],mistakes:['Ignoring duplicate letters in t ("aa" needs two a’s).','Re-counting the window from scratch at every step.'],followup:'Return the number of distinct minimum windows.',hints:['Grow the window until it contains all of t; then shrink from the left while it still does.','Track how many required characters are still missing so the validity check is O(1).'],approach:'Variable sliding window with a need-counter.',cx:'O(len(s) + len(t))'}
+]);
+
+/* ---------- second hard problem (added with the v2 backfill) ---------- */
+COURSE.qs('strings',[
+{id:'st-regex',type:'code',d:3,p:'dp',title:'Regular Expression Matching',prompt:'<p>Return <code>True</code> if the pattern matches the <b>whole</b> string. <code>.</code> matches any single character and <code>x*</code> matches zero or more copies of the character before it.</p>',prereq:['dp-lcs'],
+constraints:['0 ≤ len(s) ≤ 20, 1 ≤ len(p) ≤ 30','every * follows a letter or a dot'],
+starter:`def is_match(s, p):
+    # your code here
+    pass`,solution:`from functools import lru_cache
+
+
+def is_match(s, p):
+    @lru_cache(maxsize=None)
+    def match(i, j):                       # does s[i:] match p[j:]?
+        if j == len(p):
+            return i == len(s)
+        first = i < len(s) and p[j] in (s[i], ".")
+        if j + 1 < len(p) and p[j + 1] == "*":
+            # skip "x*" entirely, or use it for one character and stay on it
+            return match(i, j + 2) or (first and match(i + 1, j))
+        return first and match(i + 1, j + 1)
+
+    return match(0, 0)`,
+tests:[['is_match("aa", "a")','False'],['is_match("aa", "a*")','True'],['is_match("ab", ".*")','True'],['is_match("aab", "c*a*b")','True'],['is_match("mississippi", "mis*is*p*.")','False'],['is_match("", "a*b*")','True'],['is_match("ab", ".*c")','False'],['is_match("aaaaaaaaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*c")','False']],
+hints:['Compare the first character, then think about what "x*" allows: use it zero times, or once and keep it.','State: (i, j) = positions in s and p. Memoize, or the a*a*a*… test takes exponential time.'],approach:'Top-down DP over (i, j) with the two choices for a starred character.',cx:'O(len(s) · len(p)) time and space',
+dry:`is_match("aab", "c*a*b")
+c* used 0 times → a* used twice → b matches b → end of both → True`,
+mistakes:['Treating * as "any characters" (that is wildcard matching, a different problem).','Recursion without memoization: exponential on patterns like a*a*a*…','Forgetting that the pattern must match the whole string, not a prefix.'],
+followup:'Write the bottom-up table version, then support "+" (one or more).'},
 ]);

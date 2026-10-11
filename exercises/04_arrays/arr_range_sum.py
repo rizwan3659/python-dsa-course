@@ -10,6 +10,11 @@ Examples:
     range_sums([5, -2], [(0, 1)])  ->  [3]
     20,000 queries on 20,000 numbers (must be fast)
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n, q ≤ 2 × 10^4
+
 Target complexity: O(n + q) time
 
 Check your work:   python dsa.py test arr-range-sum

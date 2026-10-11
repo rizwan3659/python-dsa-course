@@ -3,6 +3,12 @@
 Complexity: O(k · E)
 
 Approach: Bellman-Ford with k + 1 rounds.
+
+Common mistakes:
+- Plain Dijkstra, which ignores the stop limit.
+- Relaxing edges using distances updated in the same round.
+
+Follow-up challenge: Return the route as well as the price.
 """
 
 

@@ -3,6 +3,12 @@
 Complexity: O(n) time (direct count)
 
 Approach: Simulate with a deque, or count directly in O(n).
+
+Common mistakes:
+- Simulating second by second without stopping when person k finishes.
+- Counting people behind k for the full number of k’s tickets.
+
+Follow-up challenge: Compute it in one pass without simulation.
 """
 
 

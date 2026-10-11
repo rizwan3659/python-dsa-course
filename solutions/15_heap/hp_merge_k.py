@@ -3,6 +3,14 @@
 Complexity: O(N log k)
 
 Approach: Heap of list fronts.
+
+Common mistakes:
+- Pushing ListNode objects directly (they cannot be compared); push (val,
+  index, node).
+- Merging lists one by one: O(k · N).
+
+Follow-up challenge: Merge k sorted Python lists lazily with a generator
+(heapq.merge).
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

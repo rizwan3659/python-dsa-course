@@ -4,6 +4,12 @@ Complexity: O(n) time, O(1) space
 
 Approach: Cyclic placement: swap every in-range value to its home index,
 then find the first index that does not hold i + 1.
+
+Common mistakes:
+- Sorting: O(n log n).
+- Swapping into place with a while loop that never ends on duplicates.
+
+Follow-up challenge: Find the k-th missing positive number.
 """
 
 

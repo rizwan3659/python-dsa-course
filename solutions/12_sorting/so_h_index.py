@@ -3,6 +3,12 @@
 Complexity: O(n log n)
 
 Approach: Sort descending and scan.
+
+Common mistakes:
+- Off-by-one between "at least h papers" and indexes.
+- Sorting ascending and counting from the wrong end.
+
+Follow-up challenge: Do it in O(n) with counting.
 """
 
 

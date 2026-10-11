@@ -6,6 +6,14 @@ one letter.
 
 Examples:
     _t()  ->  [False, True, True, True, False, False]
+    (lambda d: (d.add_word("bad"), d.add_word("dad"), d.search("pad"), d.search(".ad"), d.search("b.."), d.search("..."), d.search("b"), d.search("....")))(WordDictionary())[2:]  ->  (False, True, True, True, False, False)
+    (lambda d: (d.add_word("a"), d.search("."), d.search("a"), d.search("aa")))(WordDictionary())[1:]  ->  (True, True, False)
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- up to 10^4 calls
+- words up to 25 letters, at most 2 dots per search
 
 Target complexity: O(L) without dots; worse with many dots
 

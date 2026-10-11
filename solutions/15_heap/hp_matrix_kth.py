@@ -3,6 +3,12 @@
 Complexity: O(k log n)
 
 Approach: k-way merge with a heap.
+
+Common mistakes:
+- Flattening and sorting (O(n² log n)).
+- Pushing every element into the heap at once.
+
+Follow-up challenge: Solve it with binary search on the value range.
 """
 
 

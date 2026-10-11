@@ -10,6 +10,11 @@ Examples:
     generate(1)  ->  ["()"]
     len(generate(6))  ->  132
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 8
+
 Target complexity: O(Catalan(n)) results
 
 Check your work:   python dsa.py test rec-parens

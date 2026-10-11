@@ -9,6 +9,11 @@ Examples:
     find_order(2, [[0, 1], [1, 0]])  ->  []
     find_order(1, [])  ->  [0]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 2000
+
 Target complexity: O(V + E)
 
 Check your work:   python dsa.py test ag-course-order

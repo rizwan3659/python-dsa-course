@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Stack of survivors; resolve collisions against the top.
+
+Common mistakes:
+- Letting a left-moving asteroid collide with another left-moving one.
+- Forgetting that one left-moving asteroid can destroy several right-moving
+  ones.
+
+Follow-up challenge: Report the index of each surviving asteroid.
 """
 
 

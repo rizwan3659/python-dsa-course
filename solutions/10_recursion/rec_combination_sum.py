@@ -3,6 +3,14 @@
 Complexity: Exponential in the worst case
 
 Approach: Backtracking with a start index and pruning.
+
+Common mistakes:
+- Starting the loop at 0 every time, which produces duplicates like [2, 3,
+  2].
+- Not stopping when the remaining target goes negative.
+
+Follow-up challenge: Each candidate may be used once
+(rec-combination-sum-ii).
 """
 
 

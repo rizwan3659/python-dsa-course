@@ -3,6 +3,12 @@
 Complexity: O(n + m) time, O(1) space
 
 Approach: Dummy head + tail pointer.
+
+Common mistakes:
+- Forgetting to attach the leftover nodes of the longer list.
+- Creating new nodes instead of relinking existing ones.
+
+Follow-up challenge: Merge k sorted lists (hp-merge-k).
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

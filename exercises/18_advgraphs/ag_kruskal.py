@@ -9,6 +9,12 @@ Examples:
     mst_weight(2, [(0, 1, 9)])  ->  9
     mst_weight(3, [(0, 1, 5), (1, 2, 5), (0, 2, 1)])  ->  6
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 10^4
+- the graph is connected
+
 Target complexity: O(E log E)
 
 Check your work:   python dsa.py test ag-kruskal

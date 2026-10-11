@@ -15,7 +15,7 @@ By the end of the topic, students can:
 ## Duration and prerequisites
 
 - Lessons: about **30 minutes** of guided material (3 lessons)
-- Practice: 7 coding problems and 17 quick questions in the bank; plan at least as much practice time as lesson time
+- Practice: 8 coding problems and 17 quick questions in the bank; plan at least as much practice time as lesson time
 - Suggested format: one 90-minute session
 - Prerequisites: Topic 13 (Trees), Topic 6 (Hash Tables)
 

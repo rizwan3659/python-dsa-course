@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: BFS on grid cells.
+
+Common mistakes:
+- Using DFS, which does not find shortest paths.
+- Forgetting that the start itself may be a wall.
+
+Follow-up challenge: Allow 8-directional moves.
 """
 
 

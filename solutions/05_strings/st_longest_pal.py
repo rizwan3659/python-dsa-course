@@ -3,6 +3,12 @@
 Complexity: O(n²) time, O(1) space
 
 Approach: Expand around centres.
+
+Common mistakes:
+- Only expanding around single characters, missing even-length palindromes.
+- Checking every substring: O(n³).
+
+Follow-up challenge: Solve it in O(n) with Manacher's algorithm.
 """
 
 

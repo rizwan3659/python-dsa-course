@@ -3,6 +3,12 @@
 Complexity: O(V + E log E)
 
 Approach: Dict of lists, both directions.
+
+Common mistakes:
+- Adding each edge in only one direction.
+- Leaving out nodes with no edges.
+
+Follow-up challenge: Build an adjacency matrix too and compare memory use.
 """
 
 

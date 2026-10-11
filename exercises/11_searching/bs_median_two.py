@@ -10,6 +10,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(a), len(b) ≤ 1000, total ≥ 1
+
 Target complexity: O(log min(n, m))
 
 Check your work:   python dsa.py test bs-median-two

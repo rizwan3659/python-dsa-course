@@ -3,6 +3,12 @@
 Complexity: O(n) time
 
 Approach: Sum the even part of each count, plus 1 if any count is odd.
+
+Common mistakes:
+- Adding odd counts in full instead of count − 1.
+- Forgetting that one odd letter may sit in the middle.
+
+Follow-up challenge: Build and return one such palindrome.
 """
 
 

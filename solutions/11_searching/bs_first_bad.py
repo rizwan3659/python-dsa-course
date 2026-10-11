@@ -3,6 +3,13 @@
 Complexity: O(log n) calls
 
 Approach: Binary search for the boundary.
+
+Common mistakes:
+- Checking every version from 1: far too slow.
+- Setting hi = mid − 1 when mid is bad (it might be the first bad one).
+
+Follow-up challenge: Count how many calls to is_bad you made, and compare
+with log₂ n.
 """
 
 

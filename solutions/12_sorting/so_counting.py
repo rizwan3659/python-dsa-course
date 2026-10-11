@@ -3,6 +3,13 @@
 Complexity: O(n + k)
 
 Approach: Count per value, then write values out in order.
+
+Common mistakes:
+- Allocating counts of size max(nums) when k is given (or vice versa).
+- Comparing elements (that is not counting sort).
+
+Follow-up challenge: Make it stable for sorting records by a small integer
+key.
 """
 
 

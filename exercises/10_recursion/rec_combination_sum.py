@@ -12,6 +12,12 @@ Examples:
     combination_sum([2, 3, 5], 8)  ->  [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
     combination_sum([2], 1)  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(candidates) ≤ 30
+- 1 ≤ target ≤ 40
+
 Target complexity: Exponential in the worst case
 
 Check your work:   python dsa.py test rec-combination-sum

@@ -9,6 +9,11 @@ Examples:
     char_frequency("")  ->  []
     char_frequency("abab")  ->  [("a", 2), ("b", 2)]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(s) ≤ 10^5
+
 Target complexity: O(n + k log k)
 
 Check your work:   python dsa.py test st-char-freq

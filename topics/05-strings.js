@@ -42,6 +42,7 @@ print(ord("a"), chr(98), "abc" < "abd")`},
 visualize:[{t:'viz',fn:'sliding-window',arg:{mode:'unique'},title:'Sliding window on a string',intro:'Longest substring without repeating characters.'}],
 
 challenge:[
+ {t:'q',title:'Hard problems',intro:'Interview-level problems for this topic. Try each without hints first, and write the brute force and its complexity before you code.',ids:['st-min-window','st-regex']},
  {t:'b2o',title:'Longest Substring Without Repeats: restart everywhere → sliding window',qid:'st-longest-unique',problem:'<p>Return the length of the longest substring with no repeated characters.</p>',
   brute:{code:`def length_of_longest_substring(s):
     best = 0

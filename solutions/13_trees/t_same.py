@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Compare roots, then both pairs of subtrees.
+
+Common mistakes:
+- Comparing only values, not shape.
+- Not handling the case where exactly one node is None.
+
+Follow-up challenge: Check whether two trees are mirror images.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

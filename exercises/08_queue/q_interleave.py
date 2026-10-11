@@ -9,6 +9,11 @@ Examples:
     interleave([])  ->  []
     interleave(["a", "b"])  ->  ["a", "b"]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(items) ≤ 10^4, even
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test q-interleave

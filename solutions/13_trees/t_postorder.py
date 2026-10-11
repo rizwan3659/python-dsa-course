@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Recursive DFS.
+
+Common mistakes:
+- Visiting the root before its children.
+- In the iterative version, reversing the wrong traversal.
+
+Follow-up challenge: Iterative postorder with one stack.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

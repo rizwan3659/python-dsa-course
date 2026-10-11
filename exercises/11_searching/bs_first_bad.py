@@ -9,6 +9,11 @@ Examples:
     _run(1, 1)  ->  (1, True)
     n ≈ 2 billion: at most 40 calls
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ bad ≤ n ≤ 2^31 − 1
+
 Target complexity: O(log n) calls
 
 Check your work:   python dsa.py test bs-first-bad

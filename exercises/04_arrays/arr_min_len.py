@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(nums) ≤ 10^5
+- all numbers are positive
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-min-len

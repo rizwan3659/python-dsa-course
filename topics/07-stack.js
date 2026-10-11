@@ -49,6 +49,7 @@ f(3)`},
  {t:'q',title:'Code it',ids:['s-next-greater','s-daily-temps']}]}],
 
 challenge:[
+ {t:'q',title:'Hard problems',intro:'Interview-level problems for this topic. Try each without hints first, and write the brute force and its complexity before you code.',ids:['s-histogram','s-calculator']},
  {t:'b2o',title:'Daily Temperatures: scan ahead → monotonic stack',qid:'s-daily-temps',problem:'<p>For each day, how many days until a warmer temperature?</p>',
   brute:{code:`def daily_temperatures(temps):
     answer = [0] * len(temps)

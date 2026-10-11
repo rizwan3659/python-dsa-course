@@ -3,6 +3,12 @@
 Complexity: O(n log M)
 
 Approach: Binary search on the answer with an O(n) feasibility check.
+
+Common mistakes:
+- Using hours += pile // k, which drops the partial hour.
+- Searching speeds up to sum(piles) instead of max(piles).
+
+Follow-up challenge: Each pile also has an earliest start time.
 """
 
 

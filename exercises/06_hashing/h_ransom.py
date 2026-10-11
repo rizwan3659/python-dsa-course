@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(note), len(magazine) ≤ 10^5
+
 Target complexity: O(n + m) time
 
 Check your work:   python dsa.py test h-ransom

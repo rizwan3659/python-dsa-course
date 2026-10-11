@@ -3,6 +3,12 @@
 Complexity: O(N · L · 26)
 
 Approach: BFS over implicit word graph.
+
+Common mistakes:
+- Comparing every pair of words to build the graph: O(n² · L).
+- Counting edges instead of words.
+
+Follow-up challenge: Return all shortest sequences.
 """
 
 

@@ -9,6 +9,11 @@ Examples:
     _t2()  ->  4.0
     50,000 adds (must be fast)
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- up to 5 × 10^4 operations
+
 Target complexity: O(log n) add, O(1) median
 
 Check your work:   python dsa.py test hp-median

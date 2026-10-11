@@ -7,6 +7,12 @@ After each character typed of `search_word`, return up to 3 products
 Examples:
     suggested_products(["mobile", "mouse", "moneypot", "monitor", "mousepad"], "mouse")  ->  [["mobile", "moneypot", "monitor"], ["mobile", "moneypot", "monitor"], ["mouse", "mousepad"], ["mouse", "mousepad"], ["mouse", "mousepad"]]
     suggested_products(["havana"], "tatiana")  ->  [[], [], [], [], [], [], []]
+    suggested_products(["a", "ab", "abc", "abd", "b"], "ab")  ->  [["a", "ab", "abc"], ["ab", "abc", "abd"]]
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ len(products) ≤ 1000
 
 Target complexity: O(total characters)
 

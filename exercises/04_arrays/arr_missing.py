@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ n ≤ 10^4
+- all numbers are distinct
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-missing

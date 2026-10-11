@@ -13,15 +13,15 @@ No install, no account, no build step. Coding exercises run real Python in your 
 | | |
 |---|---|
 | **23 topics, 140 lessons** | Python → Big-O → Algorithmic Thinking → Arrays → Strings → Hashing → Stack → Queue → Linked Lists → Recursion & Backtracking → Searching → Sorting → Trees → BST → Heap → Trie → Graphs → Advanced Graphs → Greedy → Dynamic Programming → Bit Manipulation → Range Queries → Problem-Solving Patterns ([syllabus](curriculum/syllabus.md), [roadmap](curriculum/roadmap.md)) |
-| **1,097 questions** | predict the output, concept, complexity, choose the data structure, dry-run tables, complete the code, debug, and **361 coding problems** with tests: every solution, prediction and table is verified in real Python |
+| **1,103 questions** | predict the output, concept, complexity, choose the data structure, dry-run tables, complete the code, debug, and **367 coding problems** with tests: every solution, prediction and table is verified in real Python |
 | **44 visualizers** | step through algorithms: sorting, binary search, stacks and queues, linked lists, recursion trees, tree traversals, BFS/DFS, Dijkstra, DP tables, bitwise operations, Fenwick and segment trees, and more |
-| **443 local exercises** | the same coding, build and debugging exercises as plain Python files with a test runner, hints and progress tracking |
+| **449 local exercises** | the same coding, build and debugging exercises as plain Python files with a test runner, hints and progress tracking |
 | **10 mini-projects** | leaderboard, browser history, ticket queue, contact search, task scheduler, maze solver, route finder, autocomplete, LRU cache, recommendations ([projects](projects/)) |
 | **Interview preparation** | a Top 100 roadmap in three tracks, timed rounds, pattern guide, communication guide, mock interview scripts ([docs/interview](docs/interview/)) |
 | **Instructor material** | a guide for every topic plus rubrics ([docs/instructor](docs/instructor/)) |
 | **Jupyter notebooks** | every topic's lessons as a runnable notebook ([notebooks](notebooks/)) |
 
-Coding problems in the newer topics include constraints, at least three examples, hidden tests, three hint levels, a dry run, common mistakes and a follow-up challenge. Solutions are never shown until you ask (twice).
+Every coding problem has constraints, at least three examples plus hidden tests, three hint levels, common mistakes and a follow-up challenge (many also have prerequisites and a worked dry run). Solutions are never shown until you ask (twice).
 
 ## Pages
 

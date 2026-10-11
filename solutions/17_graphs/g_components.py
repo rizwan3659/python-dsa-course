@@ -3,6 +3,12 @@
 Complexity: O(V + E)
 
 Approach: Search from each unvisited node.
+
+Common mistakes:
+- Forgetting isolated nodes (they are components too).
+- Starting a search only from node 0.
+
+Follow-up challenge: Return the size of each component.
 """
 
 

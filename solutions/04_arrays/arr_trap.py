@@ -4,6 +4,13 @@ Complexity: O(n) time, O(1) space
 
 Approach: Two pointers with running left_max and right_max; the smaller side
 is always safe to settle.
+
+Common mistakes:
+- Using only the left maximum or only the right maximum.
+- O(n²) by scanning both sides for every bar.
+
+Follow-up challenge: Solve it with a monotonic stack and compare with the
+two-pointer version.
 """
 
 

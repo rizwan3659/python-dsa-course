@@ -3,6 +3,13 @@
 Complexity: O(V + E)
 
 Approach: Graph search.
+
+Common mistakes:
+- Recursion deeper than Python’s limit on long chains (use a stack or BFS).
+- Treating edges as one-way.
+
+Follow-up challenge: Answer many (source, dest) queries quickly with
+union-find.
 """
 
 

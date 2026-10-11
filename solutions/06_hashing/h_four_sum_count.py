@@ -3,6 +3,12 @@
 Complexity: O(n²) time and space
 
 Approach: Meet in the middle with a Counter of pair sums.
+
+Common mistakes:
+- Four nested loops: O(n⁴).
+- Storing pairs instead of counts of pair sums.
+
+Follow-up challenge: Generalise to k lists (meet in the middle).
 """
 
 

@@ -3,6 +3,13 @@
 Complexity: O(total characters)
 
 Approach: Column scan (or a single-branch walk in a trie).
+
+Common mistakes:
+- Crashing on an empty list or an empty word.
+- Comparing only the first two words.
+
+Follow-up challenge: Find the longest prefix shared by at least half of the
+words.
 """
 
 

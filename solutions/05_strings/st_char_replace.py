@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: Sliding window with letter counts.
+
+Common mistakes:
+- Recomputing the max count from scratch each step (fine for 26 letters, but
+  understand why).
+- Shrinking the window to empty instead of by one.
+
+Follow-up challenge: Return the window boundaries too.
 """
 
 

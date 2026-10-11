@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(citations) ≤ 5000
+
 Target complexity: O(n log n)
 
 Check your work:   python dsa.py test so-h-index

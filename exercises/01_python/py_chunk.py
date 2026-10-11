@@ -10,6 +10,12 @@ Examples:
     chunk([], 3)  ->  []
     chunk([1, 2, 3], 3)  ->  [[1, 2, 3]]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(items) ≤ 10^5
+- 1 ≤ k
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test py-chunk

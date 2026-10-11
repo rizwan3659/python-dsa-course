@@ -3,6 +3,12 @@
 Complexity: O(log n)
 
 Approach: Binary search following the uphill direction.
+
+Common mistakes:
+- Scanning linearly: O(n).
+- Reading nums[mid + 1] past the end.
+
+Follow-up challenge: Find a peak in a 2D grid.
 """
 
 

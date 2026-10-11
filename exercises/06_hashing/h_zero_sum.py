@@ -12,6 +12,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^5
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test h-zero-sum

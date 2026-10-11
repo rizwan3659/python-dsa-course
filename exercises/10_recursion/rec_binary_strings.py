@@ -10,6 +10,11 @@ Examples:
     binary_strings(0)  ->  [""]
     len(binary_strings(10))  ->  1024
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 0 ≤ n ≤ 16
+
 Target complexity: O(n · 2ⁿ)
 
 Check your work:   python dsa.py test rec-binary-strings

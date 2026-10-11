@@ -3,6 +3,12 @@
 Complexity: O(n log k)
 
 Approach: Heap selection by squared distance.
+
+Common mistakes:
+- Using sqrt (unnecessary and slower).
+- Ignoring the tie-break rule.
+
+Follow-up challenge: Solve it with quickselect in average O(n).
 """
 
 

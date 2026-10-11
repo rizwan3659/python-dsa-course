@@ -3,6 +3,13 @@
 Complexity: O(n² log n)
 
 Approach: Prim's MST on the complete graph.
+
+Common mistakes:
+- Building all n² edges and sorting them (works, but O(n² log n)).
+- Using Euclidean instead of Manhattan distance.
+
+Follow-up challenge: Use Prim's algorithm with an O(n²) array instead of a
+heap.
 """
 
 

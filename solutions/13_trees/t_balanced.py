@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: One postorder pass returning height or −1.
+
+Common mistakes:
+- Calling height() at every node: O(n²).
+- Checking balance only at the root.
+
+Follow-up challenge: Return the height difference that is largest anywhere
+in the tree.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

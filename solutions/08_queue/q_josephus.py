@@ -4,6 +4,13 @@ Complexity: O(n · k) time
 
 Approach: Deque simulation with rotate (O(n·k)); a math recurrence gives
 O(n).
+
+Common mistakes:
+- Counting from the wrong person after someone leaves.
+- An off-by-one between 0-based and 1-based friend numbers.
+
+Follow-up challenge: Solve it in O(n) with the recurrence J(n) = (J(n − 1) +
+k) % n.
 """
 
 

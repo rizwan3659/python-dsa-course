@@ -9,6 +9,12 @@ Examples:
     tree_to_list(build_from([1, 2], [2, 1]))  ->  [1, 2]
     tree_to_list(build_from([], []))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 3000
+- values are distinct
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-build

@@ -3,6 +3,12 @@
 Complexity: O(log min(a, b))
 
 Approach: Euclid's algorithm.
+
+Common mistakes:
+- Using subtraction instead of %, which takes very long for (10¹⁸, 1).
+- Base case on a == 0 only.
+
+Follow-up challenge: Compute the gcd of a whole list of numbers.
 """
 
 

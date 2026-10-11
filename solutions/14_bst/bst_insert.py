@@ -3,6 +3,13 @@
 Complexity: O(h)
 
 Approach: Recursive insert returning the subtree root.
+
+Common mistakes:
+- Forgetting to return the root after inserting.
+- Replacing an existing child instead of walking further down.
+
+Follow-up challenge: Insert a value that may already exist (ignore
+duplicates).
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

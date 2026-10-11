@@ -13,6 +13,10 @@ Examples:
 
 (4 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 10^4
+- s contains only ()[]{}
+
 Target complexity: O(n) time, O(n) space
 
 Check your work:   python dsa.py test s-valid-parens

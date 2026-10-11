@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Greedy extension, like merging intervals.
+
+Common mistakes:
+- Closing a part as soon as one letter ends instead of when the furthest
+  last-occurrence is reached.
+
+Follow-up challenge: Return the parts themselves.
 """
 
 

@@ -10,6 +10,11 @@ Examples:
     to_list(reverse_between(build([5]), 1, 1))  ->  [5]
     to_list(reverse_between(build([3, 5]), 1, 2))  ->  [5, 3]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ left ≤ right ≤ number of nodes ≤ 500
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test ll-reverse-between

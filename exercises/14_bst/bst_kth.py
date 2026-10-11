@@ -8,6 +8,11 @@ Examples:
     kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 3)  ->  3
     kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 6)  ->  6
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ number of nodes ≤ 10^4
+
 Target complexity: O(h + k)
 
 Check your work:   python dsa.py test bst-kth

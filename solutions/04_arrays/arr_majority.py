@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(1) space (voting)
 
 Approach: Counting works; Boyer–Moore voting does it in O(1) space.
+
+Common mistakes:
+- Sorting to find it (O(n log n)) when O(n) is possible.
+- Returning the most common element without checking the majority guarantee.
+
+Follow-up challenge: Solve it in O(1) extra space with the Boyer-Moore
+voting algorithm.
 """
 
 

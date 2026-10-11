@@ -3,6 +3,14 @@
 Complexity: O(log(rows · cols))
 
 Approach: Binary search over flattened indexes.
+
+Common mistakes:
+- Searching every row: O(rows · log cols) is fine, but O(log(rows · cols))
+  is possible.
+- Mixing up row = mid // cols and col = mid % cols.
+
+Follow-up challenge: Rows and columns are sorted separately (not overall):
+start from the top-right corner.
 """
 
 

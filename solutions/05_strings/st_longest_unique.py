@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Sliding window + last-seen index dict.
+
+Common mistakes:
+- Moving the left edge backwards when an old repeat is found (use max).
+- Restarting the scan after every repeat: O(n²).
+
+Follow-up challenge: Return the substring itself, not just its length.
 """
 
 

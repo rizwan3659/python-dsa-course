@@ -11,6 +11,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test bst-validate

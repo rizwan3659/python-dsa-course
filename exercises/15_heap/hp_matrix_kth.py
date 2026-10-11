@@ -8,6 +8,12 @@ Examples:
     kth_smallest([[-5]], 1)  ->  -5
     kth_smallest([[1, 2], [1, 3]], 2)  ->  1
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 300
+- 1 ≤ k ≤ n²
+
 Target complexity: O(k log n)
 
 Check your work:   python dsa.py test hp-matrix-kth

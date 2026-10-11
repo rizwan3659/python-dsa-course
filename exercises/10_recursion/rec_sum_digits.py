@@ -13,6 +13,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ n ≤ 10^18
+
 Target complexity: O(number of digits)
 
 Check your work:   python dsa.py test rec-sum-digits

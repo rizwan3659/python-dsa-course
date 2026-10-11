@@ -3,6 +3,12 @@
 Complexity: O(r × c)
 
 Approach: paths(r, c) = paths(r − 1, c) + paths(r, c − 1), cached.
+
+Common mistakes:
+- Recursing without memoization (exponential).
+- Base case returning 0 on the edges instead of 1.
+
+Follow-up challenge: Compute it with the binomial formula C(r + c, r).
 """
 
 

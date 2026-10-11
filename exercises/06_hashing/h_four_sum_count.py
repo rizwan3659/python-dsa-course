@@ -9,6 +9,12 @@ Examples:
     four_sum_count([0], [0], [0], [0])  ->  1
     four_sum_count([1], [1], [1], [1])  ->  0
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 200
+- −2^28 ≤ values ≤ 2^28
+
 Target complexity: O(n²) time and space
 
 Check your work:   python dsa.py test h-four-sum-count

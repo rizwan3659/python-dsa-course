@@ -4,6 +4,13 @@ Complexity: O(n) time, O(1) space
 
 Approach: Floyd's algorithm, phase two: distance from head to the start
 equals distance from the meeting point to the start (mod cycle length).
+
+Common mistakes:
+- Restarting both pointers from the head after they meet (only one should
+  restart).
+- Returning the meeting point, which is not the cycle start in general.
+
+Follow-up challenge: Prove why the second phase lands on the cycle start.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

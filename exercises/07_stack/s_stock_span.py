@@ -11,6 +11,11 @@ Examples:
     stock_span([10, 20, 30])  ->  [1, 2, 3]
     stock_span([])  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(prices) ≤ 10^5
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test s-stock-span

@@ -13,6 +13,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(s) ≤ 2000
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test h-longest-pal

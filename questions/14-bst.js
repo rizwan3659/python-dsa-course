@@ -147,7 +147,7 @@ while node.left:
     pass`,solution:`def search_bst(root, target):
     while root and root.val != target:
         root = root.left if target < root.val else root.right
-    return root`,tests:[['tree_to_list(search_bst(build_tree([4, 2, 7, 1, 3]), 2))','[2, 1, 3]'],['search_bst(build_tree([4, 2, 7, 1, 3]), 5)','None']],hints:['Compare with the current node and go left or right.'],approach:'Walk one path.',cx:'O(h)'},
+    return root`,tests:[['tree_to_list(search_bst(build_tree([4, 2, 7, 1, 3]), 2))','[2, 1, 3]'],['search_bst(build_tree([4, 2, 7, 1, 3]), 5)','None'],['search_bst(build_tree([]), 1)','None'],['tree_to_list(search_bst(build_tree([4, 2, 7]), 7))','[7]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Searching both subtrees (that ignores the BST property).','Returning the value instead of the node.'],followup:'Write it iteratively.',hints:['Compare with the current node and go left or right.','Go left if target is smaller than the node, right if larger.'],approach:'Walk one path.',cx:'O(h)'},
 {id:'bst-insert',type:'code',d:1,p:'bst',prelude:T,title:'Insert into a BST',prompt:'<p>Insert value v (not already present) and return the root.</p>',starter:`def insert_bst(root, v):
     pass`,solution:`def insert_bst(root, v):
     if root is None:
@@ -156,7 +156,7 @@ while node.left:
         root.left = insert_bst(root.left, v)
     else:
         root.right = insert_bst(root.right, v)
-    return root`,tests:[['tree_to_list(insert_bst(build_tree([4, 2, 7, 1, 3]), 5))','[4, 2, 7, 1, 3, 5]'],['tree_to_list(insert_bst(None, 3))','[3]']],hints:['Walk down to the empty spot where v belongs.'],approach:'Recursive insert returning the subtree root.',cx:'O(h)'},
+    return root`,tests:[['tree_to_list(insert_bst(build_tree([4, 2, 7, 1, 3]), 5))','[4, 2, 7, 1, 3, 5]'],['tree_to_list(insert_bst(None, 3))','[3]'],['tree_to_list(insert_bst(build_tree([4, 2, 7]), 1))','[4, 2, 7, 1]'],['tree_to_list(insert_bst(build_tree([4, 2, 7]), 9))','[4, 2, 7, None, None, None, 9]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>','v is not already in the tree'],mistakes:['Forgetting to return the root after inserting.','Replacing an existing child instead of walking further down.'],followup:'Insert a value that may already exist (ignore duplicates).',hints:['Walk down to the empty spot where v belongs.','If the tree is empty, the new node is the root; otherwise insert into the correct subtree and return root.'],approach:'Recursive insert returning the subtree root.',cx:'O(h)'},
 {id:'bst-validate',type:'code',d:2,p:'bst',prelude:T,title:'Validate a BST',prompt:'<p>Return True if the tree is a valid BST (strictly smaller left, strictly larger right, for all descendants).</p>',starter:`def is_valid_bst(root):
     pass`,solution:`def is_valid_bst(root):
     def ok(node, lo, hi):
@@ -165,7 +165,7 @@ while node.left:
         if not (lo < node.val < hi):
             return False
         return ok(node.left, lo, node.val) and ok(node.right, node.val, hi)
-    return ok(root, float("-inf"), float("inf"))`,tests:[['is_valid_bst(build_tree([2, 1, 3]))','True'],['is_valid_bst(build_tree([5, 1, 4, None, None, 3, 6]))','False'],['is_valid_bst(build_tree([5, 4, 6, None, None, 3, 7]))','False'],['is_valid_bst(build_tree([]))','True'],['is_valid_bst(build_tree([1, 1]))','False']],hints:['Checking only children is not enough.','Pass down the allowed range (low, high); or check that the inorder traversal is strictly increasing.'],approach:'Range checking DFS.',cx:'O(n)'},
+    return ok(root, float("-inf"), float("inf"))`,tests:[['is_valid_bst(build_tree([2, 1, 3]))','True'],['is_valid_bst(build_tree([5, 1, 4, None, None, 3, 6]))','False'],['is_valid_bst(build_tree([5, 4, 6, None, None, 3, 7]))','False'],['is_valid_bst(build_tree([]))','True'],['is_valid_bst(build_tree([1, 1]))','False']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Only comparing a node with its direct children.','Using <= so equal values pass.'],followup:'Validate using an inorder traversal instead of bounds.',hints:['Checking only children is not enough.','Pass down the allowed range (low, high); or check that the inorder traversal is strictly increasing.'],approach:'Range checking DFS.',cx:'O(n)'},
 {id:'bst-min-max',type:'code',d:1,p:'bst',prelude:T,title:'Minimum and Maximum',prompt:'<p>Return <code>(min, max)</code> of a non-empty BST in O(h).</p>',starter:`def min_max(root):
     pass`,solution:`def min_max(root):
     lo = hi = root
@@ -173,7 +173,7 @@ while node.left:
         lo = lo.left
     while hi.right:
         hi = hi.right
-    return (lo.val, hi.val)`,tests:[['min_max(build_tree([8, 4, 12, 2, 6, 10, 14]))','(2, 14)'],['min_max(build_tree([5]))','(5, 5)']],hints:['Leftmost and rightmost nodes.'],approach:'Walk left; walk right.',cx:'O(h)'},
+    return (lo.val, hi.val)`,tests:[['min_max(build_tree([8, 4, 12, 2, 6, 10, 14]))','(2, 14)'],['min_max(build_tree([5]))','(5, 5)'],['min_max(build_tree([5, 3, None, 1]))','(1, 5)'],['min_max(build_tree([1, None, 9]))','(1, 9)']],constraints:['1 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Traversing the whole tree (O(n) instead of O(h)).'],followup:'Find the second smallest value in O(h).',hints:['Leftmost and rightmost nodes.','The minimum is the leftmost node; the maximum is the rightmost.'],approach:'Walk left; walk right.',cx:'O(h)'},
 {id:'bst-range-sum',type:'code',d:1,p:'bst',prelude:T,title:'Range Sum of a BST',prompt:'<p>Return the sum of values in [low, high]. Skip subtrees that cannot contain such values.</p>',starter:`def range_sum(root, low, high):
     pass`,solution:`def range_sum(root, low, high):
     if root is None:
@@ -182,7 +182,7 @@ while node.left:
         return range_sum(root.right, low, high)    # whole left side is too small
     if root.val > high:
         return range_sum(root.left, low, high)
-    return root.val + range_sum(root.left, low, high) + range_sum(root.right, low, high)`,tests:[['range_sum(build_tree([10, 5, 15, 3, 7, None, 18]), 7, 15)','32'],['range_sum(build_tree([10, 5, 15, 3, 7, 13, 18, 1, None, 6]), 6, 10)','23'],['range_sum(build_tree([]), 1, 2)','0']],hints:['If root.val < low, nothing on its left can be in range.'],approach:'DFS with pruning.',cx:'O(n) worst, often much less'},
+    return root.val + range_sum(root.left, low, high) + range_sum(root.right, low, high)`,tests:[['range_sum(build_tree([10, 5, 15, 3, 7, None, 18]), 7, 15)','32'],['range_sum(build_tree([10, 5, 15, 3, 7, 13, 18, 1, None, 6]), 6, 10)','23'],['range_sum(build_tree([]), 1, 2)','0'],['range_sum(build_tree([5]), 5, 5)','5']],constraints:['0 ≤ number of nodes ≤ 2 × 10<sup>4</sup>'],mistakes:['Visiting subtrees that cannot contain values in range.','Using exclusive bounds.'],followup:'Count the nodes in the range instead.',hints:['If root.val < low, nothing on its left can be in range.','If node < low, only the right subtree can help; if node > high, only the left.'],approach:'DFS with pruning.',cx:'O(n) worst, often much less'},
 {id:'bst-kth',type:'code',d:2,p:'bst',prelude:T,title:'Kth Smallest in a BST',prompt:'<p>Return the k-th smallest value (1-based).</p>',starter:`def kth_smallest(root, k):
     pass`,solution:`def kth_smallest(root, k):
     stack, node = [], root
@@ -194,7 +194,7 @@ while node.left:
         k -= 1
         if k == 0:
             return node.val
-        node = node.right`,tests:[['kth_smallest(build_tree([3, 1, 4, None, 2]), 1)','1'],['kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 3)','3'],['kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 6)','6']],hints:['Inorder visits values in ascending order.','Stop as soon as you have visited k nodes (iterative inorder makes stopping easy).'],approach:'Inorder traversal, stop at the k-th visit.',cx:'O(h + k)'},
+        node = node.right`,tests:[['kth_smallest(build_tree([3, 1, 4, None, 2]), 1)','1'],['kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 3)','3'],['kth_smallest(build_tree([5, 3, 6, 2, 4, None, None, 1]), 6)','6'],['kth_smallest(build_tree([2, 1, 3]), 3)','3']],constraints:['1 ≤ k ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Collecting the whole inorder list when you can stop at k.','Off-by-one: k is 1-based.'],followup:'The tree changes often: store subtree sizes to answer in O(h).',hints:['Inorder visits values in ascending order.','Stop as soon as you have visited k nodes (iterative inorder makes stopping easy).'],approach:'Inorder traversal, stop at the k-th visit.',cx:'O(h + k)'},
 {id:'bst-lca',type:'code',d:2,p:'bst',prelude:T,title:'Lowest Common Ancestor in a BST',prompt:'<p>Return the value of the lowest common ancestor of values p and q, using the BST property (no need to search both subtrees).</p>',starter:`def lca_bst(root, p, q):
     pass`,solution:`def lca_bst(root, p, q):
     node = root
@@ -204,7 +204,7 @@ while node.left:
         elif p > node.val and q > node.val:
             node = node.right
         else:
-            return node.val          # p and q split here (or one of them is here)`,tests:[['lca_bst(build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5]), 2, 8)','6'],['lca_bst(build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5]), 2, 4)','2'],['lca_bst(build_tree([2, 1]), 2, 1)','2']],hints:['If both values are smaller than the node, the answer is in the left subtree.','The first node where they split (or that equals one of them) is the answer.'],approach:'Walk down until p and q are on different sides.',cx:'O(h)'},
+            return node.val          # p and q split here (or one of them is here)`,tests:[['lca_bst(build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5]), 2, 8)','6'],['lca_bst(build_tree([6, 2, 8, 0, 4, 7, 9, None, None, 3, 5]), 2, 4)','2'],['lca_bst(build_tree([2, 1]), 2, 1)','2'],['lca_bst(build_tree([5, 3, 8, 2, 4]), 2, 4)','3']],constraints:['2 ≤ number of nodes ≤ 10<sup>5</sup>','p and q exist'],mistakes:['Searching both subtrees like in a general tree.','Not handling the case where p is an ancestor of q.'],followup:'Solve it iteratively in O(1) space.',hints:['If both values are smaller than the node, the answer is in the left subtree.','The first node where they split (or that equals one of them) is the answer.'],approach:'Walk down until p and q are on different sides.',cx:'O(h)'},
 {id:'bst-closest',type:'code',d:1,p:'bst',prelude:T,title:'Closest Value',prompt:'<p>Return the value in the BST closest to a float target (the smaller one on a tie).</p>',starter:`def closest_value(root, target):
     pass`,solution:`def closest_value(root, target):
     best = root.val
@@ -212,7 +212,7 @@ while node.left:
         if abs(root.val - target) < abs(best - target) or (abs(root.val - target) == abs(best - target) and root.val < best):
             best = root.val
         root = root.left if target < root.val else root.right
-    return best`,tests:[['closest_value(build_tree([4, 2, 5, 1, 3]), 3.714286)','4'],['closest_value(build_tree([1]), 4.4)','1'],['closest_value(build_tree([4, 2, 5, 1, 3]), 3.5)','3']],hints:['The closest value lies on the search path for target.'],approach:'Walk the search path, tracking the best.',cx:'O(h)'},
+    return best`,tests:[['closest_value(build_tree([4, 2, 5, 1, 3]), 3.714286)','4'],['closest_value(build_tree([1]), 4.4)','1'],['closest_value(build_tree([4, 2, 5, 1, 3]), 3.5)','3'],['closest_value(build_tree([4, 2, 5, 1, 3]), 0.1)','1']],constraints:['1 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Exploring both subtrees.','Ignoring the tie rule (return the smaller value).'],followup:'Return the k closest values.',hints:['The closest value lies on the search path for target.','Walk down like a search, keeping the closest value seen so far.'],approach:'Walk the search path, tracking the best.',cx:'O(h)'},
 {id:'bst-sorted-to-bst',type:'code',d:2,p:'divide-conquer',prelude:T,post:CHECK,title:'Sorted List to Balanced BST',prompt:'<p>Build a height-balanced BST from a sorted list of distinct numbers.</p>',starter:`def sorted_to_bst(nums):
     pass`,solution:`def sorted_to_bst(nums):
     def build(lo, hi):
@@ -223,7 +223,7 @@ while node.left:
         node.left = build(lo, mid - 1)
         node.right = build(mid + 1, hi)
         return node
-    return build(0, len(nums) - 1)`,tests:[['_inorder(sorted_to_bst([-10, -3, 0, 5, 9]))','[-10, -3, 0, 5, 9]','','inorder is the input'],['_height(sorted_to_bst(list(range(1000))))','10','','1,000 values → height 10'],['_valid(sorted_to_bst(list(range(50))))','True','','valid BST'],['sorted_to_bst([])','None']],hints:['Which value should be the root so both sides have the same size?','The middle element, then recurse on each half.'],approach:'Divide and conquer on the middle element.',cx:'O(n)'},
+    return build(0, len(nums) - 1)`,tests:[['_inorder(sorted_to_bst([-10, -3, 0, 5, 9]))','[-10, -3, 0, 5, 9]','','inorder is the input'],['_height(sorted_to_bst(list(range(1000))))','10','','1,000 values → height 10'],['_valid(sorted_to_bst(list(range(50))))','True','','valid BST'],['sorted_to_bst([])','None']],constraints:['0 ≤ len(nums) ≤ 10<sup>4</sup>','values are sorted and distinct'],mistakes:['Inserting values one by one in order, which builds a linked list.','Slicing in every call (O(n log n) copying); pass indexes.'],followup:'Build it from a sorted linked list.',hints:['Which value should be the root so both sides have the same size?','The middle element, then recurse on each half.'],approach:'Divide and conquer on the middle element.',cx:'O(n)'},
 {id:'bst-delete',type:'code',d:2,p:'bst',prelude:T,post:CHECK,title:'Delete Node in a BST',prompt:'<p>Delete the node with value key (if present) and return the root. The result must still be a valid BST.</p>',starter:`def delete_node(root, key):
     pass`,solution:`def delete_node(root, key):
     if root is None:
@@ -242,7 +242,7 @@ while node.left:
             succ = succ.left
         root.val = succ.val
         root.right = delete_node(root.right, succ.val)
-    return root`,tests:[['_inorder(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 3))','[2, 4, 5, 6, 7]','','delete a node with two children'],['_valid(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 5))','True','','delete the root'],['_inorder(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 0))','[2, 3, 4, 5, 6, 7]','','key not present'],['delete_node(build_tree([1]), 1)','None','','delete the only node']],hints:['Find the node first, like a search.','Three cases: leaf, one child (return the child), two children (copy the successor, then delete it from the right subtree).'],approach:'Recursive delete with the in-order successor.',cx:'O(h)'},
+    return root`,tests:[['_inorder(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 3))','[2, 4, 5, 6, 7]','','delete a node with two children'],['_valid(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 5))','True','','delete the root'],['_inorder(delete_node(build_tree([5, 3, 6, 2, 4, None, 7]), 0))','[2, 3, 4, 5, 6, 7]','','key not present'],['delete_node(build_tree([1]), 1)','None','','delete the only node']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Losing the subtree of a node with one child.','For two children, forgetting to delete the successor from the right subtree.'],followup:'Delete all nodes in a value range.',hints:['Find the node first, like a search.','Three cases: leaf, one child (return the child), two children (copy the successor, then delete it from the right subtree).'],approach:'Recursive delete with the in-order successor.',cx:'O(h)'},
 {id:'bst-two-sum',type:'code',d:2,p:'two-pointers',prelude:T,title:'Two Sum in a BST',prompt:'<p>Return True if two different nodes sum to k.</p>',starter:`def find_target(root, k):
     pass`,solution:`def find_target(root, k):
     vals = []
@@ -261,7 +261,7 @@ while node.left:
             i += 1
         else:
             j -= 1
-    return False`,tests:[['find_target(build_tree([5, 3, 6, 2, 4, None, 7]), 9)','True'],['find_target(build_tree([5, 3, 6, 2, 4, None, 7]), 28)','False'],['find_target(build_tree([1]), 2)','False']],hints:['Inorder gives a sorted list.','Then it is pair-sum on a sorted array: two pointers (or a set while traversing).'],approach:'Inorder + two pointers.',cx:'O(n)'},
+    return False`,tests:[['find_target(build_tree([5, 3, 6, 2, 4, None, 7]), 9)','True'],['find_target(build_tree([5, 3, 6, 2, 4, None, 7]), 28)','False'],['find_target(build_tree([1]), 2)','False'],['find_target(build_tree([2, 1, 3]), 4)','True'],['find_target(build_tree([2, 1, 3]), 1)','False']],constraints:['1 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Using the same node twice (k = 2 × value).','Ignoring the BST: a set during any traversal works, but two pointers on the inorder list uses the order.'],followup:'Solve it with two BST iterators (one forward, one backward) in O(h) space.',hints:['Inorder gives a sorted list.','Then it is pair-sum on a sorted array: two pointers (or a set while traversing).'],approach:'Inorder + two pointers.',cx:'O(n)'},
 {id:'bst-successor',type:'code',d:2,p:'bst',prelude:T,title:'Inorder Successor',prompt:'<p>Return the smallest value strictly greater than x, or None, in O(h).</p>',starter:`def successor(root, x):
     pass`,solution:`def successor(root, x):
     best = None
@@ -271,7 +271,7 @@ while node.left:
             root = root.left
         else:
             root = root.right
-    return best`,tests:[['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 6)','8'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 8)','10'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 14)','None'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 5)','6']],hints:['Every time you go left, the current node is a candidate.'],approach:'Search path, remembering the last “went left” node.',cx:'O(h)'}
+    return best`,tests:[['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 6)','8'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 8)','10'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 14)','None'],['successor(build_tree([8, 4, 12, 2, 6, 10, 14]), 5)','6']],constraints:['1 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Only looking in the right subtree (the successor may be an ancestor).'],followup:'Find the predecessor too.',hints:['Every time you go left, the current node is a candidate.','Walk down: when the node is larger than x, it is a candidate and you go left; otherwise go right.'],approach:'Search path, remembering the last “went left” node.',cx:'O(h)'}
 ]);
 })();
 

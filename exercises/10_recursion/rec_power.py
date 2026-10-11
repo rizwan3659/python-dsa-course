@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- −100 < x < 100, 0 ≤ n ≤ 10^4
+
 Target complexity: O(log n)
 
 Check your work:   python dsa.py test rec-power

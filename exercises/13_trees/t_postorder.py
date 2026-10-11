@@ -8,6 +8,11 @@ Examples:
     postorder(build_tree([1, 2, 3, 4, 5]))  ->  [4, 5, 2, 3, 1]
     postorder(build_tree([]))  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-postorder

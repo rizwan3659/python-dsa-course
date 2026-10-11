@@ -11,6 +11,10 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ len(nums) ≤ 10^6
+- nums is sorted, values distinct
+
 Target complexity: O(log n)
 
 Check your work:   python dsa.py test bs-search

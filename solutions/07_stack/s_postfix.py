@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Operand stack; each operator pops two and pushes the result.
+
+Common mistakes:
+- Using // for division, which floors instead of truncating toward zero for
+  negatives.
+- Popping operands in the wrong order for - and /.
+
+Follow-up challenge: Convert an infix expression to postfix (shunting-yard).
 """
 
 

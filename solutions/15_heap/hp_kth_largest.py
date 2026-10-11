@@ -3,6 +3,12 @@
 Complexity: O(n log k)
 
 Approach: Min-heap of size k.
+
+Common mistakes:
+- Using a max-heap of all n elements (O(n log n)).
+- Popping when the heap has k elements instead of more than k.
+
+Follow-up challenge: Keep it working for a stream of numbers.
 """
 
 

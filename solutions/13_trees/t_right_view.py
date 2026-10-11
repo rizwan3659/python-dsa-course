@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: BFS by levels.
+
+Common mistakes:
+- Following only right children (left nodes can be visible).
+- Taking the first node of each level instead of the last.
+
+Follow-up challenge: Return the left side view.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

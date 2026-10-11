@@ -12,6 +12,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ k ≤ len(nums) ≤ 10^5
+
 Target complexity: O(n) time, O(1) space
 
 Check your work:   python dsa.py test arr-max-sum-k

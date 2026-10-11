@@ -3,6 +3,13 @@
 Complexity: O(n + m) time
 
 Approach: Build each final string with a stack and compare.
+
+Common mistakes:
+- Popping from an empty stack when # comes first.
+- Using str.replace, which cannot handle consecutive #.
+
+Follow-up challenge: Solve it in O(1) extra space by scanning both strings
+from the end.
 """
 
 

@@ -9,6 +9,12 @@ Examples:
     sort_k_sorted([2, 1, 4, 3], 1)  ->  [1, 2, 3, 4]
     sort_k_sorted([], 2)  ->  []
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(nums) ≤ 10^5
+- 0 ≤ k < len(nums)
+
 Target complexity: O(n log k)
 
 Check your work:   python dsa.py test hp-sort-k

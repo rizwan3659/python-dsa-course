@@ -3,6 +3,12 @@
 Complexity: O(log x)
 
 Approach: Binary search on the answer.
+
+Common mistakes:
+- Using mid * mid > x with float division.
+- Returning lo instead of hi (or vice versa) after the loop.
+
+Follow-up challenge: Compute the square root to 6 decimal places.
 """
 
 

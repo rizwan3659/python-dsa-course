@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Prefix balance + dict of first occurrence.
+
+Common mistakes:
+- Updating the first-seen index of a balance, which shortens answers.
+- Forgetting that balance 0 is "seen" at index −1.
+
+Follow-up challenge: Same question for a string of letters: equal vowels and
+consonants.
 """
 
 

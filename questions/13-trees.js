@@ -195,7 +195,7 @@ while stack:
     pass`,solution:`def preorder(root):
     if root is None:
         return []
-    return [root.val] + preorder(root.left) + preorder(root.right)`,tests:[['preorder(build_tree([1, None, 2, 3]))','[1, 2, 3]'],['preorder(build_tree([1, 2, 3, 4, 5]))','[1, 2, 4, 5, 3]'],['preorder(build_tree([]))','[]']],hints:['Handle None, then combine: node, left result, right result.'],approach:'Recursive DFS (or an explicit stack).',cx:'O(n)'},
+    return [root.val] + preorder(root.left) + preorder(root.right)`,tests:[['preorder(build_tree([1, None, 2, 3]))','[1, 2, 3]'],['preorder(build_tree([1, 2, 3, 4, 5]))','[1, 2, 4, 5, 3]'],['preorder(build_tree([]))','[]'],['preorder(build_tree([1]))','[1]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Appending the root after the children (that is postorder).','Forgetting the None base case.'],followup:'Write it iteratively with a stack.',hints:['Handle None, then combine: node, left result, right result.','Visit the node, then recurse on left, then right.'],approach:'Recursive DFS (or an explicit stack).',cx:'O(n)'},
 {id:'t-inorder',type:'code',d:1,p:'dfs',prelude:T,title:'Inorder Traversal',prompt:'<p>Return the inorder traversal (left, root, right). Bonus: do it without recursion, using a stack.</p>',starter:`def inorder(root):
     pass`,solution:`def inorder(root):
     out, stack, node = [], [], root
@@ -206,12 +206,12 @@ while stack:
         node = stack.pop()
         out.append(node.val)
         node = node.right
-    return out`,tests:[['inorder(build_tree([1, None, 2, 3]))','[1, 3, 2]'],['inorder(build_tree([1, 2, 3, 4, 5]))','[4, 2, 5, 1, 3]'],['inorder(build_tree([]))','[]']],hints:['Recursive version: left list + [val] + right list.','Iterative: push nodes while going left; pop one, visit it, then go to its right child.'],approach:'Recursion, or a stack simulating it.',cx:'O(n)'},
+    return out`,tests:[['inorder(build_tree([1, None, 2, 3]))','[1, 3, 2]'],['inorder(build_tree([1, 2, 3, 4, 5]))','[4, 2, 5, 1, 3]'],['inorder(build_tree([]))','[]'],['inorder(build_tree([2, 1, 3]))','[1, 2, 3]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Pushing right children before going left in the iterative version.','Forgetting the None base case.'],followup:'Morris traversal: O(1) extra space.',hints:['Recursive version: left list + [val] + right list.','Iterative: push nodes while going left; pop one, visit it, then go to its right child.'],approach:'Recursion, or a stack simulating it.',cx:'O(n)'},
 {id:'t-postorder',type:'code',d:1,p:'dfs',prelude:T,title:'Postorder Traversal',prompt:'<p>Return the postorder traversal (left, right, root).</p>',starter:`def postorder(root):
     pass`,solution:`def postorder(root):
     if root is None:
         return []
-    return postorder(root.left) + postorder(root.right) + [root.val]`,tests:[['postorder(build_tree([1, None, 2, 3]))','[3, 2, 1]'],['postorder(build_tree([1, 2, 3, 4, 5]))','[4, 5, 2, 3, 1]'],['postorder(build_tree([]))','[]']],hints:['Same shape as preorder, with the node last.'],approach:'Recursive DFS.',cx:'O(n)'},
+    return postorder(root.left) + postorder(root.right) + [root.val]`,tests:[['postorder(build_tree([1, None, 2, 3]))','[3, 2, 1]'],['postorder(build_tree([1, 2, 3, 4, 5]))','[4, 5, 2, 3, 1]'],['postorder(build_tree([]))','[]'],['postorder(build_tree([1, 2]))','[2, 1]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Visiting the root before its children.','In the iterative version, reversing the wrong traversal.'],followup:'Iterative postorder with one stack.',hints:['Same shape as preorder, with the node last.','Recurse left, recurse right, then append the node’s value.'],approach:'Recursive DFS.',cx:'O(n)'},
 {id:'t-level-order',type:'code',d:2,p:'bfs',prelude:T,title:'Level Order Traversal',prompt:'<p>Return the values level by level, as a list of lists.</p><p><code>[3, 9, 20, None, None, 15, 7]</code> → <code>[[3], [9, 20], [15, 7]]</code></p>',starter:`def level_order(root):
     pass`,solution:`def level_order(root):
     if not root:
@@ -227,12 +227,12 @@ while stack:
             if node.right:
                 queue.append(node.right)
         result.append(level)
-    return result`,tests:[['level_order(build_tree([3, 9, 20, None, None, 15, 7]))','[[3], [9, 20], [15, 7]]'],['level_order(build_tree([1]))','[[1]]'],['level_order(build_tree([]))','[]']],hints:['BFS with a queue (deque is available).','Process exactly len(queue) nodes per round: that is one level.'],approach:'BFS, one level per round.',cx:'O(n)'},
+    return result`,tests:[['level_order(build_tree([3, 9, 20, None, None, 15, 7]))','[[3], [9, 20], [15, 7]]'],['level_order(build_tree([1]))','[[1]]'],['level_order(build_tree([]))','[]'],['level_order(build_tree([1, 2, None, 3]))','[[1], [2], [3]]']],constraints:['0 ≤ number of nodes ≤ 2000'],mistakes:['Mixing levels because you do not process the queue one level at a time.','Using a list with pop(0): O(n) per pop.'],followup:'Return the levels bottom-up.',hints:['BFS with a queue (deque is available).','Process exactly len(queue) nodes per round: that is one level.'],approach:'BFS, one level per round.',cx:'O(n)'},
 {id:'t-max-depth',type:'code',d:1,p:'tree',prelude:T,title:'Maximum Depth',prompt:'<p>Return the number of nodes on the longest root-to-leaf path.</p>',starter:`def max_depth(root):
     pass`,solution:`def max_depth(root):
     if root is None:
         return 0
-    return 1 + max(max_depth(root.left), max_depth(root.right))`,tests:[['max_depth(build_tree([3, 9, 20, None, None, 15, 7]))','3'],['max_depth(build_tree([1, None, 2]))','2'],['max_depth(build_tree([]))','0']],hints:['An empty tree has depth 0.'],approach:'1 + the deeper subtree.',cx:'O(n)'},
+    return 1 + max(max_depth(root.left), max_depth(root.right))`,tests:[['max_depth(build_tree([3, 9, 20, None, None, 15, 7]))','3'],['max_depth(build_tree([1, None, 2]))','2'],['max_depth(build_tree([]))','0'],['max_depth(build_tree([1, 2, 3, 4, None, None, 5, 6]))','4']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Returning 1 for an empty tree.','Counting edges instead of nodes.'],followup:'Solve it iteratively with BFS, counting levels.',hints:['An empty tree has depth 0.','Recursion: handle the empty tree (None) first, then combine the answers of the left and right subtrees.'],approach:'1 + the deeper subtree.',cx:'O(n)'},
 {id:'t-min-depth',type:'code',d:1,p:'bfs',prelude:T,title:'Minimum Depth',prompt:'<p>Return the number of nodes on the shortest path from the root to a <b>leaf</b>.</p>',starter:`def min_depth(root):
     pass`,solution:`def min_depth(root):
     if not root:
@@ -244,36 +244,36 @@ while stack:
             return d                      # first leaf found by BFS is the shallowest
         for child in (node.left, node.right):
             if child:
-                queue.append((child, d + 1))`,tests:[['min_depth(build_tree([3, 9, 20, None, None, 15, 7]))','2'],['min_depth(build_tree([2, None, 3, None, 4, None, 5, None, 6]))','5'],['min_depth(build_tree([]))','0']],hints:['Careful: a node with one child is not a leaf, so min(left, right) of a missing side is wrong.','BFS can stop at the first leaf it sees.'],approach:'BFS to the first leaf.',cx:'O(n)'},
+                queue.append((child, d + 1))`,tests:[['min_depth(build_tree([3, 9, 20, None, None, 15, 7]))','2'],['min_depth(build_tree([2, None, 3, None, 4, None, 5, None, 6]))','5'],['min_depth(build_tree([]))','0'],['min_depth(build_tree([1, 2]))','2']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Taking min(left, right) when one side is empty (a node with one child is not a leaf).'],followup:'Solve it with BFS, stopping at the first leaf.',hints:['Careful: a node with one child is not a leaf, so min(left, right) of a missing side is wrong.','BFS can stop at the first leaf it sees.'],approach:'BFS to the first leaf.',cx:'O(n)'},
 {id:'t-count',type:'code',d:1,p:'tree',prelude:T,title:'Count Nodes',prompt:'<p>Return the number of nodes in the tree.</p>',starter:`def count_nodes(root):
     pass`,solution:`def count_nodes(root):
     if root is None:
         return 0
-    return 1 + count_nodes(root.left) + count_nodes(root.right)`,tests:[['count_nodes(build_tree([1, 2, 3, 4, 5, 6]))','6'],['count_nodes(build_tree([]))','0']],hints:['1 for this node plus the counts of both subtrees.'],approach:'Tree recursion.',cx:'O(n)'},
+    return 1 + count_nodes(root.left) + count_nodes(root.right)`,tests:[['count_nodes(build_tree([1, 2, 3, 4, 5, 6]))','6'],['count_nodes(build_tree([]))','0'],['count_nodes(build_tree([1]))','1'],['count_nodes(build_tree([1, None, 2, None, 3]))','3']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Forgetting to count the node itself.','Returning 1 for an empty tree.'],followup:'Count the nodes of a complete binary tree in O(log² n).',hints:['1 for this node plus the counts of both subtrees.','Recursion: handle the empty tree (None) first, then combine the answers of the left and right subtrees.'],approach:'Tree recursion.',cx:'O(n)'},
 {id:'t-leaves',type:'code',d:1,p:'tree',prelude:T,title:'Sum of Leaves',prompt:'<p>Return the sum of the values of all leaves.</p>',starter:`def leaf_sum(root):
     pass`,solution:`def leaf_sum(root):
     if root is None:
         return 0
     if root.left is None and root.right is None:
         return root.val
-    return leaf_sum(root.left) + leaf_sum(root.right)`,tests:[['leaf_sum(build_tree([1, 2, 3, 4, 5]))','12'],['leaf_sum(build_tree([7]))','7'],['leaf_sum(build_tree([]))','0']],hints:['Two base cases: None (0) and a leaf (its value).'],approach:'Recursion with a leaf check.',cx:'O(n)'},
+    return leaf_sum(root.left) + leaf_sum(root.right)`,tests:[['leaf_sum(build_tree([1, 2, 3, 4, 5]))','12'],['leaf_sum(build_tree([7]))','7'],['leaf_sum(build_tree([]))','0'],['leaf_sum(build_tree([1, 2, None, 3]))','3']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Counting nodes with one child as leaves.','Adding internal node values.'],followup:'Sum only the left leaves.',hints:['Two base cases: None (0) and a leaf (its value).','A leaf has no left and no right child; return its value, otherwise sum the two subtrees.'],approach:'Recursion with a leaf check.',cx:'O(n)'},
 {id:'t-invert',type:'code',d:1,p:'tree',prelude:T,title:'Invert Binary Tree',prompt:'<p>Mirror the tree (swap every left and right child) and return its root.</p>',starter:`def invert_tree(root):
     pass`,solution:`def invert_tree(root):
     if root:
         root.left, root.right = invert_tree(root.right), invert_tree(root.left)
-    return root`,tests:[['tree_to_list(invert_tree(build_tree([4, 2, 7, 1, 3, 6, 9])))','[4, 7, 2, 9, 6, 3, 1]'],['tree_to_list(invert_tree(build_tree([2, 1, 3])))','[2, 3, 1]'],['tree_to_list(invert_tree(build_tree([])))','[]']],hints:['Invert each subtree, then swap them.'],approach:'Recursive swap.',cx:'O(n)'},
+    return root`,tests:[['tree_to_list(invert_tree(build_tree([4, 2, 7, 1, 3, 6, 9])))','[4, 7, 2, 9, 6, 3, 1]'],['tree_to_list(invert_tree(build_tree([2, 1, 3])))','[2, 3, 1]'],['tree_to_list(invert_tree(build_tree([])))','[]'],['tree_to_list(invert_tree(build_tree([1, 2])))','[1, None, 2]']],constraints:['0 ≤ number of nodes ≤ 100'],mistakes:['Swapping only the root’s children.','Overwriting one child before saving it.'],followup:'Do it iteratively with a queue.',hints:['Invert each subtree, then swap them.','Swap the children of each node, then invert both subtrees.'],approach:'Recursive swap.',cx:'O(n)'},
 {id:'t-same',type:'code',d:1,p:'tree',prelude:T,title:'Same Tree',prompt:'<p>Return True if two trees have the same shape and values.</p>',starter:`def is_same(p, q):
     pass`,solution:`def is_same(p, q):
     if p is None or q is None:
         return p is q
-    return p.val == q.val and is_same(p.left, q.left) and is_same(p.right, q.right)`,tests:[['is_same(build_tree([1, 2, 3]), build_tree([1, 2, 3]))','True'],['is_same(build_tree([1, 2]), build_tree([1, None, 2]))','False'],['is_same(build_tree([]), build_tree([]))','True']],hints:['Both None → True; exactly one None → False.'],approach:'Compare roots, then both pairs of subtrees.',cx:'O(n)'},
+    return p.val == q.val and is_same(p.left, q.left) and is_same(p.right, q.right)`,tests:[['is_same(build_tree([1, 2, 3]), build_tree([1, 2, 3]))','True'],['is_same(build_tree([1, 2]), build_tree([1, None, 2]))','False'],['is_same(build_tree([]), build_tree([]))','True'],['is_same(build_tree([1, 2, 1]), build_tree([1, 1, 2]))','False']],constraints:['0 ≤ number of nodes ≤ 100'],mistakes:['Comparing only values, not shape.','Not handling the case where exactly one node is None.'],followup:'Check whether two trees are mirror images.',hints:['Both None → True; exactly one None → False.','Two empty trees are the same; one empty is not; otherwise compare values and both subtrees.'],approach:'Compare roots, then both pairs of subtrees.',cx:'O(n)'},
 {id:'t-symmetric',type:'code',d:1,p:'tree',prelude:T,title:'Symmetric Tree',prompt:'<p>Return True if the tree is a mirror of itself.</p>',starter:`def is_symmetric(root):
     pass`,solution:`def is_symmetric(root):
     def mirror(a, b):
         if a is None or b is None:
             return a is b
         return a.val == b.val and mirror(a.left, b.right) and mirror(a.right, b.left)
-    return mirror(root, root)`,tests:[['is_symmetric(build_tree([1, 2, 2, 3, 4, 4, 3]))','True'],['is_symmetric(build_tree([1, 2, 2, None, 3, None, 3]))','False'],['is_symmetric(build_tree([]))','True']],hints:['Compare two trees that should be mirror images: left with right, outer with outer, inner with inner.'],approach:'Mirror comparison helper.',cx:'O(n)'},
+    return mirror(root, root)`,tests:[['is_symmetric(build_tree([1, 2, 2, 3, 4, 4, 3]))','True'],['is_symmetric(build_tree([1, 2, 2, None, 3, None, 3]))','False'],['is_symmetric(build_tree([]))','True'],['is_symmetric(build_tree([1]))','True']],constraints:['0 ≤ number of nodes ≤ 1000'],mistakes:['Comparing left with left instead of left with right.','Checking only that each level is a palindrome (shape matters).'],followup:'Solve it iteratively with a queue of node pairs.',hints:['Compare two trees that should be mirror images: left with right, outer with outer, inner with inner.','Write a helper mirror(a, b): values equal, a.left mirrors b.right and a.right mirrors b.left.'],approach:'Mirror comparison helper.',cx:'O(n)'},
 {id:'t-path-sum',type:'code',d:1,p:'dfs',prelude:T,title:'Path Sum',prompt:'<p>Return True if some root-to-<b>leaf</b> path adds up to target.</p>',starter:`def has_path_sum(root, target):
     pass`,solution:`def has_path_sum(root, target):
     if root is None:
@@ -281,7 +281,7 @@ while stack:
     target -= root.val
     if root.left is None and root.right is None:
         return target == 0
-    return has_path_sum(root.left, target) or has_path_sum(root.right, target)`,tests:[['has_path_sum(build_tree([5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]), 22)','True'],['has_path_sum(build_tree([1, 2, 3]), 5)','False'],['has_path_sum(build_tree([1, 2]), 1)','False'],['has_path_sum(build_tree([]), 0)','False']],hints:['Subtract the node’s value and pass the remainder down.','Only check the remainder at a leaf.'],approach:'DFS carrying the remaining sum.',cx:'O(n)'},
+    return has_path_sum(root.left, target) or has_path_sum(root.right, target)`,tests:[['has_path_sum(build_tree([5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]), 22)','True'],['has_path_sum(build_tree([1, 2, 3]), 5)','False'],['has_path_sum(build_tree([1, 2]), 1)','False'],['has_path_sum(build_tree([]), 0)','False']],constraints:['0 ≤ number of nodes ≤ 5000'],mistakes:['Checking the sum at internal nodes instead of leaves.','Returning True for an empty tree and target 0.'],followup:'Return all root-to-leaf paths with the target sum.',hints:['Subtract the node’s value and pass the remainder down.','Only check the remainder at a leaf.'],approach:'DFS carrying the remaining sum.',cx:'O(n)'},
 {id:'t-paths',type:'code',d:2,p:'backtracking',prelude:T,title:'All Root-to-Leaf Paths',prompt:'<p>Return every root-to-leaf path as a string like <code>"1->2->5"</code>, left to right.</p>',starter:`def binary_tree_paths(root):
     pass`,solution:`def binary_tree_paths(root):
     out = []
@@ -294,7 +294,7 @@ while stack:
         dfs(node.left, path)
         dfs(node.right, path)
     dfs(root, [])
-    return out`,tests:[['binary_tree_paths(build_tree([1, 2, 3, None, 5]))','["1->2->5", "1->3"]'],['binary_tree_paths(build_tree([1]))','["1"]'],['binary_tree_paths(build_tree([]))','[]']],hints:['Carry the path so far down the recursion; record it at leaves.'],approach:'DFS with the current path.',cx:'O(n · h)'},
+    return out`,tests:[['binary_tree_paths(build_tree([1, 2, 3, None, 5]))','["1->2->5", "1->3"]'],['binary_tree_paths(build_tree([1]))','["1"]'],['binary_tree_paths(build_tree([]))','[]'],['binary_tree_paths(build_tree([1, 2]))','["1->2"]']],constraints:['1 ≤ number of nodes ≤ 100'],mistakes:['Adding a path at a node with one child.','Building strings with a shared list that is not undone.'],followup:'Return the path with the largest sum.',hints:['Carry the path so far down the recursion; record it at leaves.','Carry the path so far down the recursion; at a leaf, join it with "->".'],approach:'DFS with the current path.',cx:'O(n · h)'},
 {id:'t-avg-levels',type:'code',d:1,p:'bfs',prelude:T,title:'Average of Levels',prompt:'<p>Return the average value of each level, top to bottom.</p>',starter:`def average_of_levels(root):
     pass`,solution:`def average_of_levels(root):
     out, queue = [], deque([root]) if root else deque()
@@ -308,7 +308,7 @@ while stack:
             if node.right:
                 queue.append(node.right)
         out.append(total / size)
-    return out`,tests:[['average_of_levels(build_tree([3, 9, 20, None, None, 15, 7]))','[3.0, 14.5, 11.0]'],['average_of_levels(build_tree([]))','[]']],hints:['Level-order BFS, summing each level.'],approach:'BFS by levels.',cx:'O(n)'},
+    return out`,tests:[['average_of_levels(build_tree([3, 9, 20, None, None, 15, 7]))','[3.0, 14.5, 11.0]'],['average_of_levels(build_tree([]))','[]'],['average_of_levels(build_tree([1, 2, 3]))','[1.0, 2.5]'],['average_of_levels(build_tree([5]))','[5.0]']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Using integer division.','Averaging over the whole tree.'],followup:'Return the maximum of each level.',hints:['Level-order BFS, summing each level.','BFS level by level: sum the values of a level and divide by its size.'],approach:'BFS by levels.',cx:'O(n)'},
 {id:'t-diameter',type:'code',d:2,p:'tree',prelude:T,title:'Diameter of a Binary Tree',prompt:'<p>Return the number of <b>edges</b> on the longest path between any two nodes (it need not pass through the root).</p>',starter:`def diameter(root):
     pass`,solution:`def diameter(root):
     best = 0
@@ -320,7 +320,7 @@ while stack:
         best = max(best, left + right)      # longest path bending at this node
         return 1 + max(left, right)
     height(root)
-    return best`,tests:[['diameter(build_tree([1, 2, 3, 4, 5]))','3'],['diameter(build_tree([1, 2]))','1'],['diameter(build_tree([]))','0'],['diameter(build_tree([1, 2, None, 3, 4, 5, None, None, 6]))','4']],hints:['The longest path bends at some node: left height + right height.','Compute heights bottom-up and update a best value as you go: one pass.'],approach:'Postorder heights + a running maximum.',cx:'O(n)'},
+    return best`,tests:[['diameter(build_tree([1, 2, 3, 4, 5]))','3'],['diameter(build_tree([1, 2]))','1'],['diameter(build_tree([]))','0'],['diameter(build_tree([1, 2, None, 3, 4, 5, None, None, 6]))','4']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Assuming the longest path passes through the root.','Counting nodes instead of edges.'],followup:'Return the diameter of an n-ary tree.',hints:['The longest path bends at some node: left height + right height.','Compute heights bottom-up and update a best value as you go: one pass.'],approach:'Postorder heights + a running maximum.',cx:'O(n)'},
 {id:'t-balanced',type:'code',d:2,p:'tree',prelude:T,title:'Balanced Binary Tree',prompt:'<p>A tree is height-balanced if, at every node, the subtree heights differ by at most 1. Check it in O(n).</p>',starter:`def is_balanced(root):
     pass`,solution:`def is_balanced(root):
     def check(node):                     # height, or -1 if unbalanced
@@ -333,7 +333,7 @@ while stack:
         if right == -1 or abs(left - right) > 1:
             return -1
         return 1 + max(left, right)
-    return check(root) != -1`,tests:[['is_balanced(build_tree([3, 9, 20, None, None, 15, 7]))','True'],['is_balanced(build_tree([1, 2, 2, 3, 3, None, None, 4, 4]))','False'],['is_balanced(build_tree([]))','True'],['is_balanced(build_tree([1, None, 2, None, 3]))','False']],hints:['Calling height() at every node is O(n²).','Return the height and the verdict together; use −1 to mean “not balanced”.'],approach:'One postorder pass returning height or −1.',cx:'O(n)'},
+    return check(root) != -1`,tests:[['is_balanced(build_tree([3, 9, 20, None, None, 15, 7]))','True'],['is_balanced(build_tree([1, 2, 2, 3, 3, None, None, 4, 4]))','False'],['is_balanced(build_tree([]))','True'],['is_balanced(build_tree([1, None, 2, None, 3]))','False']],constraints:['0 ≤ number of nodes ≤ 5000'],mistakes:['Calling height() at every node: O(n²).','Checking balance only at the root.'],followup:'Return the height difference that is largest anywhere in the tree.',hints:['Calling height() at every node is O(n²).','Return the height and the verdict together; use −1 to mean “not balanced”.'],approach:'One postorder pass returning height or −1.',cx:'O(n)'},
 {id:'t-right-view',type:'code',d:2,p:'bfs',prelude:T,title:'Right Side View',prompt:'<p>Return the values you would see standing on the right of the tree, top to bottom.</p>',starter:`def right_side_view(root):
     pass`,solution:`def right_side_view(root):
     out, queue = [], deque([root]) if root else deque()
@@ -346,7 +346,7 @@ while stack:
                 queue.append(node.right)
             if node.left:
                 queue.append(node.left)
-    return out`,tests:[['right_side_view(build_tree([1, 2, 3, None, 5, None, 4]))','[1, 3, 4]'],['right_side_view(build_tree([1, 2, 3, 4]))','[1, 3, 4]'],['right_side_view(build_tree([]))','[]']],hints:['The visible node of each level is its rightmost node.','BFS by levels; take the last node of each level (or the first, if you enqueue right before left).'],approach:'BFS by levels.',cx:'O(n)'},
+    return out`,tests:[['right_side_view(build_tree([1, 2, 3, None, 5, None, 4]))','[1, 3, 4]'],['right_side_view(build_tree([1, 2, 3, 4]))','[1, 3, 4]'],['right_side_view(build_tree([]))','[]'],['right_side_view(build_tree([1, 2]))','[1, 2]']],constraints:['0 ≤ number of nodes ≤ 100'],mistakes:['Following only right children (left nodes can be visible).','Taking the first node of each level instead of the last.'],followup:'Return the left side view.',hints:['The visible node of each level is its rightmost node.','BFS by levels; take the last node of each level (or the first, if you enqueue right before left).'],approach:'BFS by levels.',cx:'O(n)'},
 {id:'t-zigzag',type:'code',d:2,p:'bfs',prelude:T,title:'Zigzag Level Order',prompt:'<p>Level order, but alternate direction each level: left→right, then right→left, …</p>',starter:`def zigzag(root):
     pass`,solution:`def zigzag(root):
     out, queue, left_to_right = [], deque([root]) if root else deque(), True
@@ -361,7 +361,7 @@ while stack:
                 queue.append(node.right)
         out.append(level if left_to_right else level[::-1])
         left_to_right = not left_to_right
-    return out`,tests:[['zigzag(build_tree([3, 9, 20, None, None, 15, 7]))','[[3], [20, 9], [15, 7]]'],['zigzag(build_tree([1, 2, 3, 4, 5, 6, 7]))','[[1], [3, 2], [4, 5, 6, 7]]'],['zigzag(build_tree([]))','[]']],hints:['Normal level order, then reverse every other level.'],approach:'BFS by levels + a direction flag.',cx:'O(n)'},
+    return out`,tests:[['zigzag(build_tree([3, 9, 20, None, None, 15, 7]))','[[3], [20, 9], [15, 7]]'],['zigzag(build_tree([1, 2, 3, 4, 5, 6, 7]))','[[1], [3, 2], [4, 5, 6, 7]]'],['zigzag(build_tree([]))','[]'],['zigzag(build_tree([1]))','[[1]]']],constraints:['0 ≤ number of nodes ≤ 2000'],mistakes:['Reversing the order you visit children (that changes the next level).','Reversing every level.'],followup:'Use a deque and append on alternate sides instead of reversing.',hints:['Normal level order, then reverse every other level.','Do a normal level order, and reverse every second level before adding it.'],approach:'BFS by levels + a direction flag.',cx:'O(n)'},
 {id:'t-subtree',type:'code',d:2,p:'tree',prelude:T,title:'Subtree of Another Tree',prompt:'<p>Return True if <code>sub</code> appears in <code>root</code> as a node together with all its descendants.</p>',starter:`def is_subtree(root, sub):
     pass`,solution:`def is_subtree(root, sub):
     def same(a, b):
@@ -370,7 +370,7 @@ while stack:
         return a.val == b.val and same(a.left, b.left) and same(a.right, b.right)
     if root is None:
         return sub is None
-    return same(root, sub) or is_subtree(root.left, sub) or is_subtree(root.right, sub)`,tests:[['is_subtree(build_tree([3, 4, 5, 1, 2]), build_tree([4, 1, 2]))','True'],['is_subtree(build_tree([3, 4, 5, 1, 2, None, None, None, None, 0]), build_tree([4, 1, 2]))','False'],['is_subtree(build_tree([1, 1]), build_tree([1]))','True']],hints:['At every node of root, ask: is the tree starting here the same as sub?'],approach:'Same-tree check at every node.',cx:'O(n · m)'},
+    return same(root, sub) or is_subtree(root.left, sub) or is_subtree(root.right, sub)`,tests:[['is_subtree(build_tree([3, 4, 5, 1, 2]), build_tree([4, 1, 2]))','True'],['is_subtree(build_tree([3, 4, 5, 1, 2, None, None, None, None, 0]), build_tree([4, 1, 2]))','False'],['is_subtree(build_tree([1, 1]), build_tree([1]))','True'],['is_subtree(build_tree([1, 1]), build_tree([1]))','True']],constraints:['1 ≤ nodes in root ≤ 2000, 1 ≤ nodes in sub ≤ 1000'],mistakes:['Matching values but not the full subtree below (extra descendants).','Only checking the root of root.'],followup:'Solve it in O(n + m) by serialising both trees and searching for a substring.',hints:['At every node of root, ask: is the tree starting here the same as sub?','At every node of root, check is_same(node, sub).'],approach:'Same-tree check at every node.',cx:'O(n · m)'},
 {id:'t-lca',type:'code',d:2,p:'tree',prelude:T,title:'Lowest Common Ancestor',prompt:'<p>Values are distinct. Return the value of the lowest node that has both p and q as descendants (a node counts as its own descendant).</p>',starter:`def lca(root, p, q):
     pass`,solution:`def lca(root, p, q):
     def go(node):
@@ -380,7 +380,7 @@ while stack:
         if left and right:
             return node              # p and q are on different sides
         return left or right
-    return go(root).val`,tests:[['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 5, 1)','3'],['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 5, 4)','5'],['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 6, 4)','5'],['lca(build_tree([1, 2]), 1, 2)','1']],hints:['Let each subtree report whether it contains p or q.','If p is found in the left subtree and q in the right, the current node is the answer.'],approach:'Postorder: return the found node upward; the first node with hits on both sides is the LCA.',cx:'O(n)'},
+    return go(root).val`,tests:[['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 5, 1)','3'],['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 5, 4)','5'],['lca(build_tree([3, 5, 1, 6, 2, 0, 8, None, None, 7, 4]), 6, 4)','5'],['lca(build_tree([1, 2]), 1, 2)','1']],constraints:['2 ≤ number of nodes ≤ 10<sup>5</sup>','p and q exist'],mistakes:['Returning the deeper of p and q instead of their ancestor.','Searching each subtree twice (O(n²)).'],followup:'p or q may be missing from the tree: return None then.',hints:['Let each subtree report whether it contains p or q.','If p is found in the left subtree and q in the right, the current node is the answer.'],approach:'Postorder: return the found node upward; the first node with hits on both sides is the LCA.',cx:'O(n)'},
 {id:'t-max-path',type:'code',d:3,p:'tree',prelude:T,title:'Maximum Path Sum',prompt:'<p>A path is any sequence of connected nodes (it does not need to pass through the root). Return the maximum sum of a non-empty path.</p>',starter:`def max_path_sum(root):
     pass`,solution:`def max_path_sum(root):
     best = float("-inf")
@@ -393,7 +393,7 @@ while stack:
         best = max(best, node.val + left + right)
         return node.val + max(left, right)
     gain(root)
-    return best`,tests:[['max_path_sum(build_tree([1, 2, 3]))','6'],['max_path_sum(build_tree([-10, 9, 20, None, None, 15, 7]))','42'],['max_path_sum(build_tree([-3]))','-3'],['max_path_sum(build_tree([2, -1]))','2']],hints:['Like the diameter: the best path bends at some node, using its best left and right downward branches.','A branch with a negative sum is better left out: max(gain, 0).'],approach:'Postorder gains + global best.',cx:'O(n)'},
+    return best`,tests:[['max_path_sum(build_tree([1, 2, 3]))','6'],['max_path_sum(build_tree([-10, 9, 20, None, None, 15, 7]))','42'],['max_path_sum(build_tree([-3]))','-3'],['max_path_sum(build_tree([2, -1]))','2']],constraints:['1 ≤ number of nodes ≤ 3 × 10<sup>4</sup>'],mistakes:['Returning a path that branches (both children) to the parent.','Not ignoring negative child contributions (use max(0, gain)).'],followup:'Return the path’s nodes, not just its sum.',hints:['Like the diameter: the best path bends at some node, using its best left and right downward branches.','A branch with a negative sum is better left out: max(gain, 0).'],approach:'Postorder gains + global best.',cx:'O(n)'},
 {id:'t-build',type:'code',d:3,p:'divide-conquer',prelude:T,title:'Build Tree From Preorder and Inorder',prompt:'<p>Values are distinct. Rebuild the tree from its preorder and inorder traversals.</p>',starter:`def build_from(preorder, inorder):
     pass`,solution:`def build_from(preorder, inorder):
     pos = {v: i for i, v in enumerate(inorder)}
@@ -406,7 +406,7 @@ while stack:
         node.left = make(lo, pos[val] - 1)
         node.right = make(pos[val] + 1, hi)
         return node
-    return make(0, len(inorder) - 1)`,tests:[['tree_to_list(build_from([3, 9, 20, 15, 7], [9, 3, 15, 20, 7]))','[3, 9, 20, None, None, 15, 7]'],['tree_to_list(build_from([1, 2], [2, 1]))','[1, 2]'],['tree_to_list(build_from([], []))','[]']],hints:['The first preorder value is the root. Find it in inorder: everything left of it is the left subtree.','A dict from value to inorder index makes each split O(1).'],approach:'Recursive split using preorder roots and inorder positions.',cx:'O(n)'},
+    return make(0, len(inorder) - 1)`,tests:[['tree_to_list(build_from([3, 9, 20, 15, 7], [9, 3, 15, 20, 7]))','[3, 9, 20, None, None, 15, 7]'],['tree_to_list(build_from([1, 2], [2, 1]))','[1, 2]'],['tree_to_list(build_from([], []))','[]'],['tree_to_list(build_from([1, 2, 3], [3, 2, 1]))','[1, 2, None, 3]']],constraints:['0 ≤ number of nodes ≤ 3000','values are distinct'],mistakes:['Using inorder.index() in every call: O(n²).','Mixing up the sizes of the left and right parts.'],followup:'Rebuild from inorder and postorder instead.',hints:['The first preorder value is the root. Find it in inorder: everything left of it is the left subtree.','A dict from value to inorder index makes each split O(1).'],approach:'Recursive split using preorder roots and inorder positions.',cx:'O(n)'},
 {id:'t-serialize',type:'code',d:3,p:'design',prelude:T,title:'Serialize and Deserialize',prompt:'<p>Write <code>serialize(root)</code> → string and <code>deserialize(s)</code> → tree, so that deserialize(serialize(t)) rebuilds t exactly.</p>',starter:`def serialize(root):
     pass
 
@@ -434,6 +434,6 @@ def deserialize(s):
         node.right = go()
         return node
     return go()`,post:`def _round(vals):
-    return tree_to_list(deserialize(serialize(build_tree(vals))))`,tests:[['_round([1, 2, 3, None, None, 4, 5])','[1, 2, 3, None, None, 4, 5]'],['_round([])','[]'],['_round([-1, 0, None, 7])','[-1, 0, None, 7]'],['isinstance(serialize(build_tree([1])), str)','True']],hints:['Preorder alone is ambiguous… unless you also record where the None children are.','Write "#" for None; deserialize by reading values in the same preorder.'],approach:'Preorder with null markers.',cx:'O(n)'}
+    return tree_to_list(deserialize(serialize(build_tree(vals))))`,tests:[['_round([1, 2, 3, None, None, 4, 5])','[1, 2, 3, None, None, 4, 5]'],['_round([])','[]'],['_round([-1, 0, None, 7])','[-1, 0, None, 7]'],['isinstance(serialize(build_tree([1])), str)','True']],constraints:['0 ≤ number of nodes ≤ 10<sup>4</sup>'],mistakes:['Not marking missing children, so different shapes give the same string.','Splitting on commas when values may be negative or multi-digit without a separator.'],followup:'Make the string as short as possible for a BST (no None markers needed).',hints:['Preorder alone is ambiguous… unless you also record where the None children are.','Write "#" for None; deserialize by reading values in the same preorder.'],approach:'Preorder with null markers.',cx:'O(n)'}
 ]);
 })();

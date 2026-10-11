@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ a, b ≤ 10^18, not both 0
+
 Target complexity: O(log min(a, b))
 
 Check your work:   python dsa.py test rec-gcd

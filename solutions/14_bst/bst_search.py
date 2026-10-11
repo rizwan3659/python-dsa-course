@@ -3,6 +3,12 @@
 Complexity: O(h)
 
 Approach: Walk one path.
+
+Common mistakes:
+- Searching both subtrees (that ignores the BST property).
+- Returning the value instead of the node.
+
+Follow-up challenge: Write it iteratively.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

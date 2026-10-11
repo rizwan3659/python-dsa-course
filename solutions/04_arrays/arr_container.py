@@ -3,6 +3,13 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Two pointers from both ends; always move the shorter wall.
+
+Common mistakes:
+- Moving the taller wall inward (that can never help).
+- Trying every pair: O(n²).
+
+Follow-up challenge: Explain why moving the shorter wall can never skip the
+best answer.
 """
 
 

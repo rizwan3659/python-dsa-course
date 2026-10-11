@@ -10,6 +10,9 @@ Examples:
 
 (2 more hidden tests run when you check your work.)
 
+Constraints:
+- 0 ≤ x ≤ 2^31 − 1
+
 Target complexity: O(log x)
 
 Check your work:   python dsa.py test bs-sqrt

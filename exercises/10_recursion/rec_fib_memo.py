@@ -9,6 +9,11 @@ Examples:
     fib(1)  ->  1
     fib(300) (must be fast)
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ n ≤ 300
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test rec-fib-memo

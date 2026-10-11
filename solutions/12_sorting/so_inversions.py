@@ -3,6 +3,14 @@
 Complexity: O(n log n)
 
 Approach: Merge sort that counts while merging.
+
+Common mistakes:
+- Adding 1 instead of the number of remaining left elements when a right
+  element is smaller.
+- Two nested loops: O(n²).
+
+Follow-up challenge: Count inversions with a Fenwick tree
+(rq-count-smaller).
 """
 
 

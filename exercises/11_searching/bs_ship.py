@@ -10,6 +10,11 @@ Examples:
     ship_within_days([3, 2, 2, 4, 1, 4], 3)  ->  6
     ship_within_days([1, 2, 3, 1, 1], 4)  ->  3
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ days ≤ len(weights) ≤ 5 × 10^4
+
 Target complexity: O(n log(sum))
 
 Check your work:   python dsa.py test bs-ship

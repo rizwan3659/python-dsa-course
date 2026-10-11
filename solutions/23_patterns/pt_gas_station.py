@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: One-pass greedy restart.
+
+Common mistakes:
+- Trying every start: O(n²).
+- Restarting at i instead of i + 1 after the tank goes negative.
+
+Follow-up challenge: Prove why the start after the last failure is correct.
 """
 
 

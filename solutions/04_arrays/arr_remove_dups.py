@@ -4,6 +4,12 @@ Complexity: O(n) time, O(1) space
 
 Approach: Slow/fast pointers: read scans, write marks where the next new
 value goes.
+
+Common mistakes:
+- Deleting from the list while looping over it (O(n²), and skips elements).
+- Returning the list instead of k.
+
+Follow-up challenge: Allow each value at most twice.
 """
 
 

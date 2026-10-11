@@ -9,6 +9,12 @@ Examples:
     caesar("hello!", 26)  ->  "hello!"
     caesar("", 5)  ->  ""
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(s) ≤ 10^5
+- 0 ≤ k ≤ 10^9
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test st-caesar

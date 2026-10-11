@@ -11,6 +11,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 2 ≤ number of nodes ≤ 10^5
+- p and q exist
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test t-lca

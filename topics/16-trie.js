@@ -49,6 +49,7 @@ print(walk("car").end, walk("ca").end, walk("cab"))`},
  {t:'q',title:'Code it',ids:['tr-lcp','tr-count-prefix','tr-replace','tr-suggest']}]}],
 
 challenge:[
+ {t:'q',title:'Hard problems',intro:'Interview-level problems for this topic. Try each without hints first, and write the brute force and its complexity before you code.',ids:['tr-word-search','tr-concatenated']},
  {t:'b2o',title:'Autocomplete: scan every word → walk a trie',qid:'tr-suggest',problem:'<p>After each typed character, suggest stored words that start with the typed prefix.</p>',
   brute:{code:`def suggestions(products, prefix):
     return sorted(p for p in products if p.startswith(prefix))[:3]`,cx:'O(n log n)',cxOpts:['O(L)','O(n)','O(n log n)','O(n · L)'],why:'Each keystroke scans (and sorts) all n products.'},

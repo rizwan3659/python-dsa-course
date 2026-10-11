@@ -3,6 +3,12 @@
 Complexity: O(n + m)
 
 Approach: Two pointers over both lists.
+
+Common mistakes:
+- Advancing both pointers at once.
+- Advancing the interval that ends later.
+
+Follow-up challenge: Intersect k lists of intervals.
 """
 
 

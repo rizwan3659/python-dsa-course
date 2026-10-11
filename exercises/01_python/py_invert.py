@@ -8,6 +8,13 @@ Swap keys and values. All values are distinct.
 Examples:
     invert({"a": 1, "b": 2})  ->  {1: "a", 2: "b"}
     invert({})  ->  {}
+    invert({"x": "y"})  ->  {"y": "x"}
+
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 0 ≤ len(d) ≤ 10^5
+- values are distinct and hashable
 
 Target complexity: O(n) time
 

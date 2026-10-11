@@ -231,7 +231,7 @@ for i, x in enumerate(nums):
             stack.append(ch)
         elif not stack or stack.pop() != pairs[ch]:
             return False
-    return not stack`,tests:[['is_valid("()")','True'],['is_valid("([]{})")','True'],['is_valid("(]")','False'],['is_valid("([)]")','False'],['is_valid("((")','False'],['is_valid("")','True'],['is_valid("}")','False']],hints:['Which bracket must the next closing bracket match?','Push openers; on a closer, the top of the stack must be its partner.'],approach:'Stack of open brackets; map each closer to its opener.',cx:'O(n) time, O(n) space'},
+    return not stack`,tests:[['is_valid("()")','True'],['is_valid("([]{})")','True'],['is_valid("(]")','False'],['is_valid("([)]")','False'],['is_valid("((")','False'],['is_valid("")','True'],['is_valid("}")','False']],constraints:['0 ≤ len(s) ≤ 10<sup>4</sup>','s contains only ()[]{}'],mistakes:['Returning True without checking the stack is empty at the end ("((").','Popping from an empty stack on a closing bracket.'],followup:'Return the index of the first error, or −1.',hints:['Which bracket must the next closing bracket match?','Push openers; on a closer, the top of the stack must be its partner.'],approach:'Stack of open brackets; map each closer to its opener.',cx:'O(n) time, O(n) space'},
 {id:'s-min-stack',type:'code',d:2,p:'design',title:'Min Stack',prompt:'<p>Design a stack with <code>push(x)</code>, <code>pop()</code>, <code>top()</code> and <code>get_min()</code>, all O(1).</p>',starter:`class MinStack:
     def __init__(self):
         pass
@@ -276,7 +276,7 @@ def _t2():
     s.pop()
     b = s.get_min()
     s.pop()
-    return (b, s.get_min())`,tests:[['_t1()','(-3, 0, -2)','','push −2, 0, −3; min; pop; top; min'],['_t2()','(1, 2)','','duplicate minimums']],hints:['A single min variable breaks when you pop the minimum.','Keep a second stack where each entry is the minimum of everything at or below it.'],approach:'Parallel stack of running minimums.',cx:'O(1) per operation'},
+    return (b, s.get_min())`,tests:[['_t1()','(-3, 0, -2)','','push −2, 0, −3; min; pop; top; min'],['_t2()','(1, 2)','','duplicate minimums'],['(lambda s: (s.push(2), s.push(0), s.push(3), s.push(0), s.get_min(), s.pop(), s.get_min(), s.pop(), s.get_min(), s.top()))(MinStack())[4:]','(0, 0, 0, 3, 0, 0)'],['(lambda s: (s.push(-1), s.get_min(), s.top()))(MinStack())[1:]','(-1, -1)']],constraints:['up to 3 × 10<sup>4</sup> operations','pop, top, get_min are only called on a non-empty stack'],mistakes:['Keeping a single min variable that breaks after popping the minimum.','Calling min() on the whole stack: O(n).'],followup:'Use O(1) extra space per element by storing differences from the minimum.',hints:['A single min variable breaks when you pop the minimum.','Keep a second stack where each entry is the minimum of everything at or below it.'],approach:'Parallel stack of running minimums.',cx:'O(1) per operation'},
 {id:'s-postfix',type:'code',d:2,p:'stack',title:'Evaluate Postfix (Reverse Polish)',prompt:'<p>Evaluate a postfix expression given as tokens. Operators: <code>+ - * /</code>; division truncates toward zero.</p><p><code>["2", "1", "+", "3", "*"]</code> → <code>9</code></p>',starter:`def eval_rpn(tokens):
     pass`,solution:`def eval_rpn(tokens):
     stack = []
@@ -294,7 +294,7 @@ def _t2():
                 stack.append(int(a / b))     # truncate toward zero
         else:
             stack.append(int(t))
-    return stack[-1]`,tests:[['eval_rpn(["2", "1", "+", "3", "*"])','9'],['eval_rpn(["4", "13", "5", "/", "+"])','6'],['eval_rpn(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])','22'],['eval_rpn(["7", "-2", "/"])','-3']],hints:['Numbers wait on a stack until an operator needs them.','The first pop is the right operand. For division toward zero use int(a / b), not //.'],approach:'Operand stack; each operator pops two and pushes the result.',cx:'O(n) time'},
+    return stack[-1]`,tests:[['eval_rpn(["2", "1", "+", "3", "*"])','9'],['eval_rpn(["4", "13", "5", "/", "+"])','6'],['eval_rpn(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])','22'],['eval_rpn(["7", "-2", "/"])','-3']],constraints:['1 ≤ len(tokens) ≤ 10<sup>4</sup>','the expression is valid'],mistakes:['Using // for division, which floors instead of truncating toward zero for negatives.','Popping operands in the wrong order for - and /.'],followup:'Convert an infix expression to postfix (shunting-yard).',hints:['Numbers wait on a stack until an operator needs them.','The first pop is the right operand. For division toward zero use int(a / b), not //.'],approach:'Operand stack; each operator pops two and pushes the result.',cx:'O(n) time'},
 {id:'s-next-greater',type:'code',d:2,p:'monotonic-stack',title:'Next Greater Element',prompt:'<p>For each element, return the first element to its right that is strictly greater, or -1.</p><p><code>[2, 1, 2, 4, 3]</code> → <code>[4, 2, 4, -1, -1]</code></p>',starter:`def next_greater(nums):
     pass`,solution:`def next_greater(nums):
     result = [-1] * len(nums)
@@ -310,7 +310,7 @@ def _t2():
             if nums[j] > nums[i]:
                 result[i] = nums[j]
                 break
-    return result`,cx:'O(n²)'},tests:[['next_greater([2, 1, 2, 4, 3])','[4, 2, 4, -1, -1]'],['next_greater([])','[]'],['next_greater([5, 4, 3])','[-1, -1, -1]'],['next_greater([1, 2, 3])','[2, 3, -1]']],hints:['Brute force scans right from every index: O(n²).','Keep the indexes that have not found their answer yet on a stack. When a bigger number arrives, it answers all smaller ones on top.'],approach:'Monotonic decreasing stack of indexes.',cx:'O(n) time'},
+    return result`,cx:'O(n²)'},tests:[['next_greater([2, 1, 2, 4, 3])','[4, 2, 4, -1, -1]'],['next_greater([])','[]'],['next_greater([5, 4, 3])','[-1, -1, -1]'],['next_greater([1, 2, 3])','[2, 3, -1]']],constraints:['0 ≤ len(nums) ≤ 10<sup>5</sup>'],mistakes:['Scanning to the right for every element: O(n²).','Storing values on the stack when you need indexes to write the answer.'],followup:'The list is circular: wrap around once.',hints:['Brute force scans right from every index: O(n²).','Keep the indexes that have not found their answer yet on a stack. When a bigger number arrives, it answers all smaller ones on top.'],approach:'Monotonic decreasing stack of indexes.',cx:'O(n) time'},
 {id:'s-daily-temps',type:'code',d:2,p:'monotonic-stack',title:'Daily Temperatures',prompt:'<p>For each day, how many days until a warmer temperature? 0 if never.</p><p><code>[73, 74, 75, 71, 69, 72, 76, 73]</code> → <code>[1, 1, 4, 2, 1, 1, 0, 0]</code></p>',starter:`def daily_temperatures(temps):
     pass`,solution:`def daily_temperatures(temps):
     answer = [0] * len(temps)
@@ -320,7 +320,7 @@ def _t2():
             j = stack.pop()
             answer[j] = i - j
         stack.append(i)
-    return answer`,tests:[['daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73])','[1, 1, 4, 2, 1, 1, 0, 0]'],['daily_temperatures([30, 40, 50, 60])','[1, 1, 1, 0]'],['daily_temperatures([30, 60, 90])','[1, 1, 0]'],['daily_temperatures([50])','[0]']],hints:['This is “next greater element”, but you record a distance instead of a value.','Store indexes on the stack so you can compute i − j.'],approach:'Monotonic stack of indexes; answer = distance when popped.',cx:'O(n) time'},
+    return answer`,tests:[['daily_temperatures([73, 74, 75, 71, 69, 72, 76, 73])','[1, 1, 4, 2, 1, 1, 0, 0]'],['daily_temperatures([30, 40, 50, 60])','[1, 1, 1, 0]'],['daily_temperatures([30, 60, 90])','[1, 1, 0]'],['daily_temperatures([50])','[0]']],constraints:['1 ≤ len(temps) ≤ 10<sup>5</sup>'],mistakes:['Popping on >= instead of >, which treats equal days as warmer.','Nested loops: O(n²).'],followup:'Return the actual warmer temperature instead of the wait.',hints:['This is “next greater element”, but you record a distance instead of a value.','Store indexes on the stack so you can compute i − j.'],approach:'Monotonic stack of indexes; answer = distance when popped.',cx:'O(n) time'},
 {id:'s-remove-adjacent',type:'code',d:1,p:'stack',title:'Remove Adjacent Duplicates',prompt:'<p>Repeatedly remove pairs of equal adjacent letters until none remain.</p><p><code>"abbaca"</code> → <code>"ca"</code></p>',starter:`def remove_duplicates(s):
     pass`,solution:`def remove_duplicates(s):
     stack = []
@@ -329,7 +329,7 @@ def _t2():
             stack.pop()
         else:
             stack.append(ch)
-    return "".join(stack)`,tests:[['remove_duplicates("abbaca")','"ca"'],['remove_duplicates("azxxzy")','"ay"'],['remove_duplicates("aa")','""'],['remove_duplicates("")','""']],hints:['When a letter matches the last kept letter, both disappear.'],approach:'Stack of kept letters; pop on match.',cx:'O(n) time'},
+    return "".join(stack)`,tests:[['remove_duplicates("abbaca")','"ca"'],['remove_duplicates("azxxzy")','"ay"'],['remove_duplicates("aa")','""'],['remove_duplicates("")','""']],constraints:['0 ≤ len(s) ≤ 10<sup>5</sup>'],mistakes:['Removing one pair and restarting from the beginning: O(n²).','Forgetting that removals can create new pairs ("abba").'],followup:'Remove runs of k equal adjacent letters.',hints:['When a letter matches the last kept letter, both disappear.','Use a stack: if the next letter equals the top, pop; otherwise push.'],approach:'Stack of kept letters; pop on match.',cx:'O(n) time'},
 {id:'s-backspace',type:'code',d:1,p:'stack',title:'Backspace String Compare',prompt:'<p><code>#</code> means backspace. Return True if both strings are equal after typing them.</p><p><code>("ab#c", "ad#c")</code> → True</p>',starter:`def backspace_compare(s, t):
     pass`,solution:`def backspace_compare(s, t):
     def typed(x):
@@ -341,7 +341,7 @@ def _t2():
             else:
                 stack.append(ch)
         return stack
-    return typed(s) == typed(t)`,tests:[['backspace_compare("ab#c", "ad#c")','True'],['backspace_compare("ab##", "c#d#")','True'],['backspace_compare("a#c", "b")','False'],['backspace_compare("#a", "a")','True']],hints:['Simulate the typing with a stack.','Backspace on an empty text does nothing.'],approach:'Build each final string with a stack and compare.',cx:'O(n + m) time'},
+    return typed(s) == typed(t)`,tests:[['backspace_compare("ab#c", "ad#c")','True'],['backspace_compare("ab##", "c#d#")','True'],['backspace_compare("a#c", "b")','False'],['backspace_compare("#a", "a")','True']],constraints:['1 ≤ len(s), len(t) ≤ 200'],mistakes:['Popping from an empty stack when # comes first.','Using str.replace, which cannot handle consecutive #.'],followup:'Solve it in O(1) extra space by scanning both strings from the end.',hints:['Simulate the typing with a stack.','Backspace on an empty text does nothing.'],approach:'Build each final string with a stack and compare.',cx:'O(n + m) time'},
 {id:'s-baseball',type:'code',d:1,p:'stack',title:'Baseball Game',prompt:'<p>Operations: an integer adds a score; <code>"+"</code> adds the sum of the last two scores; <code>"D"</code> doubles the last score; <code>"C"</code> removes the last score. Return the total.</p>',starter:`def cal_points(ops):
     pass`,solution:`def cal_points(ops):
     stack = []
@@ -354,7 +354,7 @@ def _t2():
             stack.pop()
         else:
             stack.append(int(op))
-    return sum(stack)`,tests:[['cal_points(["5", "2", "C", "D", "+"])','30'],['cal_points(["5", "-2", "4", "C", "D", "9", "+", "+"])','27'],['cal_points(["1", "C"])','0']],hints:['Every operation reads or changes only the most recent scores.'],approach:'Stack of valid scores.',cx:'O(n) time'},
+    return sum(stack)`,tests:[['cal_points(["5", "2", "C", "D", "+"])','30'],['cal_points(["5", "-2", "4", "C", "D", "9", "+", "+"])','27'],['cal_points(["1", "C"])','0'],['cal_points(["1", "2", "+", "D", "C"])','6']],constraints:['1 ≤ len(ops) ≤ 1000','operations are always valid'],mistakes:['Using int(op) on "+", "D" or "C".','For "+", popping the two scores instead of reading them.'],followup:'Add an "U" operation that undoes the last "C".',hints:['Every operation reads or changes only the most recent scores.','Keep the valid scores on a stack; each operation reads or changes only the top.'],approach:'Stack of valid scores.',cx:'O(n) time'},
 {id:'s-asteroids',type:'code',d:2,p:'stack',title:'Asteroid Collision',prompt:'<p>Positive asteroids move right, negative move left; size = absolute value. When two meet, the smaller explodes (both if equal). Return the survivors.</p><p><code>[5, 10, -5]</code> → <code>[5, 10]</code></p>',starter:`def asteroid_collision(asteroids):
     pass`,solution:`def asteroid_collision(asteroids):
     stack = []
@@ -370,7 +370,7 @@ def _t2():
                 alive = False           # the incoming left-mover explodes
         if alive:
             stack.append(a)
-    return stack`,tests:[['asteroid_collision([5, 10, -5])','[5, 10]'],['asteroid_collision([8, -8])','[]'],['asteroid_collision([10, 2, -5])','[10]'],['asteroid_collision([-2, -1, 1, 2])','[-2, -1, 1, 2]']],hints:['A collision only happens when the top of the stack moves right (> 0) and the new one moves left (< 0).','A big left-mover can destroy several right-movers in a row: use a while loop.'],approach:'Stack of survivors; resolve collisions against the top.',cx:'O(n) time'},
+    return stack`,tests:[['asteroid_collision([5, 10, -5])','[5, 10]'],['asteroid_collision([8, -8])','[]'],['asteroid_collision([10, 2, -5])','[10]'],['asteroid_collision([-2, -1, 1, 2])','[-2, -1, 1, 2]']],constraints:['2 ≤ len(asteroids) ≤ 10<sup>4</sup>','no zero sizes'],mistakes:['Letting a left-moving asteroid collide with another left-moving one.','Forgetting that one left-moving asteroid can destroy several right-moving ones.'],followup:'Report the index of each surviving asteroid.',hints:['A collision only happens when the top of the stack moves right (> 0) and the new one moves left (< 0).','A big left-mover can destroy several right-movers in a row: use a while loop.'],approach:'Stack of survivors; resolve collisions against the top.',cx:'O(n) time'},
 {id:'s-decode',type:'code',d:2,p:'stack',title:'Decode String',prompt:'<p><code>k[text]</code> means text repeated k times; brackets can nest.</p><p><code>"3[a2[c]]"</code> → <code>"accaccacc"</code></p>',starter:`def decode_string(s):
     pass`,solution:`def decode_string(s):
     stack = []                  # (text before the bracket, repeat count)
@@ -386,7 +386,7 @@ def _t2():
             cur = prev + cur * k
         else:
             cur += ch
-    return cur`,tests:[['decode_string("3[a]2[bc]")','"aaabcbc"'],['decode_string("3[a2[c]]")','"accaccacc"'],['decode_string("2[abc]3[cd]ef")','"abcabccdcdcdef"'],['decode_string("10[x]")','"xxxxxxxxxx"']],hints:['On "[", save what you have built so far and the count, then start fresh.','On "]", pop the saved state and combine: saved_text + current * count.'],approach:'Stack of (prefix, count) pairs for each open bracket.',cx:'O(output length)'},
+    return cur`,tests:[['decode_string("3[a]2[bc]")','"aaabcbc"'],['decode_string("3[a2[c]]")','"accaccacc"'],['decode_string("2[abc]3[cd]ef")','"abcabccdcdcdef"'],['decode_string("10[x]")','"xxxxxxxxxx"']],constraints:['1 ≤ len(s) ≤ 30','1 ≤ k ≤ 300'],mistakes:['Reading only one-digit counts ("10[x]").','Using one stack and losing the text before the bracket.'],followup:'Write the encoder that produces the shortest encoding.',hints:['On "[", save what you have built so far and the count, then start fresh.','On "]", pop the saved state and combine: saved_text + current * count.'],approach:'Stack of (prefix, count) pairs for each open bracket.',cx:'O(output length)'},
 {id:'s-stock-span',type:'code',d:2,p:'monotonic-stack',title:'Stock Span',prompt:'<p>The span on day i is the number of consecutive days up to and including day i with price ≤ price[i]. Return all spans.</p><p><code>[100, 80, 60, 70, 60, 75, 85]</code> → <code>[1, 1, 1, 2, 1, 4, 6]</code></p>',starter:`def stock_span(prices):
     pass`,solution:`def stock_span(prices):
     spans = []
@@ -396,7 +396,7 @@ def _t2():
             stack.pop()
         spans.append(i + 1 if not stack else i - stack[-1])
         stack.append(i)
-    return spans`,tests:[['stock_span([100, 80, 60, 70, 60, 75, 85])','[1, 1, 1, 2, 1, 4, 6]'],['stock_span([10, 20, 30])','[1, 2, 3]'],['stock_span([])','[]']],hints:['The span reaches back to the previous day with a HIGHER price.','“Previous greater element” is a monotonic stack problem.'],approach:'Monotonic stack: pop all ≤ prices; the remaining top is the previous greater day.',cx:'O(n) time'},
+    return spans`,tests:[['stock_span([100, 80, 60, 70, 60, 75, 85])','[1, 1, 1, 2, 1, 4, 6]'],['stock_span([10, 20, 30])','[1, 2, 3]'],['stock_span([])','[]'],['stock_span([5, 5, 5])','[1, 2, 3]']],constraints:['0 ≤ len(prices) ≤ 10<sup>5</sup>'],mistakes:['Walking back day by day for every day: O(n²).','Popping on < instead of <=.'],followup:'Make it an online class: next(price) returns today’s span.',hints:['The span reaches back to the previous day with a HIGHER price.','“Previous greater element” is a monotonic stack problem.'],approach:'Monotonic stack: pop all ≤ prices; the remaining top is the previous greater day.',cx:'O(n) time'},
 {id:'s-simplify-path',type:'code',d:2,p:'stack',title:'Simplify Unix Path',prompt:'<p>Simplify an absolute Unix path: <code>.</code> is the current folder, <code>..</code> goes up, repeated slashes count as one.</p><p><code>"/a/./b/../../c/"</code> → <code>"/c"</code></p>',starter:`def simplify_path(path):
     pass`,solution:`def simplify_path(path):
     stack = []
@@ -406,7 +406,7 @@ def _t2():
                 stack.pop()
         elif part and part != ".":
             stack.append(part)
-    return "/" + "/".join(stack)`,tests:[['simplify_path("/home/")','"/home"'],['simplify_path("/../")','"/"'],['simplify_path("/home//foo/")','"/home/foo"'],['simplify_path("/a/./b/../../c/")','"/c"']],hints:['Split on "/" and handle each part.','".." pops a folder (if any); "" and "." do nothing.'],approach:'Stack of folder names.',cx:'O(n) time'},
+    return "/" + "/".join(stack)`,tests:[['simplify_path("/home/")','"/home"'],['simplify_path("/../")','"/"'],['simplify_path("/home//foo/")','"/home/foo"'],['simplify_path("/a/./b/../../c/")','"/c"']],constraints:['1 ≤ len(path) ≤ 3000'],mistakes:['Treating ".." at the root as an error.','Keeping empty parts from "//".'],followup:'Support relative paths given a current directory.',hints:['Split on "/" and handle each part.','".." pops a folder (if any); "" and "." do nothing.'],approach:'Stack of folder names.',cx:'O(n) time'},
 {id:'s-histogram',type:'code',d:3,p:'monotonic-stack',title:'Largest Rectangle in Histogram',prompt:'<p>Bars have width 1 and the given heights. Return the area of the largest rectangle that fits.</p><p><code>[2, 1, 5, 6, 2, 3]</code> → <code>10</code> (heights 5 and 6, width 2)</p>',starter:`def largest_rectangle(heights):
     pass`,solution:`def largest_rectangle(heights):
     stack = []                      # indexes with increasing heights
@@ -418,5 +418,40 @@ def _t2():
             left = stack[-1] + 1 if stack else 0
             best = max(best, heights[j] * (i - left))
         stack.append(i)
-    return best`,tests:[['largest_rectangle([2, 1, 5, 6, 2, 3])','10'],['largest_rectangle([2, 4])','4'],['largest_rectangle([])','0'],['largest_rectangle([3, 3, 3])','9'],['largest_rectangle([6, 2, 5, 4, 5, 1, 6])','12']],hints:['For each bar, the widest rectangle of its height stretches until a shorter bar on each side.','Keep an increasing stack. When a shorter bar arrives, the popped bar’s rectangle ends here, and starts just after the new top.'],approach:'Monotonic increasing stack; compute each bar’s area when it is popped.',cx:'O(n) time'}
+    return best`,tests:[['largest_rectangle([2, 1, 5, 6, 2, 3])','10'],['largest_rectangle([2, 4])','4'],['largest_rectangle([])','0'],['largest_rectangle([3, 3, 3])','9'],['largest_rectangle([6, 2, 5, 4, 5, 1, 6])','12']],constraints:['0 ≤ len(heights) ≤ 10<sup>5</sup>'],mistakes:['Forgetting a final sentinel bar of height 0 to flush the stack.','Computing the width with the popped index instead of the new stack top.'],followup:'Use it to find the largest rectangle of 1s in a binary matrix.',hints:['For each bar, the widest rectangle of its height stretches until a shorter bar on each side.','Keep an increasing stack. When a shorter bar arrives, the popped bar’s rectangle ends here, and starts just after the new top.'],approach:'Monotonic increasing stack; compute each bar’s area when it is popped.',cx:'O(n) time'}
+]);
+
+/* ---------- second hard problem (added with the v2 backfill) ---------- */
+COURSE.qs('stack',[
+{id:'s-calculator',type:'code',d:3,p:'stack',title:'Basic Calculator',prompt:'<p>Evaluate an expression with non-negative integers, <code>+</code>, <code>-</code>, parentheses and spaces. <code>-</code> can also be unary, as in <code>-(2 + 3)</code>. Do not use <code>eval</code>.</p>',prereq:['s-valid-parens','s-postfix'],
+constraints:['1 ≤ len(s) ≤ 3 × 10<sup>5</sup>','the expression is valid and every intermediate value fits in 32 bits'],
+starter:`def calculate(s):
+    # your code here
+    pass`,solution:`def calculate(s):
+    total, number, sign = 0, 0, 1
+    stack = []                                  # saved (total, sign) before each "("
+    for ch in s:
+        if ch.isdigit():
+            number = number * 10 + int(ch)
+        elif ch in "+-":
+            total += sign * number
+            number, sign = 0, (1 if ch == "+" else -1)
+        elif ch == "(":
+            stack.append((total, sign))
+            total, sign = 0, 1
+        elif ch == ")":
+            total += sign * number
+            number = 0
+            outer_total, outer_sign = stack.pop()
+            total = outer_total + outer_sign * total
+    return total + sign * number`,
+tests:[['calculate("1 + 1")','2'],['calculate(" 2-1 + 2 ")','3'],['calculate("(1+(4+5+2)-3)+(6+8)")','23'],['calculate("-(2+3)")','-5'],['calculate("1-(     -2)")','3'],['calculate("2147483647")','2147483647'],['calculate("10 - (2 - (3 - 4))")','7']],
+hints:['Without parentheses: keep a running total and the sign of the number you are reading.','At "(", push the current total and sign and start fresh; at ")", finish the inner total and combine it with what you popped.'],approach:'One pass with a running total, a current sign, and a stack of saved (total, sign) pairs for parentheses.',cx:'O(n) time, O(depth) space',
+dry:`"10 - (2 - (3 - 4))"
+read 10, see "-":   total 10, sign -1;  "(" pushes (10, -1)
+read 2,  see "-":   total 2,  sign -1;  "(" pushes (2, -1)
+inner 3 - 4 = -1;   ")" pops (2, -1):  2 + (-1)(-1) = 3
+")" pops (10, -1):  10 + (-1)(3) = 7`,
+mistakes:['Reading only one-digit numbers.','Forgetting to add the last number after the loop.','Applying the sign before a "(" to only the first number inside it.'],
+followup:'Add * and / with the usual precedence (Basic Calculator II), then both features together.'},
 ]);

@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Postorder gains + global best.
+
+Common mistakes:
+- Returning a path that branches (both children) to the parent.
+- Not ignoring negative child contributions (use max(0, gain)).
+
+Follow-up challenge: Return the path’s nodes, not just its sum.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

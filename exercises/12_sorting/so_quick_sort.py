@@ -11,6 +11,9 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 0 ≤ len(a) ≤ 10^5
+
 Target complexity: O(n log n) expected, O(n²) worst
 
 Check your work:   python dsa.py test so-quick-sort

@@ -3,6 +3,13 @@
 Complexity: O(n) time
 
 Approach: Set of seen characters; return the first one already present.
+
+Common mistakes:
+- Returning the first character that appears twice anywhere ("abcbad" gives
+  "a" instead of "b").
+- Using s.count() for every character: O(n²).
+
+Follow-up challenge: Return the first character that never repeats.
 """
 
 

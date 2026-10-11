@@ -13,6 +13,10 @@ Examples:
 
 (1 more hidden test run when you check your work.)
 
+Constraints:
+- 1 ≤ len(tokens) ≤ 10^4
+- the expression is valid
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test s-postfix

@@ -11,6 +11,11 @@ Examples:
     first_negatives([12, -1, -7, 8, -15, 30, 16, 28], 3)  ->  [-1, -1, -7, -15, -15, 0]
     first_negatives([1, 2], 1)  ->  [0, 0]
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ k ≤ len(nums) ≤ 10^5
+
 Target complexity: O(n) time
 
 Check your work:   python dsa.py test q-first-negative

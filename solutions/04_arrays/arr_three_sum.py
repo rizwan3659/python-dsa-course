@@ -3,6 +3,12 @@
 Complexity: O(n²) time
 
 Approach: Sort, fix i, two pointers on the rest; skip duplicates.
+
+Common mistakes:
+- Not skipping duplicate values, which repeats triplets.
+- Three nested loops: O(n³).
+
+Follow-up challenge: Return the triplet whose sum is closest to a target.
 """
 
 

@@ -3,6 +3,12 @@
 Complexity: O(n) time, O(1) space
 
 Approach: Group-by-group reversal with careful reconnection.
+
+Common mistakes:
+- Reversing the last group even when it is shorter than k.
+- Not reconnecting the reversed group to the rest.
+
+Follow-up challenge: Also reverse the last group when it is shorter than k.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

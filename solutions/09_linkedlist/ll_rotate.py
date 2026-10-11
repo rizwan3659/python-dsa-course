@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Make a ring, then break it at the right place.
+
+Common mistakes:
+- Forgetting k %= length, which is very slow for large k.
+- Leaving the old tail linked to the old head (a cycle).
+
+Follow-up challenge: Rotate to the left instead.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

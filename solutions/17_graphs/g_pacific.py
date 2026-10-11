@@ -3,6 +3,12 @@
 Complexity: O(rows × cols)
 
 Approach: Two reverse searches from the borders + intersection.
+
+Common mistakes:
+- Running a search from every cell (O((rc)²)).
+- Flowing downhill from the oceans instead of uphill.
+
+Follow-up challenge: Return the cells that reach exactly one ocean.
 """
 
 

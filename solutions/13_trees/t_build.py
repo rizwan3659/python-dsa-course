@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: Recursive split using preorder roots and inorder positions.
+
+Common mistakes:
+- Using inorder.index() in every call: O(n²).
+- Mixing up the sizes of the left and right parts.
+
+Follow-up challenge: Rebuild from inorder and postorder instead.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

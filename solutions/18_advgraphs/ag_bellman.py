@@ -3,6 +3,12 @@
 Complexity: O(V · E)
 
 Approach: Bellman-Ford.
+
+Common mistakes:
+- Running fewer than n − 1 rounds.
+- Relaxing from unreachable nodes (infinity + negative).
+
+Follow-up challenge: Return the actual paths, not just distances.
 """
 
 

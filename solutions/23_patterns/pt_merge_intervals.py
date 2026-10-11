@@ -3,6 +3,14 @@
 Complexity: O(n log n)
 
 Approach: Sort, then extend or start a new block.
+
+Common mistakes:
+- Not sorting by start first.
+- Replacing the end instead of taking the max (an interval can contain
+  another).
+
+Follow-up challenge: Merge intervals arriving one by one (keep a sorted
+structure).
 """
 
 

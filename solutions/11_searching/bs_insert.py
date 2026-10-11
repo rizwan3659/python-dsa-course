@@ -3,6 +3,13 @@
 Complexity: O(log n)
 
 Approach: Lower bound.
+
+Common mistakes:
+- Returning −1 when target is missing.
+- Using hi = len(nums) − 1, so inserting at the end is impossible.
+
+Follow-up challenge: Return the last position where target could be inserted
+when duplicates exist.
 """
 
 

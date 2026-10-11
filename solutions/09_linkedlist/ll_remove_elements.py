@@ -3,6 +3,13 @@
 Complexity: O(n)
 
 Approach: Dummy node; only advance when you keep the next node.
+
+Common mistakes:
+- Special-casing the head and forgetting runs of matches at the start.
+- Advancing prev after a deletion, which skips the next node.
+
+Follow-up challenge: Remove every node whose value appears more than once
+(keep none of them).
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

@@ -3,6 +3,12 @@
 Complexity: O(k)
 
 Approach: Walk k steps.
+
+Common mistakes:
+- Following .next past the end and crashing on None.
+- Off-by-one: index 0 is the head itself.
+
+Follow-up challenge: Return the k-th node from the end in one pass.
 """
 
 from dsa_course.preludes.linked_list import ListNode, build, to_list  # noqa: F401

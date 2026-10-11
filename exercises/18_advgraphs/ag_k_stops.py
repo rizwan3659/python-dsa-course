@@ -9,6 +9,12 @@ Examples:
     find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 1)  ->  200
     find_cheapest_price(3, [[0, 1, 100], [1, 2, 100], [0, 2, 500]], 0, 2, 0)  ->  500
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ n ≤ 100
+- 0 ≤ k < n
+
 Target complexity: O(k · E)
 
 Check your work:   python dsa.py test ag-k-stops

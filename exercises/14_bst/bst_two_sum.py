@@ -8,6 +8,11 @@ Examples:
     find_target(build_tree([5, 3, 6, 2, 4, None, 7]), 28)  ->  False
     find_target(build_tree([1]), 2)  ->  False
 
+(2 more hidden tests run when you check your work.)
+
+Constraints:
+- 1 ≤ number of nodes ≤ 10^4
+
 Target complexity: O(n)
 
 Check your work:   python dsa.py test bst-two-sum

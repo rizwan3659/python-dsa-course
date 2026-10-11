@@ -3,6 +3,12 @@
 Complexity: O(n)
 
 Approach: DFS carrying the remaining sum.
+
+Common mistakes:
+- Checking the sum at internal nodes instead of leaves.
+- Returning True for an empty tree and target 0.
+
+Follow-up challenge: Return all root-to-leaf paths with the target sum.
 """
 
 from dsa_course.preludes.tree import TreeNode, build_tree, deque, tree_to_list  # noqa: F401

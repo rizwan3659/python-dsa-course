@@ -3,6 +3,12 @@
 Complexity: O(log min(n, m))
 
 Approach: Binary search the partition of the shorter array.
+
+Common mistakes:
+- Merging both lists (O(n + m)), which misses the goal.
+- Binary searching the longer list, which causes index errors.
+
+Follow-up challenge: Find the k-th smallest of the two lists.
 """
 
 

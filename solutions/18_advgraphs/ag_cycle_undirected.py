@@ -3,6 +3,12 @@
 Complexity: O(E α(V))
 
 Approach: Union-find.
+
+Common mistakes:
+- Treating the edge back to the parent as a cycle (with DFS).
+- Union without path compression on long chains (slow).
+
+Follow-up challenge: Detect a cycle with DFS instead.
 """
 
 

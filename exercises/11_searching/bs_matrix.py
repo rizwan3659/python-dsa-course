@@ -9,6 +9,11 @@ Examples:
     search_matrix([[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 13)  ->  False
     search_matrix([[]], 1)  ->  False
 
+(1 more hidden test run when you check your work.)
+
+Constraints:
+- 1 ≤ rows, cols ≤ 100
+
 Target complexity: O(log(rows · cols))
 
 Check your work:   python dsa.py test bs-matrix

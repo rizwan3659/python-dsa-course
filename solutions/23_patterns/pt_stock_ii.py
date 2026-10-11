@@ -3,6 +3,11 @@
 Complexity: O(n)
 
 Approach: Greedy: take every upward step.
+
+Common mistakes:
+- Looking for the single best buy/sell pair (that is a different problem).
+
+Follow-up challenge: At most two transactions.
 """
 
 

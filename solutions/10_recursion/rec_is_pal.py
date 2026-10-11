@@ -3,6 +3,13 @@
 Complexity: O(n²) with slicing (O(n) with indexes)
 
 Approach: Compare ends, recurse inward.
+
+Common mistakes:
+- Missing the base case for strings of length 1.
+- Slicing in every call (O(n²) copying); pass indexes instead.
+
+Follow-up challenge: Rewrite it with indexes (is_pal(s, i, j)) so no slices
+are copied.
 """
 
 
