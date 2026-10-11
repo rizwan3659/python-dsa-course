@@ -19,8 +19,11 @@ python -m http.server 8000      # browser course at http://localhost:8000
 | A question or coding exercise | `questions/NN-name.js` (or `questions/builds.js` for build-from-scratch) |
 | A visualizer | `viz/*.js` |
 | The local practice CLI | `dsa_course/` |
+| The Top 100 interview roadmap | `questions/roadmap.js` |
+| A mini-project | `projects/NN_name/` (README, starter, reference, tests) |
+| Interview or instructor handbooks | `docs/interview/*.md` (except `top-100.md`), `docs/instructor/README.md` |
 
-**Never edit `exercises/`, `solutions/`, `dsa_course/data/` or `dsa_course/preludes/` by hand.** They are generated from `questions/*.js`.
+**Never edit generated files by hand:** `exercises/`, `solutions/`, `dsa_course/data/`, `dsa_course/preludes/` (from `tools/export-python.mjs`), and `notebooks/`, `curriculum/syllabus.md`, `docs/interview/top-100.md`, `docs/instructor/NN_*.md`, `docs/instructor/topics.md` (from `tools/export-docs.mjs`).
 
 ## Adding a coding exercise
 
@@ -48,15 +51,34 @@ Rules:
 - Write for beginners: short sentences, clear names, type hints in new solutions, PEP 8.
 - Linked-list and tree exercises set `prelude:'list'` or `prelude:'tree'` to get `ListNode`/`build`/`to_list` or `TreeNode`/`build_tree`/`tree_to_list`.
 
+### Schema v2 fields
+
+New coding problems should also have these fields (they are **required** in topics 3 and 19–22, and optional elsewhere):
+
+```js
+prereq:['arr-max-subarray'],                 // question or topic ids to do first
+constraints:['1 ≤ len(nums) ≤ 10<sup>5</sup>'], // shown before the editor
+dry:`n = 123: ...`,                           // a short worked trace, shown with the solution
+mistakes:['Starting best at 0 when all values are negative.'],
+followup:'Solve it in O(1) extra space.'      // a harder variation
+```
+
+They also need at least 4 tests and two hints plus an `approach` (three hint levels). The browser shows the first three tests as "Examples" automatically.
+
+## Adding a mini-project
+
+Create `projects/NN_name/` with `README.md` (sections *Requirements*, *Milestones*, *Extensions*), `starter.py` with TODOs, `reference.py`, and `test_name.py` whose tests use the `impl` fixture and are grouped in `TestMilestone1..3` classes. `tests/test_projects.py` checks that the reference passes and the starter fails.
+
 ## Before you open a pull request
 
 ```bash
 node tools/validate.mjs              # structure + every snippet, solution and test in real Python
 node tools/export-python.mjs         # regenerate the local practice track
-python -m pytest                     # reference solutions, starters, runner and CLI tests
+node tools/export-docs.mjs           # regenerate notebooks, syllabus, Top 100 and instructor guides
+python -m pytest                     # solutions, starters, runner, CLI, projects and notebooks
 ```
 
-All three must pass. Commit the regenerated files together with your change. `node tools/export-python.mjs --check` tells you if you forgot.
+All four must pass. Commit the regenerated files together with your change; CI runs both generators with `--check` and fails if you forgot.
 
 ## Style
 

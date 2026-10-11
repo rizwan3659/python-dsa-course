@@ -75,22 +75,24 @@ Against the per-topic targets in the brief (5–10 easy, 5–10 medium, 2–5 ha
 
 1. **Keep the browser app as the interactive interface; do not add Streamlit.** The brief asks that student code never runs in the main application process. A Streamlit app would run student code on the server, which is exactly that risk. The existing Pyodide-in-a-Worker design already meets the requirement with no server at all, and it is hosted for free on GitHub Pages.
 2. **One source of truth.** Questions live once, in `questions/*.js`. The local Python track (`exercises/`, `solutions/`, `dsa_course/data/exercises.json`) is **generated** from them by `tools/export-python.mjs`, so the browser and the local track can never disagree. `--check` mode detects stale generated files.
-3. **Organise exercises by topic, not by difficulty.** The brief suggests `exercises/easy|medium|hard`. Topic folders (`exercises/03_arrays/`) match the course order; difficulty is in each file's header and in `python dsa.py list --difficulty`.
-4. **Stable IDs.** The question id (`arr-find-max`) is the exercise id everywhere: browser progress, `exercises/03_arrays/arr_find_max.py`, `solutions/03_arrays/arr_find_max.py`, pytest ids (`arrays:arr-find-max`) and `.dsa_progress.json`.
+3. **Organise exercises by topic, not by difficulty.** The brief suggests `exercises/easy|medium|hard`. Topic folders (`exercises/04_arrays/`) match the course order; difficulty is in each file's header and in `python dsa.py list --difficulty`.
+4. **Stable IDs.** The question id (`arr-find-max`) is the exercise id everywhere: browser progress, `exercises/04_arrays/arr_find_max.py`, `solutions/04_arrays/arr_find_max.py`, pytest ids (`arrays:arr-find-max`) and `.dsa_progress.json`.
 5. **Local execution safety.** `python dsa.py test` runs your file in a separate `python -I` process with a time limit (and an address-space limit on Linux), so an infinite loop or crash cannot hang the checker. It is a safety net for your own code, not a sandbox for untrusted code.
 6. **Lessons stay in `topics/*.js`.** The brief's `lessons/NN_*/` folders would duplicate them. Markdown/Jupyter exports of lessons can be generated later the same way as the exercises if wanted.
 
 ## 5. Implementation plan
 
+*Status updated 2026-10-11. Current totals: 23 topics, 140 lessons, 1,097 questions (361 coding), 44 visualizers, 443 local exercises, 10 projects.*
+
 | Milestone | Scope | Status |
 |---|---|---|
 | **M1** | Audit (this file), curriculum roadmap, CONTRIBUTING, local practice track: exporter, `python dsa.py` CLI (list/show/test/hint/solution/progress/next), sandboxed runner, local progress with weak-topic detection, pytest suites | **Done** |
-| M2 | Exercise schema v2: `constraints`, `examples` (≥3), `prereq`, `mistakes`, `followup`, 3 hint levels, written dry run. Render in browser and export; validator enforces it for new problems; backfill topics 1–4 first | Next |
-| M3 | Phase 2 topic "Algorithmic Thinking"; new topics **Greedy** and **Dynamic Programming** (memo → tabulation → space optimisation, knapsack, coin change, LCS, LIS, grid DP) with a DP-table visualizer | Planned |
-| M4 | Phase 11 gaps: bit manipulation, Fenwick and segment trees, Bellman-Ford lesson, Sudoku and combination sum, difference arrays, exceptions and copying in Phase 1; raise hard problems to 2–5 per topic | Planned |
-| M5 | `projects/`: the 10 mini-projects (requirements, milestones, starter, tests, reference, extensions) | Planned |
-| M6 | Interview prep: Top-100 roadmap by pattern, beginner/intermediate/advanced tracks, mock interview scripts, communication guide, common Python mistakes | Planned |
-| M7 | Instructor material per lesson: objectives, duration, demos, questions to ask, pair activities, homework, rubrics | Planned |
-| M8 | CI (GitHub Actions: validate, export --check, pytest), accessibility and learner-experience pass | Planned |
+| M2 | Exercise schema v2: `constraints`, `prereq`, `mistakes`, `followup`, `dry`, 3 hint levels; the first 3 tests are shown as examples. Rendered in the browser and exported; the validator requires it in topics 3, 19–22 | **Partly done:** required and used in all new topics, gap fills and hard problems (about 100 problems). Not yet backfilled into the original 278 problems; 142 of them still have fewer than 4 tests (so no hidden tests) |
+| M3 | Topics Algorithmic Thinking, Greedy, Dynamic Programming, with brute-pairs, activity-selection and DP-table visualizers | **Done** |
+| M4 | Bit Manipulation and Range Queries topics (difference arrays, Fenwick, segment trees); Bellman-Ford lesson; pruning lesson with Sudoku, Combination Sum II, Word Search; exceptions, copying and input in topic 1; 8 new hard problems and a mixed-pattern lesson | **Done**, except that strings, stack, queue, sorting and trie still have only 1 hard problem, and topics 1–2 have none (by design) |
+| M5 | `projects/`: 10 mini-projects (README with requirements, milestones and extensions; starter; tests per milestone; reference) | **Done** |
+| M6 | Top 100 roadmap (3 tracks, 8-week plan) on the Interview page and in docs; pattern, communication, Python-mistakes and mock-interview guides | **Done** |
+| M7 | Instructor guide per topic (generated: objectives, duration, prerequisites, lesson plan, demos, questions, classroom, pair and homework exercises, solutions) and a teaching handbook with rubrics | **Done** (per topic, not per individual lesson) |
+| M8 | CI (validate, generator freshness, pytest on Python 3.10 and 3.12); Jupyter notebooks per topic | **Done**; an accessibility and learner-experience review has not been done yet |
 
 See [curriculum/roadmap.md](../curriculum/roadmap.md) for the learner-facing roadmap.

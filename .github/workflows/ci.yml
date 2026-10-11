@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install pytest
+        run: python -m pip install -r requirements.txt
+      - name: Validate course content (every snippet, solution and test in real Python)
+        run: node tools/validate.mjs
+      - name: Generated Python track is up to date
+        run: node tools/export-python.mjs --check
+      - name: Generated docs and notebooks are up to date
+        run: node tools/export-docs.mjs --check
+      - name: Tests (reference solutions, starters, runner, CLI, projects, notebooks)
+        run: python -m pytest
